@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nomadic Culture in Mongolia</title>
+
+<style>
+
+body{
+font-family:Arial, sans-serif;
+margin:0;
+line-height:1.6;
+color:#333;
+}
+
+header{
+background:#0f3557;
+color:white;
+padding:20px;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
+
+.hero{
+height:400px;
+background:url("../images/nomadic.jpg") center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-size:40px;
+font-weight:bold;
+}
+
+h2{
+margin-top:40px;
+}
+
+img{
+width:100%;
+border-radius:8px;
+margin:20px 0;
+}
+
+.tour-box{
+background:#f5f5f5;
+padding:20px;
+border-radius:8px;
+margin-top:40px;
+}
+
+button{
+background:#0f3557;
+color:white;
+padding:12px 20px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Discover Mongolia</h1>
+</header>
+
+<div class="hero">
+Nomadic Culture
+</div>
+
+<div class="container">
+
+<h2>Nomadic Life in Mongolia</h2>
+
+<p>
+Mongolia is one of the last countries where traditional nomadic life is still alive.
+For thousands of years Mongolian families have moved across the vast steppes with their livestock.
+</p>
+
+<img src="../images/ger-life.jpg">
+
+<p>
+Nomads live in a traditional dwelling called a <b>Ger</b>.
+It is a circular tent made from wood and felt, designed to be assembled and moved easily.
+The ger is warm in winter and cool in summer.
+</p>
+
+<h2>Livestock & Daily Life</h2>
+
+<p>
+Mongolian nomads herd five main animals known as the "Five Snouts":
+horses, sheep, goats, camels and cattle.
+Their lives revolve around caring for animals and moving according to seasons.
+</p>
+
+<img src="../images/mongolia-horses.jpg">
+
+<h2>Hospitality</h2>
+
+<p>
+Hospitality is one of the most important traditions in Mongolia.
+Travelers visiting a nomadic family are often welcomed with milk tea,
+dairy products and traditional meals.
+</p>
+
+<div class="tour-box">
+
+<h3>Experience Nomadic Life</h3>
+
+<p>
+Join our Nomadic Experience Tour and stay with a real Mongolian family in the countryside.
+</p>
+
+<button>See Nomadic Tours</button>
+
+</div>
+
+</div>
+
+</body>
+</html>
