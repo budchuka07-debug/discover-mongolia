@@ -1,195 +1,256 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mongolia Tour Booking Form</title>
+  <title>Book Your Tour | Discover Mongolia Tours</title>
   <style>
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f5ef;color:#1f2937}
-    .wrap{max-width:980px;margin:0 auto;padding:40px 20px}
-    .hero{
-      background:linear-gradient(rgba(8,20,33,.45),rgba(8,20,33,.55)),url('images/booking-hero.jpg') center/cover no-repeat;
-      min-height:280px;border-radius:24px;color:#fff;display:flex;align-items:center;padding:40px
+    body{
+      font-family:Arial,sans-serif;
+      margin:0;
+      background:#f7f7f7;
+      color:#222;
+      line-height:1.6;
     }
-    .hero h1{font-size:44px;margin:0 0 12px}
-    .hero p{max-width:700px;margin:0;font-size:17px;line-height:1.6}
-    .layout{display:grid;grid-template-columns:.95fr 1.05fr;gap:24px;margin-top:28px}
-    .card{
-      background:#fff;border-radius:20px;box-shadow:0 12px 30px rgba(0,0,0,.08);padding:26px
+
+    header{
+      background:#0f3557;
+      color:#fff;
+      padding:20px;
+      text-align:center;
     }
-    h2,h3{margin-top:0}
-    .muted{color:#6b7280}
-    .info-list{list-style:none;padding:0;margin:18px 0 0}
-    .info-list li{margin-bottom:12px}
-    .badge{
-      display:inline-block;background:#eef4ff;color:#0d3b66;border-radius:999px;
-      padding:6px 10px;font-size:12px;font-weight:700;margin:0 8px 8px 0
+
+    .container{
+      max-width:900px;
+      margin:40px auto;
+      padding:20px;
     }
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .full{grid-column:1/-1}
-    label{display:block;font-weight:700;margin-bottom:6px;font-size:14px}
-    input,select,textarea{
-      width:100%;border:1px solid #d1d5db;border-radius:12px;padding:13px 14px;
-      font:inherit;background:#fff;box-sizing:border-box
+
+    .booking-box{
+      background:#fff;
+      padding:30px;
+      border-radius:12px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.08);
     }
-    textarea{min-height:130px;resize:vertical}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      background:#0f3557;color:#fff;border:none;border-radius:999px;
-      padding:14px 22px;font-weight:700;cursor:pointer
+
+    h1,h2{
+      margin-top:0;
     }
-    .btn-secondary{background:#c98b2f}
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+
+    .full{
+      grid-column:1 / -1;
+    }
+
+    label{
+      display:block;
+      font-weight:600;
+      margin-bottom:8px;
+    }
+
+    input, select, textarea{
+      width:100%;
+      padding:12px;
+      border:1px solid #ccc;
+      border-radius:8px;
+      font-size:15px;
+      box-sizing:border-box;
+    }
+
+    textarea{
+      min-height:130px;
+      resize:vertical;
+    }
+
+    button{
+      background:#0f3557;
+      color:#fff;
+      border:none;
+      padding:14px 24px;
+      border-radius:8px;
+      font-size:16px;
+      cursor:pointer;
+    }
+
+    button:hover{
+      opacity:.95;
+    }
+
     .note{
-      margin-top:18px;padding:14px 16px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px
+      font-size:14px;
+      color:#666;
+      margin-top:12px;
     }
-    .small{font-size:13px;color:#6b7280}
-    @media (max-width: 800px){
-      .layout{grid-template-columns:1fr}
-      .form-grid{grid-template-columns:1fr}
-      .hero h1{font-size:34px}
+
+    .site-footer{
+      background:#0d3b66;
+      color:white;
+      margin-top:60px;
+    }
+
+    .footer-container{
+      max-width:1100px;
+      margin:auto;
+      padding:40px 20px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:60px;
+      justify-content:space-between;
+    }
+
+    .footer-brand{
+      max-width:350px;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:60px;
+      flex-wrap:wrap;
+    }
+
+    .footer-links h4{
+      margin-bottom:10px;
+    }
+
+    .footer-links a{
+      display:block;
+      color:white;
+      text-decoration:none;
+      margin-bottom:6px;
+      font-size:14px;
+    }
+
+    .footer-links a:hover{
+      text-decoration:underline;
+    }
+
+    .footer-bottom{
+      border-top:1px solid rgba(255,255,255,0.2);
+      text-align:center;
+      padding:15px;
+      font-size:14px;
+    }
+
+    @media (max-width:768px){
+      .grid{
+        grid-template-columns:1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <section class="hero">
-      <div>
-        <h1>Plan Your Mongolia Trip</h1>
-        <p>Use this booking form for VIP tours, reindeer trips, Altai, Gobi, Naadam, transport requests, airport pickup, and custom private routes across Mongolia.</p>
-      </div>
-    </section>
 
-    <div class="layout">
-      <aside class="card">
-        <h2>Booking Information</h2>
-        <p class="muted">Put this page on your website as <strong>booking.html</strong> or connect the form to WhatsApp, email, Netlify Forms, or Formspree later.</p>
+<header>
+  <h1>Book Your Mongolia Tour</h1>
+  <p>Send your request and we will contact you shortly.</p>
+</header>
+
+<div class="container">
+  <div class="booking-box">
+    <h2>Tour Booking Request</h2>
+
+    <form name="tour-booking" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="tour-booking">
+      <input type="hidden" name="bot-field">
+      <input type="hidden" id="tourName" name="tour_name">
+
+      <div class="grid">
+        <div>
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
 
         <div>
-          <span class="badge">VIP Tours</span>
-          <span class="badge">Private 4×4</span>
-          <span class="badge">Reindeer</span>
-          <span class="badge">Gobi</span>
-          <span class="badge">Altai</span>
-          <span class="badge">Naadam</span>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
         </div>
 
-        <ul class="info-list">
-          <li><strong>WhatsApp:</strong> +976 90283039</li>
-          <li><strong>Email:</strong> hello@discovermongoliatours.com</li>
-          <li><strong>Languages:</strong> English / Japanese / Korean</li>
-          <li><strong>Response time:</strong> Within 24 hours</li>
-        </ul>
-
-        <div class="note">
-          <strong>Suggested use:</strong>
-          <div class="small" style="margin-top:8px">
-            1. Put this form on your site<br>
-            2. Receive inquiry by email or WhatsApp<br>
-            3. Reply with itinerary + price<br>
-            4. Confirm booking manually at first
-          </div>
+        <div>
+          <label for="phone">WhatsApp / Phone</label>
+          <input type="text" id="phone" name="phone">
         </div>
 
-        <div class="cta-row">
-          <a class="btn" href="https://wa.me/97690283039" target="_blank" rel="noopener">WhatsApp Inquiry</a>
-          <a class="btn btn-secondary" href="mailto:hello@discovermongoliatours.com">Email Us</a>
+        <div>
+          <label for="people">Number of Travelers</label>
+          <select id="people" name="people">
+            <option value="1">1 person</option>
+            <option value="2">2 people</option>
+            <option value="3-5">3–5 people</option>
+            <option value="6+">6+ people</option>
+          </select>
         </div>
-      </aside>
 
-      <section class="card">
-        <h2>Booking Request Form</h2>
-        <form name="mongolia-booking" method="POST" data-netlify="true">
-          <input type="hidden" name="form-name" value="mongolia-booking">
-
-          <div class="form-grid">
-            <div>
-              <label for="fullname">Full Name</label>
-              <input id="fullname" name="fullname" type="text" placeholder="Your full name" required>
-            </div>
-
-            <div>
-              <label for="country">Country</label>
-              <input id="country" name="country" type="text" placeholder="Japan / Korea / Germany" required>
-            </div>
-
-            <div>
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" required>
-            </div>
-
-            <div>
-              <label for="phone">WhatsApp / Phone</label>
-              <input id="phone" name="phone" type="text" placeholder="+81 / +82 / +976">
-            </div>
-
-            <div>
-              <label for="traveldate">Travel Date</label>
-              <input id="traveldate" name="traveldate" type="text" placeholder="July 10 - July 18">
-            </div>
-
-            <div>
-              <label for="travelers">Number of Travelers</label>
-              <select id="travelers" name="travelers">
-                <option>1</option>
-                <option>2</option>
-                <option>3-4</option>
-                <option>5-8</option>
-                <option>9+</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="service">Service Type</label>
-              <select id="service" name="service">
-                <option>VIP Tour</option>
-                <option>Reindeer Tour</option>
-                <option>Gobi Desert Tour</option>
-                <option>Altai Tavan Bogd Tour</option>
-                <option>Naadam Festival Tour</option>
-                <option>Nomadic Life Tour</option>
-                <option>4×4 Transport</option>
-                <option>Airport Pickup</option>
-                <option>Custom Travel Plan</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="budget">Estimated Budget</label>
-              <select id="budget" name="budget">
-                <option>Under $500</option>
-                <option>$500 - $1000</option>
-                <option>$1000 - $2000</option>
-                <option>$2000+</option>
-              </select>
-            </div>
-
-            <div class="full">
-              <label for="places">Places You Want to Visit</label>
-              <input id="places" name="places" type="text" placeholder="Khuvsgul, Gobi, Altai, Terelj...">
-            </div>
-
-            <div class="full">
-              <label for="message">Trip Details</label>
-              <textarea id="message" name="message" placeholder="Tell us about your trip, preferred route, interests, transport needs, accommodation level, and special requests."></textarea>
-            </div>
-
-            <div class="full">
-              <button class="btn" type="submit">Send Booking Request</button>
-            </div>
-          </div>
-        </form>
-
-        <div class="note">
-          <strong>Important:</strong>
-          <div class="small" style="margin-top:8px">
-            This form is already prepared for <strong>Netlify Forms</strong> with <code>method="POST"</code> and <code>data-netlify="true"</code>.<br>
-            When you upload this page to your Netlify site, submissions can be collected in Netlify Forms.
-          </div>
+        <div>
+          <label for="date">Preferred Date</label>
+          <input type="date" id="date" name="date">
         </div>
-      </section>
+
+        <div>
+          <label for="tourDisplay">Tour</label>
+          <input type="text" id="tourDisplay" readonly>
+        </div>
+
+        <div class="full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us your travel dates, group size, interests, or any special request."></textarea>
+        </div>
+
+        <div class="full">
+          <button type="submit">Send Booking Request</button>
+          <div class="note">We will reply by email or WhatsApp after receiving your request.</div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h3>Discover Mongolia Tours</h3>
+      <p>Authentic Mongolia travel experiences, nomadic culture, nature adventures and custom tours.</p>
+    </div>
+
+    <div class="footer-links">
+      <div>
+        <h4>Company</h4>
+        <a href="/about.html">About</a>
+        <a href="/booking.html">Contact</a>
+      </div>
+
+      <div>
+        <h4>Legal</h4>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/disclaimer.html">Disclaimer</a>
+      </div>
+
+      <div>
+        <h4>Languages</h4>
+        <a href="/index.html">English</a>
+        <a href="/index-ja.html">日本語</a>
+        <a href="/index-ko.html">한국어</a>
+      </div>
     </div>
   </div>
+
+  <div class="footer-bottom">
+    © 2026 Discover Mongolia Tours
+  </div>
+</footer>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const tour = params.get("tour") || "Custom Tour";
+
+  document.getElementById("tourDisplay").value = tour;
+  document.getElementById("tourName").value = tour;
+</script>
+
 </body>
 </html>
