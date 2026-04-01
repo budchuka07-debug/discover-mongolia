@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discover Mongolia Admin</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root{
+      --primary:#0d3b66;
+      --accent:#c98b2f;
+      --bg:#f7f5ef;
+      --white:#fff;
+      --dark:#1f2937;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --success:#166534;
+      --danger:#991b1b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--dark);
+    }
+    .wrap{
+      width:min(95%,1400px);
+      margin:24px auto;
+    }
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:20px;
+    }
+    .title{
+      font-size:32px;
+      font-weight:800;
+      color:var(--primary);
+    }
+    .muted{color:var(--muted)}
+    .tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    .tab-btn{
+      border:1px solid var(--border);
+      background:var(--white);
+      border-radius:999px;
+      padding:10px 16px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .tab-btn.active{
+      background:var(--primary);
+      color:#fff;
+      border-color:var(--primary);
+    }
+    .panel{
+      display:none;
+      background:#fff;
+      border-radius:18px;
+      padding:18px;
+      border:1px solid var(--border);
+    }
+    .panel.active{display:block}
+    .toolbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+      flex-wrap:wrap;
+    }
+    .count{
+      font-weight:700;
+      color:var(--primary);
+    }
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:16px;
+    }
+    .card{
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .card img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      background:#f3f4f6;
+    }
+    .card-body{
+      padding:16px;
+    }
+    .pill{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      margin-right:8px;
+      margin-bottom:8px;
+      background:#eef2ff;
+      color:var(--primary);
+    }
+    .pill.pending{background:#fff7ed;color:#9a3412}
+    .pill.approved{background:#ecfdf5;color:#166534}
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+    button{
+      cursor:pointer;
+      border:none;
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:700;
+    }
+    .approve{background:#dcfce7;color:#166534}
+    .delete{background:#fee2e2;color:#991b1b}
+    .refresh{background:var(--accent);color:#fff}
+    .empty{
+      padding:28px;
+      text-align:center;
+      color:var(--muted);
+      border:1px dashed var(--border);
+      border-radius:16px;
+      background:#fafafa;
+    }
+    .notice{
+      margin:14px 0;
+      padding:12px 14px;
+      border-radius:12px;
+      display:none;
+    }
+    .notice.show{display:block}
+    .notice.ok{background:#ecfdf5;color:#166534}
+    .notice.err{background:#fef2f2;color:#991b1b}
+    code{
+      background:#f3f4f6;
+      padding:2px 6px;
+      border-radius:6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="title">Discover Mongolia Admin</div>
+        <div class="muted">Approve or delete hotel, transport, and review submissions</div>
+      </div>
+      <button class="refresh" onclick="reloadAll()">Refresh</button>
+    </div>
+
+    <div id="notice" class="notice"></div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="hotels">Hotels</button>
+      <button class="tab-btn" data-tab="cars">Car Rental</button>
+      <button class="tab-btn" data-tab="reviews">Reviews</button>
+    </div>
+
+    <section id="panel-hotels" class="panel active">
+      <div class="toolbar">
+        <div class="count">Hotel submissions: <span id="hotel-count">0</span></div>
+        <div class="muted">Table: <code>property_submissions</code></div>
+      </div>
+      <div id="hotel-cards" class="cards"></div>
+    </section>
+
+    <section id="panel-cars" class="panel">
+      <div class="toolbar">
+        <div class="count">Car submissions: <span id="car-count">0</span></div>
+        <div class="muted">Table: <code>vehicle_submissions</code></div>
+      </div>
+      <div id="car-cards" class="cards"></div>
+    </section>
+
+    <section id="panel-reviews" class="panel">
+      <div class="toolbar">
+        <div class="count">Review submissions: <span id="review-count">0</span></div>
+        <div class="muted">Table: <code>review_submissions</code></div>
+      </div>
+      <div id="review-cards" class="cards"></div>
+    </section>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://ebpjetcuabubihzimmbb.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_3F9zG4HoMOCgU4yHvUkiKw_h5VTeeRF";
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const fallbackHotel = "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80";
+    const fallbackCar = "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80";
+    const fallbackReview = "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80";
+
+    function showNotice(message, type="ok") {
+      const n = document.getElementById("notice");
+      n.className = `notice show ${type}`;
+      n.textContent = message;
+      setTimeout(() => n.className = "notice", 3000);
+    }
+
+    function esc(v) {
+      return String(v ?? "").replace(/[&<>"']/g, m => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[m]));
+    }
+
+    function statusPill(status) {
+      const s = status || "pending";
+      return `<span class="pill ${esc(s)}">${esc(s)}</span>`;
+    }
+
+    async function approveRow(table, id) {
+      const { error } = await supabaseClient
+        .from(table)
+        .update({ status: "approved" })
+        .eq("id", id);
+
+      if (error) {
+        showNotice(error.message, "err");
+        return;
+      }
+      showNotice("Approved");
+      reloadAll();
+    }
+
+    async function deleteRow(table, id) {
+      const ok = confirm("Delete this row?");
+      if (!ok) return;
+
+      const { error } = await supabaseClient
+        .from(table)
+        .delete()
+        .eq("id", id);
+
+      if (error) {
+        showNotice(error.message, "err");
+        return;
+      }
+      showNotice("Deleted");
+      reloadAll();
+    }
+
+    async function loadHotels() {
+      const { data, error } = await supabaseClient
+        .from("property_submissions")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      const wrap = document.getElementById("hotel-cards");
+      const count = document.getElementById("hotel-count");
+
+      if (error) {
+        wrap.innerHTML = `<div class="empty">${esc(error.message)}</div>`;
+        return;
+      }
+
+      count.textContent = data.length;
+
+      if (!data.length) {
+        wrap.innerHTML = `<div class="empty">No hotel submissions yet.</div>`;
+        return;
+      }
+
+      wrap.innerHTML = data.map(item => `
+        <article class="card">
+          <img src="${esc(item.image_url || fallbackHotel)}" onerror="this.src='${fallbackHotel}'" alt="">
+          <div class="card-body">
+            ${statusPill(item.status)}
+            <span class="pill">${esc(item.property_type || "Property")}</span>
+            <h3>${esc(item.name)}</h3>
+            <div class="muted">${esc(item.location || "")}</div>
+            <div class="muted">${esc(item.price || "")}</div>
+            <p>${esc(item.description || "")}</p>
+            <div class="muted">${esc(item.email || "")}</div>
+            <div class="muted">${esc(item.phone || "")}</div>
+            <div class="actions">
+              <button class="approve" onclick="approveRow('property_submissions', ${item.id})">Approve</button>
+              <button class="delete" onclick="deleteRow('property_submissions', ${item.id})">Delete</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    async function loadCars() {
+      const { data, error } = await supabaseClient
+        .from("vehicle_submissions")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      const wrap = document.getElementById("car-cards");
+      const count = document.getElementById("car-count");
+
+      if (error) {
+        wrap.innerHTML = `<div class="empty">${esc(error.message)}</div>`;
+        return;
+      }
+
+      count.textContent = data.length;
+
+      if (!data.length) {
+        wrap.innerHTML = `<div class="empty">No car submissions yet.</div>`;
+        return;
+      }
+
+      wrap.innerHTML = data.map(item => `
+        <article class="card">
+          <img src="${esc(item.image_url || fallbackCar)}" onerror="this.src='${fallbackCar}'" alt="">
+          <div class="card-body">
+            ${statusPill(item.status)}
+            <span class="pill">${esc(item.vehicle_type || "Transport")}</span>
+            <h3>${esc(item.title || "")}</h3>
+            <div class="muted">${esc(item.daily_rate || "")}</div>
+            <div class="muted">${esc(item.seats || "")}</div>
+            <p>${esc(item.description || "")}</p>
+            <div class="muted">${esc(item.email || "")}</div>
+            <div class="muted">${esc(item.phone || "")}</div>
+            <div class="actions">
+              <button class="approve" onclick="approveRow('vehicle_submissions', ${item.id})">Approve</button>
+              <button class="delete" onclick="deleteRow('vehicle_submissions', ${item.id})">Delete</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    async function loadReviews() {
+      const { data, error } = await supabaseClient
+        .from("review_submissions")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      const wrap = document.getElementById("review-cards");
+      const count = document.getElementById("review-count");
+
+      if (error) {
+        wrap.innerHTML = `<div class="empty">${esc(error.message)}</div>`;
+        return;
+      }
+
+      count.textContent = data.length;
+
+      if (!data.length) {
+        wrap.innerHTML = `<div class="empty">No review submissions yet.</div>`;
+        return;
+      }
+
+      wrap.innerHTML = data.map(item => `
+        <article class="card">
+          <img src="${esc(item.image_url || fallbackReview)}" onerror="this.src='${fallbackReview}'" alt="">
+          <div class="card-body">
+            ${statusPill(item.status)}
+            <h3>${esc(item.traveler_name || "")}</h3>
+            <div class="muted">${esc(item.country || "")}</div>
+            <div class="muted">Rating: ${esc(item.rating || "")}</div>
+            <p>${esc(item.review_text || "")}</p>
+            <div class="actions">
+              <button class="approve" onclick="approveRow('review_submissions', ${item.id})">Approve</button>
+              <button class="delete" onclick="deleteRow('review_submissions', ${item.id})">Delete</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    async function reloadAll() {
+      await Promise.all([loadHotels(), loadCars(), loadReviews()]);
+    }
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById(`panel-${btn.dataset.tab}`).classList.add("active");
+      });
+    });
+
+    reloadAll();
+  </script>
+</body>
+</html>
