@@ -1260,39 +1260,43 @@ gtag('config', 'G-XDG8KZWZCM');
 
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   console.log("SUPABASE OK", supabaseClient);
-</script>
-   
 
-    const fallbackImage = 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80';
-    const fallbackCarImage = 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80';
-    const fallbackReviewImage = 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80';
+  const fallbackImage = 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80';
+  const fallbackCarImage = 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80';
+  const fallbackReviewImage = 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80';
 
-    function showNotice(id, message, type='success') {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.className = `notice ${type}`;
-      el.textContent = message;
+  function showNotice(id, message, type = 'success') {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.className = `notice ${type}`;
+    el.textContent = message;
+  }
+
+  function stars(n) {
+    const count = Number(n || 0);
+    return '★'.repeat(count) + '☆'.repeat(Math.max(0, 5 - count));
+  }
+
+  async function loadHotels() {
+    const { data, error } = await supabaseClient
+      .from('property_submissions')
+      .select('*')
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(6);
+
+    if (error) {
+      console.error('loadHotels error:', error);
+      return;
     }
 
-    function stars(n) {
-      const count = Number(n || 0);
-      return '★'.repeat(count) + '☆'.repeat(Math.max(0, 5 - count));
-    }
+    const wrap = document.getElementById('hotel-list');
+    if (!wrap) return;
 
-    async function loadHotels() {
-      if (!supabaseClient) return;
-      const { data, error } = await supabaseClient
-        .from('property_submissions')
-        .select('*')
-        .eq('status', 'approved')
-        .order('created_at', { ascending: false })
-        .limit(6);
-      if (error) return console.error(error);
-      const wrap = document.getElementById('hotel-list');
-      if (!wrap) return;
-      wrap.innerHTML = data.length ? data.map(item => `
+    wrap.innerHTML = data.length
+      ? data.map(item => `
         <article class="card listing-card">
-          <img src="${item.image_url || fallbackImage}" alt="${item.name || 'Hotel'}">
+          <img src="${item.image_url || fallbackImage}" alt="${item.name || 'Hotel'}" onerror="this.onerror=null;this.src='${fallbackImage}'">
           <div class="card-body">
             <span class="tag">${item.property_type || 'Property'}</span>
             <h3>${item.name || ''}</h3>
@@ -1304,23 +1308,30 @@ gtag('config', 'G-XDG8KZWZCM');
             <p class="muted">${item.description || ''}</p>
           </div>
         </article>
-      `).join('') : '<p class="muted">No hotel listings published yet.</p>';
+      `).join('')
+      : '<p class="muted">No hotel listings published yet.</p>';
+  }
+
+  async function loadCars() {
+    const { data, error } = await supabaseClient
+      .from('vehicle_submissions')
+      .select('*')
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(6);
+
+    if (error) {
+      console.error('loadCars error:', error);
+      return;
     }
 
-    async function loadCars() {
-      if (!supabaseClient) return;
-      const { data, error } = await supabaseClient
-        .from('vehicle_submissions')
-        .select('*')
-        .eq('status', 'approved')
-        .order('created_at', { ascending: false })
-        .limit(6);
-      if (error) return console.error(error);
-      const wrap = document.getElementById('car-list');
-      if (!wrap) return;
-      wrap.innerHTML = data.length ? data.map(item => `
+    const wrap = document.getElementById('car-list');
+    if (!wrap) return;
+
+    wrap.innerHTML = data.length
+      ? data.map(item => `
         <article class="card listing-card">
-          <img src="${item.image_url || fallbackCarImage}" alt="${item.title || 'Vehicle'}">
+          <img src="${item.image_url || fallbackCarImage}" alt="${item.title || 'Vehicle'}" onerror="this.onerror=null;this.src='${fallbackCarImage}'">
           <div class="card-body">
             <span class="tag">${item.vehicle_type || 'Transport'}</span>
             <h3>${item.title || ''}</h3>
@@ -1331,23 +1342,30 @@ gtag('config', 'G-XDG8KZWZCM');
             <p class="muted">${item.description || ''}</p>
           </div>
         </article>
-      `).join('') : '<p class="muted">No transport services published yet.</p>';
+      `).join('')
+      : '<p class="muted">No transport services published yet.</p>';
+  }
+
+  async function loadReviews() {
+    const { data, error } = await supabaseClient
+      .from('review_submissions')
+      .select('*')
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(6);
+
+    if (error) {
+      console.error('loadReviews error:', error);
+      return;
     }
 
-    async function loadReviews() {
-      if (!supabaseClient) return;
-      const { data, error } = await supabaseClient
-        .from('review_submissions')
-        .select('*')
-        .eq('status', 'approved')
-        .order('created_at', { ascending: false })
-        .limit(6);
-      if (error) return console.error(error);
-      const wrap = document.getElementById('review-list');
-      if (!wrap) return;
-      wrap.innerHTML = data.length ? data.map(item => `
+    const wrap = document.getElementById('review-list');
+    if (!wrap) return;
+
+    wrap.innerHTML = data.length
+      ? data.map(item => `
         <article class="card review-card">
-          <img src="${item.image_url || fallbackReviewImage}" alt="${item.traveler_name || 'Traveler review'}">
+          <img src="${item.image_url || fallbackReviewImage}" alt="${item.traveler_name || 'Traveler review'}" onerror="this.onerror=null;this.src='${fallbackReviewImage}'">
           <div class="card-body">
             <span class="tag">${stars(item.rating)}</span>
             <h3>${item.traveler_name || ''}</h3>
@@ -1355,78 +1373,101 @@ gtag('config', 'G-XDG8KZWZCM');
             <p class="muted">${item.review_text || ''}</p>
           </div>
         </article>
-      `).join('') : '<p class="muted">No traveler reviews published yet.</p>';
+      `).join('')
+      : '<p class="muted">No traveler reviews published yet.</p>';
+  }
+
+  async function insertHotelSubmission(e) {
+    e.preventDefault();
+
+    const payload = {
+      name: document.getElementById('hotel_name').value.trim(),
+      property_type: document.getElementById('hotel_type').value,
+      location: document.getElementById('hotel_location').value.trim(),
+      price: document.getElementById('hotel_price').value.trim(),
+      email: document.getElementById('hotel_email').value.trim(),
+      phone: document.getElementById('hotel_phone').value.trim(),
+      image_url: document.getElementById('hotel_image').value.trim(),
+      description: document.getElementById('hotel_description').value.trim(),
+      status: 'pending'
+    };
+
+    const { error } = await supabaseClient.from('property_submissions').insert([payload]);
+
+    if (error) {
+      console.error('hotel insert error:', error);
+      showNotice('hotel-notice', error.message, 'error');
+      return;
     }
 
-    async function insertHotelSubmission(e) {
-      e.preventDefault();
-      if (!supabaseClient) return showNotice('hotel-notice', 'Please add your Supabase URL and anon key first.', 'error');
-      const payload = {
-        name: document.getElementById('hotel_name').value.trim(),
-        property_type: document.getElementById('hotel_type').value,
-        location: document.getElementById('hotel_location').value.trim(),
-        price: document.getElementById('hotel_price').value.trim(),
-        contact_person: document.getElementById('hotel_contact_person').value.trim(),
-        email: document.getElementById('hotel_email').value.trim(),
-        phone: document.getElementById('hotel_phone').value.trim(),
-        image_url: document.getElementById('hotel_image').value.trim(),
-        description: document.getElementById('hotel_description').value.trim(),
-        status: 'pending'
-      };
-      const { error } = await supabaseClient.from('property_submissions').insert([payload]);
-      if (error) return showNotice('hotel-notice', error.message, 'error');
-      document.getElementById('hotel-form').reset();
-      showNotice('hotel-notice', 'Hotel or camp submitted successfully. We will review it before publishing.');
+    document.getElementById('hotel-form').reset();
+    showNotice('hotel-notice', 'Hotel or camp submitted successfully. We will review it before publishing.');
+  }
+
+  async function insertCarSubmission(e) {
+    e.preventDefault();
+
+    const payload = {
+      title: document.getElementById('car_title').value.trim(),
+      vehicle_type: document.getElementById('car_type').value,
+      seats: document.getElementById('car_seats').value.trim(),
+      daily_rate: document.getElementById('car_rate').value.trim(),
+      contact_name: document.getElementById('car_contact_name').value.trim(),
+      phone: document.getElementById('car_phone').value.trim(),
+      email: document.getElementById('car_email').value.trim(),
+      image_url: document.getElementById('car_image').value.trim(),
+      description: document.getElementById('car_description').value.trim(),
+      status: 'pending'
+    };
+
+    const { error } = await supabaseClient.from('vehicle_submissions').insert([payload]);
+
+    if (error) {
+      console.error('car insert error:', error);
+      showNotice('car-notice', error.message, 'error');
+      return;
     }
 
-    async function insertCarSubmission(e) {
-      e.preventDefault();
-      if (!supabaseClient) return showNotice('car-notice', 'Please add your Supabase URL and anon key first.', 'error');
-      const payload = {
-        title: document.getElementById('car_title').value.trim(),
-        vehicle_type: document.getElementById('car_type').value,
-        seats: document.getElementById('car_seats').value.trim(),
-        daily_rate: document.getElementById('car_rate').value.trim(),
-        contact_name: document.getElementById('car_contact_name').value.trim(),
-        phone: document.getElementById('car_phone').value.trim(),
-        email: document.getElementById('car_email').value.trim(),
-        image_url: document.getElementById('car_image').value.trim(),
-        description: document.getElementById('car_description').value.trim(),
-        status: 'pending'
-      };
-      const { error } = await supabaseClient.from('vehicle_submissions').insert([payload]);
-      if (error) return showNotice('car-notice', error.message, 'error');
-      document.getElementById('car-form').reset();
-      showNotice('car-notice', 'Transport service submitted successfully. We will review it before publishing.');
+    document.getElementById('car-form').reset();
+    showNotice('car-notice', 'Transport service submitted successfully. We will review it before publishing.');
+  }
+
+  async function insertReviewSubmission(e) {
+    e.preventDefault();
+
+    const payload = {
+      traveler_name: document.getElementById('review_name').value.trim(),
+      country: document.getElementById('review_country').value.trim(),
+      rating: document.getElementById('review_rating').value,
+      image_url: document.getElementById('review_image').value.trim(),
+      review_text: document.getElementById('review_text').value.trim(),
+      status: 'pending'
+    };
+
+    const { error } = await supabaseClient.from('review_submissions').insert([payload]);
+
+    if (error) {
+      console.error('review insert error:', error);
+      showNotice('review-notice', error.message, 'error');
+      return;
     }
 
-    async function insertReviewSubmission(e) {
-      e.preventDefault();
-      if (!supabaseClient) return showNotice('review-notice', 'Please add your Supabase URL and anon key first.', 'error');
-      const payload = {
-        traveler_name: document.getElementById('review_name').value.trim(),
-        country: document.getElementById('review_country').value.trim(),
-        rating: document.getElementById('review_rating').value,
-        image_url: document.getElementById('review_image').value.trim(),
-        review_text: document.getElementById('review_text').value.trim(),
-        status: 'pending'
-      };
-      const { error } = await supabaseClient.from('review_submissions').insert([payload]);
-      if (error) return showNotice('review-notice', error.message, 'error');
-      document.getElementById('review-form').reset();
-      showNotice('review-notice', 'Review submitted successfully. We will review it before publishing.');
-    }
+    document.getElementById('review-form').reset();
+    showNotice('review-notice', 'Review submitted successfully. We will review it before publishing.');
+  }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('hotel-form')?.addEventListener('submit', insertHotelSubmission);
-      document.getElementById('car-form')?.addEventListener('submit', insertCarSubmission);
-      document.getElementById('review-form')?.addEventListener('submit', insertReviewSubmission);
-      loadHotels();
-      loadCars();
-      loadReviews();
-    });
-  </script>
-  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('hotel-form')?.addEventListener('submit', insertHotelSubmission);
+    document.getElementById('car-form')?.addEventListener('submit', insertCarSubmission);
+    document.getElementById('review-form')?.addEventListener('submit', insertReviewSubmission);
+
+    loadHotels();
+    loadCars();
+    loadReviews();
+  });
+</script>
+
+<script>
     const slides = document.querySelectorAll('.hero-slide');
     let currentSlide = 0;
 
