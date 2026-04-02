@@ -1648,7 +1648,9 @@ async function loadCars() {
         price: document.getElementById('hotel_price').value.trim(),
         email: document.getElementById('hotel_email').value.trim(),
         phone: document.getElementById('hotel_phone').value.trim(),
-        image_url: imageUrl,
+        image_url: imageUrls[0] || '',
+main_image_url: imageUrls[0] || '',
+gallery_urls: imageUrls,
         description: document.getElementById('hotel_description').value.trim(),
         status: 'pending'
       };
