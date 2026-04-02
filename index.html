@@ -1714,7 +1714,7 @@ async function insertGuideSubmission(e) {
     e.preventDefault();
 
     try {
-      const imageFile = document.getElementById('car_image_file')?.files?.[0];
+      const imageFiles = Array.from(document.getElementById('car_image_file')?.files || []);
 
       if (!imageFile) {
         showNotice('car-notice', 'Please choose a car image.', 'error');
