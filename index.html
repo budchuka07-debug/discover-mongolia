@@ -529,7 +529,6 @@ gtag('config', 'G-XDG8KZWZCM');
         <li><a href="/vip-helicopter-expedition.html">Helicopter Tour</a></li>
         <a href="#tours" data-i18n="nav_tours">VIP Tours</a>
         <a href="#guide" data-i18n="nav_guide">Travel Guide</a>
-        <a href="#local-guide">Local Guide</a>
         <a href="#videos" data-i18n="nav_videos">Videos</a>
         <a href="#gallery" data-i18n="nav_gallery">Gallery</a>
         <a href="#about" data-i18n="nav_about">About</a>
@@ -1055,16 +1054,99 @@ gtag('config', 'G-XDG8KZWZCM');
     </div>
   </section>
 
-  </section> <!-- cars дууслаа -->
 
-<section id="guides">
+<section id="guides" class="soft-section">
   <div class="container">
     <div class="section-head">
       <h2>Meet the Guides</h2>
-      <p>Professional local guides across Mongolia.</p>
+      <p>Professional local guides across Mongolia. Each guide profile is reviewed before publishing.</p>
     </div>
 
     <div class="grid grid-3" id="guide-list"></div>
+
+    <div class="section-head" style="margin-top:42px">
+      <h3>Apply as a Guide</h3>
+      <p>Guides can submit their profile for review and approval.</p>
+    </div>
+
+    <form id="guide-form">
+      <div class="form-grid">
+        <div>
+          <label>Full Name</label>
+          <input type="text" id="guide_name" required>
+        </div>
+        <div>
+          <label>Age</label>
+          <input type="number" id="guide_age" min="18" max="80">
+        </div>
+
+        <div>
+          <label>Gender</label>
+          <select id="guide_gender">
+            <option value="">Select gender</option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+        <div>
+          <label>Phone / WhatsApp</label>
+          <input type="text" id="guide_phone">
+        </div>
+
+        <div>
+          <label>Email</label>
+          <input type="email" id="guide_email">
+        </div>
+        <div>
+          <label>Profile Photo</label>
+          <input type="file" id="guide_image_file" accept="image/*" required>
+        </div>
+
+        <div>
+          <label>Years of Experience</label>
+          <input type="text" id="guide_experience" placeholder="e.g. 8 years">
+        </div>
+        <div>
+          <label>Languages & Level</label>
+          <input type="text" id="guide_languages" placeholder="English - Advanced, Korean - Intermediate">
+        </div>
+
+        <div>
+          <label>Tour Regions</label>
+          <input type="text" id="guide_regions" placeholder="Gobi, Khangai, Khuvsgul, Terelj">
+        </div>
+        <div>
+          <label>Special Interests / Expertise</label>
+          <input type="text" id="guide_specialties" placeholder="Culture, photography, adventure, nomadic life">
+        </div>
+
+        <div>
+          <label>Day Rate / Price</label>
+          <input type="text" id="guide_price" placeholder="From $80 per day">
+        </div>
+        <div>
+          <label>Guide Type</label>
+          <select id="guide_type">
+            <option value="">Select type</option>
+            <option>Local Guide</option>
+            <option>Driver Guide</option>
+            <option>Cultural Guide</option>
+            <option>Adventure Guide</option>
+            <option>Photography Guide</option>
+          </select>
+        </div>
+
+        <div class="full">
+          <label>Short Bio</label>
+          <textarea id="guide_bio" placeholder="Tell travelers about your experience, personality and guide style."></textarea>
+        </div>
+
+        <div class="full submit-actions">
+          <button class="btn btn-primary" type="submit">Submit Guide</button>
+        </div>
+        <div class="full"><div id="guide-notice" class="notice"></div></div>
+      </div>
+    </form>
   </div>
 </section>
   <section id="cars">
@@ -1188,111 +1270,6 @@ gtag('config', 'G-XDG8KZWZCM');
     </div>
   </section>
 
-  <section id="local-guide" class="local-guide-section">
-    <div class="container">
-      <div class="section-head">
-        <h2>Your Local Guide in Mongolia</h2>
-        <p>Professional local support for private tours, custom routes, countryside travel and international guest assistance.</p>
-      </div>
-
-      <div class="local-guide-wrap">
-        <article class="guide-profile-card">
-          <div class="guide-profile-image"></div>
-          <div class="guide-profile-content">
-            <span class="tag">Local Expert</span>
-            <h3>Budjav • Private Guide & Travel Coordinator</h3>
-            <p class="muted">Friendly local support for Mongolia trips, countryside routes, transport planning, hotel coordination and private tour arrangements.</p>
-            <div class="guide-badges">
-              <span class="guide-badge">Private Tours</span>
-              <span class="guide-badge">Local Transport Help</span>
-              <span class="guide-badge">Custom Travel Planning</span>
-              <span class="guide-badge">International Guests</span>
-            </div>
-            <div class="guide-contact-box">
-              <strong style="display:block;font-size:20px;margin-bottom:8px;">Direct Contact</strong>
-              <div style="margin-bottom:8px;">📞 Phone / WhatsApp: <a href="tel:+97690283039">+976 90283039</a></div>
-              <div style="margin-bottom:8px;">✉️ Email: <a href="mailto:hello@discovermongoliatours.com">hello@discovermongoliatours.com</a></div>
-              <div>📍 Based in Ulaanbaatar, Mongolia</div>
-            </div>
-          </div>
-        </article>
-
-        <div class="guide-info-card" style="padding:28px;">
-          <h3 style="margin-bottom:8px;">Guide Profile</h3>
-          <p class="muted">A reliable local point of contact for airport pickup, city support, countryside logistics and multi-day private travel around Mongolia.</p>
-
-          <div class="guide-highlight-grid">
-            <div class="guide-highlight">
-              <strong>10+ Years</strong>
-              <span class="muted">Travel, guest support and field experience</span>
-            </div>
-            <div class="guide-highlight">
-              <strong>Gobi & Khangai</strong>
-              <span class="muted">Trips across central, southern and northern routes</span>
-            </div>
-            <div class="guide-highlight">
-              <strong>Private Support</strong>
-              <span class="muted">From solo travelers to small private groups</span>
-            </div>
-            <div class="guide-highlight">
-              <strong>Flexible Planning</strong>
-              <span class="muted">Routes, hotels, transport and local coordination</span>
-            </div>
-          </div>
-
-          <h3 style="margin-top:26px;margin-bottom:10px;">Language Score</h3>
-          <div class="language-score-list">
-            <div class="language-row">
-              <strong>Mongolian</strong>
-              <div class="language-bar"><span style="width:100%"></span></div>
-              <span>10/10</span>
-            </div>
-            <div class="language-row">
-              <strong>English</strong>
-              <div class="language-bar"><span style="width:82%"></span></div>
-              <span>8.2/10</span>
-            </div>
-            <div class="language-row">
-              <strong>Korean</strong>
-              <div class="language-bar"><span style="width:48%"></span></div>
-              <span>4.8/10</span>
-            </div>
-            <div class="language-row">
-              <strong>Japanese</strong>
-              <div class="language-bar"><span style="width:42%"></span></div>
-              <span>4.2/10</span>
-            </div>
-          </div>
-
-          <h3 style="margin-top:28px;margin-bottom:10px;">What Guests Can Request</h3>
-          <div class="guide-service-list">
-            <div class="guide-service-item">
-              <div class="guide-service-icon">01</div>
-              <div>
-                <strong>Private guide support</strong>
-                <div class="muted">Local assistance for tour planning, travel questions and personalized route design.</div>
-              </div>
-            </div>
-            <div class="guide-service-item">
-              <div class="guide-service-icon">02</div>
-              <div>
-                <strong>Hotel and transport coordination</strong>
-                <div class="muted">Help with booking camps, hotels, airport transfer and countryside vehicles with driver.</div>
-              </div>
-            </div>
-            <div class="guide-service-item">
-              <div class="guide-service-icon">03</div>
-              <div>
-                <strong>Custom Mongolia itinerary</strong>
-                <div class="muted">Flexible planning for Gobi, Khangai, Khuvsgul, Terelj and other major destinations.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="about" id="about">
     <div class="container">
       <div class="about-wrap">
@@ -1407,6 +1384,7 @@ gtag('config', 'G-XDG8KZWZCM');
   const fallbackReviewImage = 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80';
   const HOTEL_IMAGE_BUCKET = 'hotel-images';
   const CAR_IMAGE_BUCKET = 'driver-images';
+  const GUIDE_IMAGE_BUCKET = 'guide-images';
 
   function sanitizeFileName(name) {
     return String(name || 'image')
