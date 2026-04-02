@@ -1784,15 +1784,17 @@ async function insertGuideSubmission(e) {
     showNotice('review-notice', 'Review submitted successfully. We will review it before publishing.');
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('hotel-form')?.addEventListener('submit', insertHotelSubmission);
-    document.getElementById('car-form')?.addEventListener('submit', insertCarSubmission);
-    document.getElementById('review-form')?.addEventListener('submit', insertReviewSubmission);
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('hotel-form')?.addEventListener('submit', insertHotelSubmission);
+  document.getElementById('car-form')?.addEventListener('submit', insertCarSubmission);
+  document.getElementById('guide-form')?.addEventListener('submit', insertGuideSubmission);
+  document.getElementById('review-form')?.addEventListener('submit', insertReviewSubmission);
 
-    loadHotels();
-    loadCars();
-    loadReviews();
-  });
+  loadHotels();
+  loadCars();
+  loadGuides();
+  loadReviews();
+});
 </script>
 
 <script>
