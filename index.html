@@ -1343,24 +1343,90 @@ gtag('config', 'G-XDG8KZWZCM');
       : '<p class="muted">No hotel listings published yet.</p>';
   }
 
- async function loadCars() {
+async function loadCars() {
   const { data, error } = await supabaseClient
     .from('vehicle_submissions')
     .select('*')
     .eq('status', 'approved');
 
   const container = document.getElementById('cars-container');
+  if (!container) return;
+
+  if (error) {
+    console.error('loadCars error:', error);
+    container.innerHTML = '<p>Car listings could not be loaded.</p>';
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    container.innerHTML = '<p>No car listings available yet.</p>';
+    return;
+  }
 
   container.innerHTML = '';
 
   data.forEach(item => {
+    const imageSrc = item.image_url && item.image_url.trim() !== ''
+      ? item.image_url
+      : 'https://via.placeholder.com/800x500?text=No+Image';
+
     container.innerHTML += `
-      <div style="border:1px solid #ddd; padding:10px; margin-bottom:15px;">
-        <img src="${item.image_url}" 
-             style="width:100%; height:220px; object-fit:cover; border-radius:8px;" />
-        <h3>${item.title || ''}</h3>
-        <p>${item.description || ''}</p>
-        <p>📞 ${item.phone || ''}</p>
+      <div style="
+        background:#fff;
+        border:1px solid #e5e7eb;
+        border-radius:16px;
+        overflow:hidden;
+        box-shadow:0 6px 18px rgba(0,0,0,0.08);
+        margin-bottom:24px;
+      ">
+        <div style="width:100%; height:240px; overflow:hidden; background:#f3f4f6;">
+          <img
+            src="${imageSrc}"
+            alt="${item.title || 'Car rental'}"
+            style="width:100%; height:100%; object-fit:cover; display:block;"
+            onerror="this.src='https://via.placeholder.com/800x500?text=No+Image';"
+          />
+        </div>
+
+        <div style="padding:18px;">
+          <h3 style="
+            margin:0 0 10px;
+            font-size:22px;
+            font-weight:700;
+            color:#111827;
+          ">
+            ${item.title || 'Car rental with driver'}
+          </h3>
+
+          <p style="
+            margin:0 0 12px;
+            color:#4b5563;
+            line-height:1.6;
+            font-size:15px;
+          ">
+            ${item.description || ''}
+          </p>
+
+          <div style="
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            align-items:center;
+            margin-top:10px;
+          ">
+            <span style="
+              display:inline-block;
+              background:#f3f4f6;
+              color:#111827;
+              padding:8px 12px;
+              border-radius:999px;
+              font-size:14px;
+              font-weight:600;
+            ">
+              📞 ${item.phone || 'No phone'}
+            </span>
+          </div>
+        </div>
       </div>
     `;
   });
