@@ -1085,8 +1085,8 @@ gtag('config', 'G-XDG8KZWZCM');
             <input type="email" id="car_email">
           </div>
           <div>
-            <label>Main Image URL</label>
-            <input type="url" id="car_image" placeholder="https://...">
+            <label>Car Image</label>
+            <input type="file" id="carImageFile" accept="image/*" required>
           </div>
           <div class="full">
             <label>Description</label>
@@ -1404,8 +1404,44 @@ gtag('config', 'G-XDG8KZWZCM');
     showNotice('hotel-notice', 'Hotel or camp submitted successfully. We will review it before publishing.');
   }
 
+
+  async function uploadCarImage(file) {
+    const fileName = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
+
+    const { error: uploadError } = await supabaseClient.storage
+      .from('car-images')
+      .upload(fileName, file);
+
+    if (uploadError) {
+      console.error('car image upload error:', uploadError);
+      return { error: uploadError, publicUrl: null };
+    }
+
+    const { data } = supabaseClient.storage
+      .from('car-images')
+      .getPublicUrl(fileName);
+
+    return { error: null, publicUrl: data.publicUrl };
+  }
+
   async function insertCarSubmission(e) {
     e.preventDefault();
+
+    const file = document.getElementById('carImageFile')?.files?.[0];
+
+    if (!file) {
+      showNotice('car-notice', 'Please select a car image.', 'error');
+      return;
+    }
+
+    showNotice('car-notice', 'Uploading image...', 'success');
+
+    const { error: imageError, publicUrl } = await uploadCarImage(file);
+
+    if (imageError || !publicUrl) {
+      showNotice('car-notice', 'Image upload failed. Please try again.', 'error');
+      return;
+    }
 
     const payload = {
       title: document.getElementById('car_title').value.trim(),
@@ -1415,7 +1451,7 @@ gtag('config', 'G-XDG8KZWZCM');
       contact_name: document.getElementById('car_contact_name').value.trim(),
       phone: document.getElementById('car_phone').value.trim(),
       email: document.getElementById('car_email').value.trim(),
-      image_url: document.getElementById('car_image').value.trim(),
+      image_url: publicUrl,
       description: document.getElementById('car_description').value.trim(),
       status: 'pending'
     };
