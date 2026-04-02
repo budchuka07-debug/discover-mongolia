@@ -1675,7 +1675,50 @@ async function loadCars() {
       showNotice('hotel-notice', error.message || 'Hotel submission failed.', 'error');
     }
   }
+async function insertGuideSubmission(e) {
+  e.preventDefault();
 
+  try {
+    const imageFile = document.getElementById('guide_image_file')?.files?.[0];
+
+    if (!imageFile) {
+      showNotice('guide-notice', 'Please choose a guide profile photo.', 'error');
+      return;
+    }
+
+    showNotice('guide-notice', 'Uploading profile photo...', 'success');
+    const imageUrl = await uploadImageToBucket(GUIDE_IMAGE_BUCKET, imageFile, 'guides');
+
+    const payload = {
+      full_name: document.getElementById('guide_name').value.trim(),
+      age: document.getElementById('guide_age').value ? Number(document.getElementById('guide_age').value) : null,
+      gender: document.getElementById('guide_gender').value,
+      phone: document.getElementById('guide_phone').value.trim(),
+      email: document.getElementById('guide_email').value.trim(),
+      profile_image_url: imageUrl,
+      experience_years: document.getElementById('guide_experience').value.trim(),
+      languages: document.getElementById('guide_languages').value.trim(),
+      special_regions: document.getElementById('guide_regions').value.trim(),
+      special_interests: document.getElementById('guide_specialties').value.trim(),
+      guide_type: document.getElementById('guide_type').value,
+      price: document.getElementById('guide_price').value.trim(),
+      bio: document.getElementById('guide_bio').value.trim(),
+      status: 'pending'
+    };
+
+    const { error } = await supabaseClient
+      .from('guide_submissions')
+      .insert([payload]);
+
+    if (error) throw error;
+
+    document.getElementById('guide-form').reset();
+    showNotice('guide-notice', 'Guide profile submitted successfully. We will review it before publishing.');
+  } catch (error) {
+    console.error('guide insert error:', error);
+    showNotice('guide-notice', error.message || 'Guide submission failed.', 'error');
+  }
+}
   async function insertCarSubmission(e) {
     e.preventDefault();
 
