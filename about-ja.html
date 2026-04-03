@@ -1,93 +1,2174 @@
-<!doctype html>
-<html lang="ja">
+<!DOCTYPE html>
+<html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XDG8KZWZCM"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
 
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>私たちについて | Visit Mongolia Tours</title>
-  <meta name="description" content="10年以上の観光経験をもとに作られた Visit Mongolia Tours の紹介ページ" />
-  <link rel="stylesheet" href="/common.css">
-  <script defer src="/common.js"></script>
+gtag('config', 'G-XDG8KZWZCM');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discover Mongolia Tours</title>
+  <meta name="description" content="Discover Mongolia with local travel experts. Private tours, nomadic experiences, travel guide, transport help, and Mongolia travel videos." />
+  <style>
+    :root{
+      --primary:#0d3b66;
+      --primary-dark:#08243f;
+      --accent:#c98b2f;
+      --accent-dark:#a56f1f;
+      --bg:#f7f5ef;
+      --bg-soft:#fbfaf6;
+      --dark:#1f2937;
+      --muted:#6b7280;
+      --white:#ffffff;
+      --shadow:0 14px 34px rgba(0,0,0,.10);
+      --radius:20px;
+      --max:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--dark);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    .container{width:min(92%,var(--max));margin:0 auto}
+
+    .topbar{
+      background:var(--primary);
+      color:#fff;
+      font-size:14px;
+      padding:10px 0;
+    }
+    .topbar .container{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(255,255,255,.95);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      min-height:78px;
+      gap:16px;
+    }
+    .logo{
+      font-size:26px;
+      font-weight:800;
+      color:var(--primary);
+      letter-spacing:.2px;
+    }
+    .logo span{color:var(--accent)}
+    .nav-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      font-weight:600;
+      font-size:15px;
+    }
+    .nav-links a:hover{color:var(--accent)}
+    .lang-switch{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .lang-switch button{
+      border:1px solid #d1d5db;
+      background:#fff;
+      border-radius:999px;
+      padding:8px 12px;
+      cursor:pointer;
+      font-weight:700;
+      transition:.25s ease;
+    }
+    .lang-switch button.active,
+    .lang-switch button:hover{
+      background:var(--primary);
+      border-color:var(--primary);
+      color:#fff;
+    }
+
+    .hero{
+      position:relative;
+      min-height:88vh;
+      display:flex;
+      align-items:center;
+      color:#fff;
+      overflow:hidden;
+      background:#111;
+    }
+    .hero-slide{
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      opacity:0;
+      transform:scale(1.04);
+      transition:opacity 1s ease, transform 6s ease;
+    }
+    .hero-slide.active{
+      opacity:1;
+      transform:scale(1);
+    }
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(rgba(8,20,33,.45),rgba(8,20,33,.62));
+      z-index:1;
+    }
+    .hero .container{
+      position:relative;
+      z-index:2;
+    }
+    .hero-content{
+      max-width:760px;
+      padding:100px 0 90px;
+    }
+    .eyebrow{
+      display:inline-block;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:999px;
+      padding:8px 14px;
+      font-size:13px;
+      margin-bottom:18px;
+      backdrop-filter:blur(6px);
+    }
+    h1,h2,h3,h4{line-height:1.2;margin:0 0 14px}
+    h1{font-size:clamp(38px,6vw,64px)}
+    h2{font-size:clamp(28px,4vw,40px)}
+    .hero p{
+      font-size:18px;
+      margin:0 0 28px;
+      max-width:700px;
+    }
+    .cta-row{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 22px;
+      border-radius:999px;
+      font-weight:700;
+      border:2px solid transparent;
+      transition:.25s ease;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+    }
+    .btn-primary:hover{background:var(--accent-dark)}
+    .btn-outline{
+      border-color:rgba(255,255,255,.75);
+      color:#fff;
+    }
+    .btn-outline:hover{
+      background:rgba(255,255,255,.1);
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-top:30px;
+    }
+    .stat{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:18px;
+      padding:18px;
+      backdrop-filter:blur(4px);
+    }
+    .stat strong{
+      display:block;
+      font-size:24px;
+      margin-bottom:4px;
+    }
+
+    section{padding:82px 0}
+    .section-head{
+      max-width:760px;
+      margin-bottom:34px;
+    }
+    .section-head p{
+      color:var(--muted);
+      margin:0;
+    }
+
+    .grid{display:grid;gap:22px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+    .card{
+      background:#fff;
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      transition:.25s ease;
+    }
+    .card:hover{transform:translateY(-5px)}
+    .card-body{padding:22px}
+    .tag{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#eef4ff;
+      color:var(--primary);
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+    .exp-card img,
+    .tour-card img,
+    .dest-card img,
+    .guide-card img{
+      height:240px;
+      width:100%;
+      object-fit:cover;
+    }
+
+    .muted{color:var(--muted)}
+    .price{
+      font-weight:700;
+      color:#14532d;
+      margin-top:12px;
+    }
+
+    .services{background:#edf6ff}
+    .service-card{padding:24px}
+    .service-card ul{
+      padding-left:18px;
+      color:var(--muted);
+      margin:12px 0 0;
+    }
+
+    .guide-wrap{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:24px;
+    }
+    .guide-main{
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:30px;
+    }
+    .guide-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+      margin-top:22px;
+    }
+    .guide-mini{
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:16px;
+      background:#fafafa;
+    }
+    .guide-mini .btn,
+    .guide-card .btn{
+      margin-top:10px;
+      padding:10px 14px;
+    }
+
+    .video-section{
+      background:var(--bg-soft);
+    }
+    .video-main iframe,
+    .video-small iframe{
+      width:100%;
+      border:0;
+      border-radius:18px;
+      box-shadow:var(--shadow);
+    }
+    .video-main iframe{min-height:460px}
+    .video-small{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+    }
+    .video-small iframe{height:220px}
+
+    .about{
+      background:linear-gradient(135deg,#fff8eb 0%,#f7f5ef 100%);
+    }
+    .about-wrap{
+      display:grid;
+      grid-template-columns:.95fr 1.05fr;
+      gap:26px;
+      align-items:center;
+    }
+    .about-photo{
+      min-height:480px;
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:url('images/hero/hero-nomadic-mongolia.jpg') center/cover no-repeat;
+    }
+    .feature-list{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+    .feature-item{
+      background:#fff;
+      border-radius:14px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+    }
+    .gallery-grid img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      transition:.25s ease;
+      background:#e5e7eb;
+    }
+    .gallery-grid img:hover{
+      transform:scale(1.02);
+    }
+
+    .contact-section{
+      background:#f6f9fc;
+    }
+    .booking-wrap{
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:24px;
+    }
+    .contact-card, form{
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:26px;
+    }
+    .contact-card ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+    .contact-card li{margin-bottom:10px}
+    .paypal-btn{
+      margin-top:18px;
+      background:#0070ba;
+    }
+    .paypal-btn:hover{background:#005f9e}
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+    label{
+      display:block;
+      font-weight:700;
+      margin-bottom:6px;
+      font-size:14px;
+    }
+    input,select,textarea{
+      width:100%;
+      border:1px solid #d1d5db;
+      border-radius:12px;
+      padding:13px 14px;
+      font:inherit;
+      background:#fff;
+    }
+    textarea{
+      min-height:140px;
+      resize:vertical;
+    }
+    .full{grid-column:1/-1}
+
+    .listing-card img,
+    .review-card img{
+      height:240px;
+      width:100%;
+      object-fit:cover;
+    }
+    .listing-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:12px 0;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#f3f4f6;
+      color:var(--dark);
+      font-size:12px;
+      font-weight:700;
+    }
+    .soft-section{background:var(--bg-soft)}
+    .notice{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:12px;
+      font-size:14px;
+      display:none;
+    }
+    .notice.success{display:block;background:#ecfdf5;color:#166534;border:1px solid #bbf7d0;}
+    .notice.error{display:block;background:#fef2f2;color:#991b1b;border:1px solid #fecaca;}
+    .submit-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+
+    footer{
+      background:#0d1b2a;
+      color:rgba(255,255,255,.88);
+      padding:24px 0;
+      font-size:14px;
+    }
+    .footer-wrap{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+
+    .local-guide-section{background:linear-gradient(135deg,#f5f8fc 0%,#eef4ff 100%)}
+    .local-guide-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:26px;align-items:stretch}
+    .guide-profile-card,.guide-info-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .guide-profile-image{height:100%;min-height:540px;background:url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat}
+    .guide-profile-content{padding:26px}
+    .guide-badges{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 18px}
+    .guide-badge{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;background:#eef4ff;color:var(--primary);font-size:13px;font-weight:700}
+    .guide-highlight-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+    .guide-highlight{background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:16px}
+    .guide-highlight strong{display:block;font-size:20px;margin-bottom:6px;color:var(--primary)}
+    .language-score-list{display:grid;gap:14px;margin:18px 0 8px}
+    .language-row{display:grid;grid-template-columns:120px 1fr auto;gap:14px;align-items:center}
+    .language-bar{height:10px;border-radius:999px;background:#e5e7eb;overflow:hidden}
+    .language-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px}
+    .guide-contact-box{margin-top:18px;padding:18px;border-radius:18px;background:#0d3b66;color:#fff}
+    .guide-contact-box a{color:#fff}
+    .guide-service-list{display:grid;gap:14px;margin-top:20px}
+    .guide-service-item{display:flex;gap:14px;padding:16px;border:1px solid #e5e7eb;border-radius:16px;background:#fff}
+    .guide-service-icon{width:44px;height:44px;border-radius:14px;background:#eef4ff;color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;flex:0 0 44px}
+
+    @media (max-width:1024px){
+      .grid-4,.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .guide-wrap,.about-wrap,.booking-wrap,.local-guide-wrap{grid-template-columns:1fr}
+      .hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .video-small{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:720px){
+      .nav-links{display:none}
+      .grid-4,.grid-3,.grid-2,.guide-grid,.feature-list,.hero-stats,.form-grid,.video-small,.guide-highlight-grid{
+        grid-template-columns:1fr;
+      }
+      .hero{min-height:auto}
+      .hero-content{padding:80px 0 70px}
+      .video-main iframe{min-height:260px}
+      .video-small iframe{height:220px}
+      .about-photo{min-height:300px}
+    }
+  </style>
 </head>
 <body>
-  <div class="wrap">
 
-    <section class="hero">
-      <h1>Visit Mongolia Tours について</h1>
-      <p class="sub">
-        実際のモンゴル観光経験から生まれた旅行情報サイトです。
-      </p>
-    </section>
-
-    <section class="card">
-      <h2>私たちのストーリー</h2>
-
-      <p>
-        Visit Mongolia Tours は、実際の旅行経験と観光現場での経験をもとに作られました。
-      </p>
-
-      <p>
-        このウェブサイトの創設者は、これまでに
-        <strong>20か国以上、50都市以上</strong>を、
-        ツアー会社利用と個人旅行の両方で訪れてきました。
-      </p>
-
-      <p>
-        また、この10年間、モンゴルの観光業界で
-        <strong>ツアーガイド兼料理人</strong>として働き、
-        さまざまな国からの旅行者を直接サポートしてきました。
-      </p>
-
-      <p>
-        こうした経験の中で、モンゴル旅行を考えている人々にとって、
-        わかりやすく信頼できる旅行情報が必要だと感じ、
-        このウェブサイトのアイデアが生まれました。
-      </p>
-
-      <h2>私たちの使命</h2>
-
-      <p>
-        私たちの目標は、モンゴル旅行をもっと簡単で快適にすることです。
-        そのために、役立つ旅行情報、おすすめルート、目的地情報、
-        予約に関する便利な情報を提供しています。
-      </p>
-
-      <p>
-        より多くの旅行者に、モンゴルの美しい自然、
-        遊牧民文化、そして特別な体験を知ってもらいたいと考えています。
-      </p>
-
-      <h2>このサイトで見つけられるもの</h2>
-
-      <ul>
-        <li>モンゴル旅行ガイド</li>
-        <li>目的地情報</li>
-        <li>ツアーや体験のアイデア</li>
-        <li>予約関連の旅行情報</li>
-        <li>旅行サービスとおすすめ情報</li>
-      </ul>
-
-      <h2>お問い合わせ</h2>
-
-      <p><strong>所在地:</strong> ウランバートル、モンゴル</p>
-      <p><strong>WhatsApp:</strong> +976 90283039</p>
-      <p><strong>Email:</strong> info@visitmongoliatours.com</p>
-    </section>
-
-  <footer style="text-align:center; padding:30px; font-size:14px; background:#f5f5f5; margin-top:40px;">
-
-<p>© 2026 Visit Mongolia Tours</p>
-
-<p>
-<a href="/about-ja.html">私たちについて</a> |
-<a href="/privacy-policy-ja.html">プライバシーポリシー</a> |
-<a href="/terms-ja.html">利用規約</a> |
-<a href="/disclaimer-ja.html">免責事項</a> |
-<a href="/contact.html">Contact</a>
-</p>
-
-</footer>
-
+  <div class="topbar">
+    <div class="container">
+      <div data-i18n="topbar_left">Local Mongolia Travel Expert • Private Tours • Transport Help</div>
+      <div data-i18n="topbar_right">WhatsApp: +976 90283039 • English / 日本語 / 한국어</div>
+    </div>
   </div>
+
+  <header>
+    <div class="container nav">
+      <a href="#home" class="logo">Discover<span>Mongolia</span></a>
+
+      <nav class="nav-links">
+        <a href="#experiences" data-i18n="nav_experiences">Experiences</a>
+        <a href="#destinations" data-i18n="nav_destinations">Destinations</a>
+        <a href="#hotels" data-i18n="nav_hotels">Hotels</a>
+        <a href="#guides">Guides</a>
+        <a href="#cars" data-i18n="nav_cars">Car Rental</a>
+        <a href="#reviews" data-i18n="nav_reviews">Reviews</a>
+        <li><a href="/vip-helicopter-expedition.html">Helicopter Tour</a></li>
+        <a href="#tours" data-i18n="nav_tours">VIP Tours</a>
+        <a href="#guide" data-i18n="nav_guide">Travel Guide</a>
+        <a href="#videos" data-i18n="nav_videos">Videos</a>
+        <a href="#gallery" data-i18n="nav_gallery">Gallery</a>
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+      </nav>
+
+      <div class="lang-switch">
+        <button class="active" data-lang="en">EN</button>
+        <button data-lang="ja">日本語</button>
+        <button data-lang="ko">한국어</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-slide active" style="background-image:url('images/hero/hero-1-mongolia.jpg');"></div>
+    <div class="hero-slide" style="background-image:url('images/hero/hero-horse-riders.jpg');"></div>
+    <div class="hero-slide" style="background-image:url('images/hero/hero-khuvsgul-lake.jpg');"></div>
+    <div class="hero-slide" style="background-image:url('images/hero/hero-nomadic-mongolia.jpg');"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="eyebrow" data-i18n="hero_eyebrow">Authentic Mongolia Tours • Nomadic Life • Adventure • Festivals</div>
+        <h1 data-i18n="hero_title">Discover the Real Mongolia with Local Experts</h1>
+        <p data-i18n="hero_text">Explore nomadic culture, reindeer families, Mongolia’s stunning landscapes, private journeys, and unforgettable local travel experiences.</p>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#tours" data-i18n="hero_btn_1">View Tours</a>
+          <a class="btn btn-outline" href="#guide" data-i18n="hero_btn_2">Travel Guide</a>
+        </div>
+<section style="padding:60px 20px; text-align:center;">
+  <h2 style="font-size:32px; margin-bottom:10px;">VIP Helicopter Expedition</h2>
+  <p style="max-width:700px; margin:auto; color:#555;">
+    Explore Mongolia by private helicopter across the Gobi Desert, Altai Mountains, Taiga and Khuvsgul Lake.
+  </p>
+
+  <div style="margin-top:30px;">
+    <a href="/vip-helicopter-expedition.html" 
+       style="background:#d4a85c; color:#000; padding:14px 28px; border-radius:30px; font-weight:bold;">
+       View Luxury Tour
+    </a>
+  </div>
+</section>
+        <div class="hero-stats">
+          <div class="stat">
+            <strong>18+</strong>
+            <span data-i18n="stat_1">Province guides and destination ideas</span>
+          </div>
+          <div class="stat">
+            <strong>4×4</strong>
+            <span data-i18n="stat_2">Private transport for remote areas</span>
+          </div>
+          <div class="stat">
+            <strong>VIP</strong>
+            <span data-i18n="stat_3">Custom private tours and support</span>
+          </div>
+          <div class="stat">
+            <strong>Guide</strong>
+            <span data-i18n="stat_4">Culture, food and travel tips</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experiences">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="exp_title">Top Mongolia Experiences</h2>
+        <p data-i18n="exp_text">Discover the experiences many international travelers search for before visiting Mongolia.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <article class="card exp-card">
+          <img src="images/experiences/exp-reindeer.jpg" alt="Reindeer experience in Mongolia">
+          <div class="card-body">
+            <span class="tag" data-i18n="exp_tag_1">Northern Mongolia</span>
+            <h3 data-i18n="exp_card_1_title">Reindeer Experience</h3>
+            <p class="muted" data-i18n="exp_card_1_text">Meet Tsaatan reindeer families in the taiga and explore one of Mongolia’s most unique cultures.</p>
+          </div>
+        </article>
+
+        <article class="card exp-card">
+          <img src="images/experiences/exp-eagle-hunter.jpg" alt="Eagle hunter in Mongolia">
+          <div class="card-body">
+            <span class="tag" data-i18n="exp_tag_2">Western Mongolia</span>
+            <h3 data-i18n="exp_card_2_title">Eagle Hunter Experience</h3>
+            <p class="muted" data-i18n="exp_card_2_text">Discover the famous eagle hunter tradition and the beauty of western Mongolia.</p>
+          </div>
+        </article>
+
+        <article class="card exp-card">
+          <img src="images/experiences/exp-gobi-desert.jpg" alt="Gobi desert">
+          <div class="card-body">
+            <span class="tag" data-i18n="exp_tag_3">Southern Mongolia</span>
+            <h3 data-i18n="exp_card_3_title">Gobi Desert Expedition</h3>
+            <p class="muted" data-i18n="exp_card_3_text">Experience sand dunes, camels, cliffs and dramatic desert scenery.</p>
+          </div>
+        </article>
+
+        <article class="card exp-card">
+          <img src="images/experiences/exp-nomadic-life.jpg" alt="Nomadic life">
+          <div class="card-body">
+            <span class="tag" data-i18n="exp_tag_4">Central Mongolia</span>
+            <h3 data-i18n="exp_card_4_title">Nomadic Life Experience</h3>
+            <p class="muted" data-i18n="exp_card_4_text">Stay with local families and enjoy authentic Mongolian countryside life.</p>
+          </div>
+        </article>
+
+        <article class="card exp-card">
+          <img src="images/experiences/exp-khuvsgul-lake.jpg" alt="Khuvsgul Lake">
+          <div class="card-body">
+            <span class="tag" data-i18n="exp_tag_5">Lake Adventure</span>
+            <h3 data-i18n="exp_card_5_title">Khuvsgul Lake Journey</h3>
+            <p class="muted" data-i18n="exp_card_5_text">Visit Mongolia’s blue pearl with beautiful forests and fresh northern air.</p>
+          </div>
+        </article>
+
+        <article class="card exp-card">
+          <img src="images/experiences/exp-naadam-festival.jpg" alt="Naadam festival">
+          <div class="card-body">
+            <span class="tag" data-i18n="exp_tag_6">Festival Season</span>
+            <h3 data-i18n="exp_card_6_title">Naadam Festival</h3>
+            <p class="muted" data-i18n="exp_card_6_text">Enjoy traditional wrestling, horse racing and archery during Mongolia’s biggest festival.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="destinations">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="dest_title">Explore Mongolia by Destination</h2>
+        <p data-i18n="dest_text">Beautiful destinations, cultural places and nature highlights across Mongolia.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <article class="card dest-card">
+          <img src="images/destinations/dest-khuvsgul-lake.jpg" alt="Khuvsgul Lake">
+          <div class="card-body">
+            <h3>Khuvsgul</h3>
+            <p class="muted" data-i18n="dest_1">Lake, taiga and northern adventures.</p>
+          </div>
+        </article>
+
+        <article class="card dest-card">
+          <img src="images/destinations/dest-altai-mountains.jpg" alt="Altai Mountains">
+          <div class="card-body">
+            <h3>Altai Mountains</h3>
+            <p class="muted" data-i18n="dest_2">High mountains, glaciers and western Mongolia landscapes.</p>
+          </div>
+        </article>
+
+        <article class="card dest-card">
+          <img src="images/destinations/dest-gobi-desert.jpg" alt="Gobi Desert">
+          <div class="card-body">
+            <h3>Gobi Desert</h3>
+            <p class="muted" data-i18n="dest_3">Sand dunes, camels and dramatic desert views.</p>
+          </div>
+        </article>
+
+        <article class="card dest-card">
+          <img src="images/destinations/dest-terelj-national-park.jpg" alt="Terelj National Park">
+          <div class="card-body">
+            <h3>Terelj National Park</h3>
+            <p class="muted" data-i18n="dest_4">Rock formations, valleys and easy short trips from Ulaanbaatar.</p>
+          </div>
+        </article>
+
+        <article class="card dest-card">
+          <img src="images/destinations/dest-karakorum.jpg" alt="Karakorum">
+          <div class="card-body">
+            <h3>Karakorum</h3>
+            <p class="muted" data-i18n="dest_5">Historic capital and central Mongolia culture.</p>
+          </div>
+        </article>
+
+        <article class="card dest-card">
+          <img src="images/destinations/dest-orkhon-valley.jpg" alt="Orkhon Valley">
+          <div class="card-body">
+            <h3>Orkhon Valley</h3>
+            <p class="muted" data-i18n="dest_6">Waterfalls, green valleys and classic nomadic scenery.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="tours">
+  <div class="container">
+    <div class="section-head">
+      <h2 data-i18n="tour_title">Featured Tours</h2>
+      <p data-i18n="tour_text">Choose from private experiences and cultural routes across Mongolia.</p>
+    </div>
+
+    <div class="grid grid-2">
+
+      <a href="tours/terelj-hustai-tour.html" class="tour-link">
+        <article class="card tour-card">
+          <img src="images/destinations/dest-terelj-national-park.jpg" alt="Terelj Hustai Tour">
+          <div class="card-body">
+            <span class="tag">Short Tour</span>
+            <h3>3 Day Terelj & Hustai Tour</h3>
+            <p class="muted">Perfect for travelers who want nature, horses and countryside views near Ulaanbaatar.</p>
+            <div class="price">View Tour Details</div>
+          </div>
+        </article>
+      </a>
+
+      <a href="tours/central-mongolia-tour.html" class="tour-link">
+        <article class="card tour-card">
+          <img src="images/destinations/dest-orkhon-valley.jpg" alt="Central Mongolia Tour">
+          <div class="card-body">
+            <span class="tag">Cultural Tour</span>
+            <h3>5 Day Central Mongolia Tour</h3>
+            <p class="muted">Discover Karakorum, Orkhon Valley and authentic nomadic life.</p>
+            <div class="price">View Tour Details</div>
+          </div>
+        </article>
+      </a>
+
+      <a href="tours/reindeer-taiga-tour.html" class="tour-link">
+        <article class="card tour-card">
+          <img src="images/experiences/exp-reindeer.jpg" alt="Reindeer Taiga Tour">
+          <div class="card-body">
+            <span class="tag">Northern Adventure</span>
+            <h3>7 Day Reindeer Taiga Tour</h3>
+            <p class="muted">Travel north and meet reindeer families in remote forest landscapes.</p>
+            <div class="price">View Tour Details</div>
+          </div>
+        </article>
+      </a>
+
+      <a href="tours/altai-tavan-bogd-tour.html" class="tour-link">
+        <article class="card tour-card">
+          <img src="images/destinations/dest-altai-mountains.jpg" alt="Altai Tavan Bogd Tour">
+          <div class="card-body">
+            <span class="tag">Western Adventure</span>
+            <h3>Altai Tavan Bogd Tour</h3>
+            <p class="muted">Explore glaciers, mountains and dramatic western Mongolia scenery.</p>
+            <div class="price">View Tour Details</div>
+          </div>
+        </article>
+      </a>
+
+      <a href="tours/gobi-desert-tour.html" class="tour-link">
+        <article class="card tour-card">
+          <img src="images/experiences/exp-gobi-desert.jpg" alt="Gobi Desert Tour">
+          <div class="card-body">
+            <span class="tag">Desert Tour</span>
+            <h3>Gobi Desert Tour</h3>
+            <p class="muted">Experience sand dunes, flaming cliffs, camels and vast desert landscapes.</p>
+            <div class="price">View Tour Details</div>
+          </div>
+        </article>
+      </a>
+
+      <a href="tours/gobi-altai-combo-tour.html" class="tour-link">
+        <article class="card tour-card">
+          <img src="images/destinations/dest-gobi-desert.jpg" alt="Gobi Altai Combo Tour">
+          <div class="card-body">
+            <span class="tag">Combo Tour</span>
+            <h3>Gobi Altai Combo Tour</h3>
+            <p class="muted">A combined journey through desert highlights and western mountain landscapes.</p>
+            <div class="price">View Tour Details</div>
+          </div>
+        </article>
+      </a>
+
+      <a href="tours/khuvsgul-lake-tour.html" class="tour-link">
+        <article class="card tour-card">
+          <img src="images/experiences/exp-khuvsgul-lake.jpg" alt="Khuvsgul Lake Tour">
+          <div class="card-body">
+            <span class="tag">Lake Adventure</span>
+            <h3>Khuvsgul Lake Tour</h3>
+            <p class="muted">Visit Mongolia’s blue pearl with forests, fresh air and beautiful northern views.</p>
+            <div class="price">View Tour Details</div>
+          </div>
+        </article>
+      </a>
+
+      <a href="tours/naadam-festival-tour.html" class="tour-link">
+        <article class="card tour-card">
+          <img src="images/experiences/exp-naadam-festival.jpg" alt="Naadam Festival Tour">
+          <div class="card-body">
+            <span class="tag">Festival Tour</span>
+            <h3>Naadam Festival Tour</h3>
+            <p class="muted">Enjoy wrestling, horse racing and archery during Mongolia’s biggest festival.</p>
+            <div class="price">View Tour Details</div>
+          </div>
+        </article>
+      </a>
+
+      <a href="tours/ice-festival-tour.html" class="tour-link">
+        <article class="card tour-card">
+          <img src="images/experiences/exp-khuvsgul-lake.jpg" alt="Ice Festival Tour">
+          <div class="card-body">
+            <span class="tag">Winter Tour</span>
+            <h3>Ice Festival Tour</h3>
+            <p class="muted">Discover Mongolia’s winter beauty and experience the famous ice festival.</p>
+            <div class="price">View Tour Details</div>
+          </div>
+        </article>
+      </a>
+
+      <a href="tours/mongolia-grand-tour.html" class="tour-link">
+        <article class="card tour-card">
+          <img src="images/hero/hero-1-mongolia.jpg" alt="Mongolia Grand Tour">
+          <div class="card-body">
+            <span class="tag">Grand Journey</span>
+            <h3>Mongolia Grand Tour</h3>
+            <p class="muted">A longer all-in-one route covering culture, nature, steppe and iconic destinations.</p>
+            <div class="price">View Tour Details</div>
+          </div>
+        </article>
+      </a>
+
+    </div>
+  </div>
+</section>
+  
+
+  <section id="guide" class="services">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="guide_title">Mongolia Travel Guide</h2>
+        <p data-i18n="guide_text">Helpful information for first-time visitors planning a trip to Mongolia.</p>
+      </div>
+
+      <div class="guide-wrap">
+        <div class="guide-main">
+          <h3 data-i18n="guide_main_title">What Travelers Need to Know Before Visiting Mongolia</h3>
+          <p class="muted" data-i18n="guide_main_text">Mongolia is a vast country with long travel distances, beautiful nature and unique nomadic culture. This guide helps travelers understand weather, food, transport and local travel realities.</p>
+
+          <div class="guide-grid">
+            <div class="guide-mini">
+              <h4 data-i18n="guide_1_title">Nomadic Culture</h4>
+              <p class="muted" data-i18n="guide_1_text">Learn about ger life, livestock and countryside hospitality.</p>
+              <a class="btn btn-primary" href="guide/nomadic-culture.html" data-i18n="read_more">Read More</a>
+            </div>
+            <div class="guide-mini">
+              <h4 data-i18n="guide_2_title">Religion & Traditions</h4>
+              <p class="muted" data-i18n="guide_2_text">Buddhism, ovoo traditions and local customs.</p>
+              <a class="btn btn-primary" href="guide/religion-traditions.html" data-i18n="read_more">Read More</a>
+            </div>
+            <div class="guide-mini">
+              <h4 data-i18n="guide_3_title">Food & Taste</h4>
+              <p class="muted" data-i18n="guide_3_text">Traditional dishes, dairy food and tour meal expectations.</p>
+              <a class="btn btn-primary" href="guide/mongolian-food.html" data-i18n="read_more">Read More</a>
+            </div>
+            <div class="guide-mini">
+              <h4 data-i18n="guide_4_title">Weather & Seasons</h4>
+              <p class="muted" data-i18n="guide_4_text">Summer travel, winter conditions and what to pack.</p>
+              <a class="btn btn-primary" href="guide/weather-seasons.html" data-i18n="read_more">Read More</a>
+            </div>
+            <div class="guide-mini">
+              <h4 data-i18n="guide_5_title">Money & Currency</h4>
+              <p class="muted" data-i18n="guide_5_text">Cash, card use and typical travel costs in Mongolia.</p>
+              <a class="btn btn-primary" href="guide/money-currency.html" data-i18n="read_more">Read More</a>
+            </div>
+            <div class="guide-mini">
+              <h4 data-i18n="guide_6_title">Transport Reality</h4>
+              <p class="muted" data-i18n="guide_6_text">Travel distances, road conditions and why private transport helps.</p>
+              <a class="btn btn-primary" href="guide/transport-reality.html" data-i18n="read_more">Read More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card guide-card">
+            <img src="images/destinations/dest-terelj-national-park.jpg" alt="Transport guide">
+            <div class="card-body">
+              <h3 data-i18n="side_guide_1_title">Transport in Mongolia</h3>
+              <p class="muted" data-i18n="side_guide_1_text">Understand buses, flights, trains and remote travel challenges.</p>
+              <a class="btn btn-primary" href="guide/transport-in-mongolia.html" data-i18n="read_more">Read More</a>
+            </div>
+          </article>
+
+          <article class="card guide-card">
+            <img src="images/experiences/exp-nomadic-life.jpg" alt="Mongolian ger">
+            <div class="card-body">
+              <h3 data-i18n="side_guide_2_title">Mongolian Ger & Daily Life</h3>
+              <p class="muted" data-i18n="side_guide_2_text">Learn about ger etiquette and countryside daily life.</p>
+              <a class="btn btn-primary" href="guide/mongolian-ger-daily-life.html" data-i18n="read_more">Read More</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="videos" class="video-section">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="video_title">Discover Mongolia Videos</h2>
+        <p data-i18n="video_text">Watch real travel moments, landscapes and local experiences.</p>
+      </div>
+
+      <div class="video-main">
+        <iframe src="https://www.youtube.com/embed/I3UwzFhugZU" title="Discover Mongolia main video" allowfullscreen></iframe>
+      </div>
+
+      <div class="video-small">
+        <iframe src="https://www.youtube.com/embed/oLMVrk5xGw0" title="Mongolia video 1" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/Cr8ofaL-Ilw" title="Mongolia video 2" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/Pni2kcTipaw" title="Mongolia video 3" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="gallery_title">Mongolia Gallery</h2>
+        <p data-i18n="gallery_text">Real travel photos from Mongolia landscapes, nomadic life and experiences.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <img src="images/gallery/gallery1.jpg" alt="Mongolia gallery 1">
+        <img src="images/gallery/gallery2.jpg" alt="Mongolia gallery 2">
+        <img src="images/gallery/gallery3.jpg" alt="Mongolia gallery 3">
+        <img src="images/gallery/gallery4.jpg" alt="Mongolia gallery 4">
+        <img src="images/gallery/gallery5.jpg" alt="Mongolia gallery 5">
+        <img src="images/gallery/gallery6.jpg" alt="Mongolia gallery 6">
+        <img src="images/gallery/gallery7.jpg" alt="Mongolia gallery 7">
+        <img src="images/gallery/gallery8.jpg" alt="Mongolia gallery 8">
+        <img src="images/gallery/gallery9.jpg" alt="Mongolia gallery 9">
+        <img src="images/gallery/gallery10.jpg" alt="Mongolia gallery 10">
+        <img src="images/gallery/gallery11.jpg" alt="Mongolia gallery 11">
+        <img src="images/gallery/gallery12.jpg" alt="Mongolia gallery 12">
+        <img src="images/gallery/gallery13.jpg" alt="Mongolia gallery 13">
+        <img src="images/gallery/gallery14.jpg" alt="Mongolia gallery 14">
+        <img src="images/gallery/gallery15.jpg" alt="Mongolia gallery 15">
+        <img src="images/gallery/gallery16.jpg" alt="Mongolia gallery 16">
+        <img src="images/gallery/gallery17.jpg" alt="Mongolia gallery 17">
+        <img src="images/gallery/gallery18.jpg" alt="Mongolia gallery 18">
+        <img src="images/gallery/gallery19.jpg" alt="Mongolia gallery 19">
+        <img src="images/gallery/gallery20.jpg" alt="Mongolia gallery 20">
+         <img src="images/gallery/gallery21.jpg" alt="Mongolia gallery 21">
+        <img src="images/gallery/gallery22.jpg" alt="Mongolia gallery 22">
+        <img src="images/gallery/gallery23.jpg" alt="Mongolia gallery 23">
+        <img src="images/gallery/gallery24.jpg" alt="Mongolia gallery 24">
+        <img src="images/gallery/gallery25.jpg" alt="Mongolia gallery 25">
+        <img src="images/gallery/gallery26.jpg" alt="Mongolia gallery 26">
+        <img src="images/gallery/gallery27.jpg" alt="Mongolia gallery 27">
+        <img src="images/gallery/gallery28.jpg" alt="Mongolia gallery 28">
+        <img src="images/gallery/gallery29.jpg" alt="Mongolia gallery 29">
+        <img src="images/gallery/gallery30.jpg" alt="Mongolia gallery 30">
+      </div>
+    </div>
+  </section>
+
+
+  <section id="hotels" class="soft-section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Hotels & Camps</h2>
+        <p>Trusted accommodation partners submitted to our team and reviewed before publishing.</p>
+      </div>
+
+      <div class="grid grid-3" id="hotel-list"></div>
+
+      <div class="section-head" style="margin-top:42px">
+        <h3>List Your Hotel or Camp</h3>
+        <p>Accommodation owners can submit property details for review.</p>
+      </div>
+
+      <form id="hotel-form">
+        <div class="form-grid">
+          <div>
+            <label>Property Name</label>
+            <input type="text" id="hotel_name" required>
+          </div>
+          <div>
+            <label>Property Type</label>
+            <select id="hotel_type" required>
+              <option value="">Select type</option>
+              <option>Hotel</option>
+              <option>Ger Camp</option>
+              <option>Tourist Camp</option>
+              <option>Guesthouse</option>
+              <option>Lodge</option>
+              <option>Resort</option>
+              <option>Homestay</option>
+            </select>
+          </div>
+          <div>
+            <label>Location</label>
+            <input type="text" id="hotel_location" placeholder="Terelj / Gobi / Ulaanbaatar" required>
+          </div>
+          <div>
+            <label>Price From</label>
+            <input type="text" id="hotel_price" placeholder="From $80 per night">
+          </div>
+          <div>
+            <label>Contact Person</label>
+            <input type="text" id="hotel_contact_person">
+          </div>
+          <div>
+            <label>Email</label>
+            <input type="email" id="hotel_email">
+          </div>
+          <div>
+            <label>Phone / WhatsApp</label>
+            <input type="text" id="hotel_phone">
+          </div>
+          <div>
+            <label>Hotel Image</label>
+            <input type="file" id="hotel_image_file" accept="image/*" required>
+          </div>
+          <div class="full">
+            <label>Short Description</label>
+            <textarea id="hotel_description" placeholder="Tell travelers about your property, room style, view and key facilities."></textarea>
+          </div>
+          <div class="full submit-actions">
+            <button class="btn btn-primary" type="submit">Submit Hotel / Camp</button>
+          </div>
+          <div class="full"><div id="hotel-notice" class="notice"></div></div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+
+<section id="guides" class="soft-section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Meet the Guides</h2>
+      <p>Professional local guides across Mongolia. Each guide profile is reviewed before publishing.</p>
+    </div>
+
+    <div class="grid grid-3" id="guide-list"></div>
+
+    <div class="section-head" style="margin-top:42px">
+      <h3>Apply as a Guide</h3>
+      <p>Guides can submit their profile for review and approval.</p>
+    </div>
+
+    <form id="guide-form">
+      <div class="form-grid">
+        <div>
+          <label>Full Name</label>
+          <input type="text" id="guide_name" required>
+        </div>
+        <div>
+          <label>Age</label>
+          <input type="number" id="guide_age" min="18" max="80">
+        </div>
+
+        <div>
+          <label>Gender</label>
+          <select id="guide_gender">
+            <option value="">Select gender</option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+        <div>
+          <label>Phone / WhatsApp</label>
+          <input type="text" id="guide_phone">
+        </div>
+
+        <div>
+          <label>Email</label>
+          <input type="email" id="guide_email">
+        </div>
+        <div>
+          <label>Profile Photo</label>
+          <input type="file" id="guide_image_file" accept="image/*" required>
+        </div>
+
+        <div>
+          <label>Years of Experience</label>
+          <input type="text" id="guide_experience" placeholder="e.g. 8 years">
+        </div>
+        <div>
+          <label>Languages & Level</label>
+          <input type="text" id="guide_languages" placeholder="English - Advanced, Korean - Intermediate">
+        </div>
+
+        <div>
+          <label>Tour Regions</label>
+          <input type="text" id="guide_regions" placeholder="Gobi, Khangai, Khuvsgul, Terelj">
+        </div>
+        <div>
+          <label>Special Interests / Expertise</label>
+          <input type="text" id="guide_specialties" placeholder="Culture, photography, adventure, nomadic life">
+        </div>
+
+        <div>
+          <label>Day Rate / Price</label>
+          <input type="text" id="guide_price" placeholder="From $80 per day">
+        </div>
+        <div>
+          <label>Guide Type</label>
+          <select id="guide_type">
+            <option value="">Select type</option>
+            <option>Local Guide</option>
+            <option>Driver Guide</option>
+            <option>Cultural Guide</option>
+            <option>Adventure Guide</option>
+            <option>Photography Guide</option>
+          </select>
+        </div>
+
+        <div class="full">
+          <label>Short Bio</label>
+          <textarea id="guide_bio" placeholder="Tell travelers about your experience, personality and guide style."></textarea>
+        </div>
+
+        <div class="full submit-actions">
+          <button class="btn btn-primary" type="submit">Submit Guide</button>
+        </div>
+        <div class="full"><div id="guide-notice" class="notice"></div></div>
+      </div>
+    </form>
+  </div>
+</section>
+  <section id="cars">
+    <div class="container">
+      <div class="section-head">
+        <h2>Car Rental & Private Transport</h2>
+        <p>Private drivers, airport transfer and countryside vehicles for international travelers.</p>
+      </div>
+
+      <div class="grid grid-3" id="car-list"></div>
+
+      <div class="section-head" style="margin-top:42px">
+        <h3>Offer Transport Service</h3>
+        <p>Drivers and vehicle owners can submit their service for review.</p>
+      </div>
+
+      <form id="car-form">
+        <div class="form-grid">
+          <div>
+            <label>Service Title</label>
+            <input type="text" id="car_title" placeholder="Airport Transfer / 4x4 with Driver" required>
+          </div>
+          <div>
+            <label>Vehicle Type</label>
+            <select id="car_type" required>
+              <option value="">Select type</option>
+              <option>Airport Transfer</option>
+              <option>Private Driver</option>
+              <option>4x4 with Driver</option>
+              <option>Starex / Van</option>
+              <option>Alphard</option>
+              <option>SUV</option>
+            </select>
+          </div>
+          <div>
+            <label>Seats</label>
+            <input type="text" id="car_seats" placeholder="4 / 6 / 10" >
+          </div>
+          <div>
+            <label>Daily Rate</label>
+            <input type="text" id="car_rate" placeholder="From $120 per day">
+          </div>
+          <div>
+            <label>Contact Name</label>
+            <input type="text" id="car_contact_name">
+          </div>
+          <div>
+            <label>Phone / WhatsApp</label>
+            <input type="text" id="car_phone">
+          </div>
+          <div>
+            <label>Email</label>
+            <input type="email" id="car_email">
+          </div>
+          <div>
+            <label>Car Image</label>
+            <input type="file" id="car_image_file" accept="image/*" required>
+          </div>
+          <div class="full">
+            <label>Description</label>
+            <textarea id="car_description" placeholder="Describe service area, driver, luggage, road type and any special features."></textarea>
+          </div>
+          <div class="full submit-actions">
+            <button class="btn btn-primary" type="submit">Submit Transport Service</button>
+          </div>
+          <div class="full"><div id="car-notice" class="notice"></div></div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section id="reviews" class="soft-section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Traveler Reviews</h2>
+        <p>Real travel feedback reviewed by our team before it appears on the website.</p>
+      </div>
+
+      <div class="grid grid-3" id="review-list"></div>
+
+      <div class="section-head" style="margin-top:42px">
+        <h3>Share Your Experience</h3>
+        <p>Travelers can submit a review and photo from their Mongolia trip.</p>
+      </div>
+
+      <form id="review-form">
+        <div class="form-grid">
+          <div>
+            <label>Traveler Name</label>
+            <input type="text" id="review_name" required>
+          </div>
+          <div>
+            <label>Country</label>
+            <input type="text" id="review_country" placeholder="Japan / Korea / USA" required>
+          </div>
+          <div>
+            <label>Rating</label>
+            <select id="review_rating" required>
+              <option value="">Select rating</option>
+              <option value="5">5 Stars</option>
+              <option value="4">4 Stars</option>
+              <option value="3">3 Stars</option>
+              <option value="2">2 Stars</option>
+              <option value="1">1 Star</option>
+            </select>
+          </div>
+          <div>
+            <label>Image URL</label>
+            <input type="url" id="review_image" placeholder="https://...">
+          </div>
+          <div class="full">
+            <label>Review</label>
+            <textarea id="review_text" placeholder="Tell future travelers about your tour, driver, stay or overall experience." required></textarea>
+          </div>
+          <div class="full submit-actions">
+            <button class="btn btn-primary" type="submit">Submit Review</button>
+          </div>
+          <div class="full"><div id="review-notice" class="notice"></div></div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-wrap">
+        <div class="about-photo"></div>
+
+        <div>
+          <div class="section-head" style="margin-bottom:16px">
+            <h2 data-i18n="about_title">About Your Local Mongolia Travel Expert</h2>
+          </div>
+
+          <p data-i18n="about_text_1">This website is designed to help travelers discover Mongolia through real local knowledge, practical travel support and memorable cultural experiences.</p>
+          <p data-i18n="about_text_2">From destinations and tours to travel guide information, the goal is to help visitors explore Mongolia comfortably and confidently.</p>
+
+          <div class="feature-list">
+            <div class="feature-item" data-i18n="feature_1">Local destination knowledge across Mongolia</div>
+            <div class="feature-item" data-i18n="feature_2">Support for private tours and trip planning</div>
+            <div class="feature-item" data-i18n="feature_3">Travel ideas for nature, culture and adventure</div>
+            <div class="feature-item" data-i18n="feature_4">Friendly help for international travelers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="section-head">
+        <h2 data-i18n="contact_title">Plan Your Mongolia Trip</h2>
+        <p data-i18n="contact_text">Contact us for private tours, travel questions or planning support.</p>
+      </div>
+
+      <div class="booking-wrap">
+        <div class="contact-card">
+          <h3 data-i18n="quick_contact">Quick Contact</h3>
+          <ul>
+            <li><strong>WhatsApp:</strong> +976 90283039</li>
+            <li><strong>Email:</strong> hello@discovermongoliatours.com</li>
+            <li><strong>Address:</strong> Ulaanbaatar, Bayanzurkh district, 42nd building, Apartment 117</li>
+            <li data-i18n="support_lang"><strong>Support:</strong> English, Japanese and Korean inquiry support</li>
+          </ul>
+
+          <a class="btn btn-primary paypal-btn" href="YOUR_PAYPAL_LINK_HERE" target="_blank">Pay with PayPal</a>
+        </div>
+
+        <form>
+          <div class="form-grid">
+            <div>
+              <label data-i18n="form_name">Full Name</label>
+              <input type="text" placeholder="Your name">
+            </div>
+            <div>
+              <label data-i18n="form_country">Country</label>
+              <input type="text" placeholder="Japan / Korea / USA">
+            </div>
+            <div>
+              <label data-i18n="form_email">Email</label>
+              <input type="email" placeholder="you@example.com">
+            </div>
+            <div>
+              <label data-i18n="form_dates">Travel Dates</label>
+              <input type="text" placeholder="July 10 - July 18">
+            </div>
+            <div>
+              <label data-i18n="form_travelers">Travelers</label>
+              <select>
+                <option>1</option>
+                <option>2</option>
+                <option>3-4</option>
+                <option>5+</option>
+              </select>
+            </div>
+            <div>
+              <label data-i18n="form_interest">Interested In</label>
+              <select>
+                <option>VIP Tour</option>
+                <option>Private Transport</option>
+                <option>Travel Guide</option>
+                <option>Custom Travel Plan</option>
+              </select>
+            </div>
+            <div class="full">
+              <label data-i18n="form_message">Message</label>
+              <textarea placeholder="Tell us where you want to go in Mongolia..."></textarea>
+            </div>
+            <div class="full">
+              <button class="btn btn-primary" type="submit" data-i18n="form_send">Send Inquiry</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-wrap">
+      <div>© 2026 Discover Mongolia Tours</div>
+      <div data-i18n="footer_text">Local travel guide, private tours and Mongolia trip planning.</div>
+    </div>
+  </footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "https://ebpjetcuabubihzximbb.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_3F9zG4HoMOCgU4yHvUkiKw_h5VTeeRF";
+
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  console.log("SUPABASE OK", supabaseClient);
+
+  const fallbackImage = 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80';
+  const fallbackCarImage = 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80';
+  const fallbackReviewImage = 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80';
+  const HOTEL_IMAGE_BUCKET = 'hotel-images';
+  const CAR_IMAGE_BUCKET = 'driver-images';
+  const GUIDE_IMAGE_BUCKET = 'guide-images';
+
+  function sanitizeFileName(name) {
+    return String(name || 'image')
+      .toLowerCase()
+      .replace(/[^a-z0-9._-]+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
+  async function uploadImageToBucket(bucketName, file, folder = 'uploads') {
+    if (!file) return '';
+
+    const cleanName = sanitizeFileName(file.name);
+    const filePath = `${folder}/${Date.now()}-${cleanName}`;
+
+    const { error: uploadError } = await supabaseClient.storage
+      .from(bucketName)
+      .upload(filePath, file, { upsert: false });
+
+    if (uploadError) {
+      throw uploadError;
+    }
+
+    const { data } = supabaseClient.storage
+      .from(bucketName)
+      .getPublicUrl(filePath);
+
+    return data?.publicUrl || '';
+  }
+
+  function showNotice(id, message, type = 'success') {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.className = `notice ${type}`;
+    el.textContent = message;
+  }
+
+  function stars(n) {
+    const count = Number(n || 0);
+    return '★'.repeat(count) + '☆'.repeat(Math.max(0, 5 - count));
+  }
+
+  async function loadHotels() {
+    const { data, error } = await supabaseClient
+      .from('property_submissions')
+      .select('*')
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(6);
+
+    if (error) {
+      console.error('loadHotels error:', error);
+      return;
+    }
+
+    const wrap = document.getElementById('hotel-list');
+    if (!wrap) return;
+
+    wrap.innerHTML = data.length
+      ? data.map(item => `
+        <article class="card listing-card">
+          <img src="${item.image_url || fallbackImage}" alt="${item.name || 'Hotel'}" onerror="this.onerror=null;this.src='${fallbackImage}'">
+          <div class="card-body">
+            <span class="tag">${item.property_type || 'Property'}</span>
+            <h3>${item.name || ''}</h3>
+            <p class="muted">${item.location || ''}</p>
+            <div class="listing-meta">
+              ${item.price ? `<span class="pill">${item.price}</span>` : ''}
+              ${item.phone ? `<span class="pill">${item.phone}</span>` : ''}
+            </div>
+            <p class="muted">${item.description || ''}</p>
+          </div>
+        </article>
+      `).join('')
+      : '<p class="muted">No hotel listings published yet.</p>';
+  }
+async function loadGuides() {
+  const { data, error } = await supabaseClient
+    .from('guide_submissions')
+    .select('*')
+    .eq('status', 'approved')
+    .order('created_at', { ascending: false })
+    .limit(12);
+
+  if (error) {
+    console.error('loadGuides error:', error);
+    return;
+  }
+
+  const wrap = document.getElementById('guide-list');
+  if (!wrap) return;
+
+  wrap.innerHTML = data.length
+    ? data.map(item => `
+      <article class="card listing-card">
+        <img src="${item.profile_image_url || fallbackImage}" alt="${item.full_name || 'Guide'}" onerror="this.onerror=null;this.src='${fallbackImage}'">
+        <div class="card-body">
+          <span class="tag">${item.guide_type || 'Local Guide'}</span>
+          <h3>${item.full_name || ''}</h3>
+          <p class="muted">
+            ${item.age ? item.age + ' yrs' : ''}${item.gender ? ' • ' + item.gender : ''}
+          </p>
+
+          <div class="listing-meta">
+            ${item.experience_years ? `<span class="pill">${item.experience_years}</span>` : ''}
+            ${item.languages ? `<span class="pill">${item.languages}</span>` : ''}
+            ${item.special_regions ? `<span class="pill">${item.special_regions}</span>` : ''}
+          </div>
+
+          ${item.special_interests ? `<p class="muted"><strong>Expertise:</strong> ${item.special_interests}</p>` : ''}
+          ${item.price ? `<p class="price">${item.price}</p>` : ''}
+          <p class="muted">${item.bio || ''}</p>
+
+          <div class="listing-meta">
+            ${item.phone ? `<span class="pill">📞 ${item.phone}</span>` : ''}
+            ${item.email ? `<span class="pill">✉️ ${item.email}</span>` : ''}
+          </div>
+        </div>
+      </article>
+    `).join('')
+    : '<p class="muted">No guide profiles published yet.</p>';
+}
+async function loadCars() {
+  const { data, error } = await supabaseClient
+    .from('vehicle_submissions')
+    .select('*')
+    .eq('status', 'approved');
+
+  const container = document.getElementById('car-list');
+  if (!container) return;
+
+  if (error) {
+    console.error('loadCars error:', error);
+    container.innerHTML = '<p>Car listings could not be loaded.</p>';
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    container.innerHTML = '<p>No car listings available yet.</p>';
+    return;
+  }
+
+  container.innerHTML = '';
+
+  data.forEach(item => {
+    const imageSrc = item.image_url && item.image_url.trim() !== ''
+      ? item.image_url
+      : 'https://via.placeholder.com/800x500?text=No+Image';
+
+    container.innerHTML += `
+      <div style="
+        background:#fff;
+        border:1px solid #e5e7eb;
+        border-radius:16px;
+        overflow:hidden;
+        box-shadow:0 6px 18px rgba(0,0,0,0.08);
+        margin-bottom:24px;
+      ">
+        <div style="width:100%; height:240px; overflow:hidden; background:#f3f4f6;">
+          <img
+            src="${imageSrc}"
+            alt="${item.title || 'Car rental'}"
+            style="width:100%; height:100%; object-fit:cover; display:block;"
+            onerror="this.src='https://via.placeholder.com/800x500?text=No+Image';"
+          />
+        </div>
+
+        <div style="padding:18px;">
+          <h3 style="
+            margin:0 0 10px;
+            font-size:22px;
+            font-weight:700;
+            color:#111827;
+          ">
+            ${item.title || 'Car rental with driver'}
+          </h3>
+
+          <p style="
+            margin:0 0 12px;
+            color:#4b5563;
+            line-height:1.6;
+            font-size:15px;
+          ">
+            ${item.description || ''}
+          </p>
+
+          <div style="
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            align-items:center;
+            margin-top:10px;
+          ">
+            <span style="
+              display:inline-block;
+              background:#f3f4f6;
+              color:#111827;
+              padding:8px 12px;
+              border-radius:999px;
+              font-size:14px;
+              font-weight:600;
+            ">
+              📞 ${item.phone || 'No phone'}
+            </span>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+  async function loadReviews() {
+    const { data, error } = await supabaseClient
+      .from('review_submissions')
+      .select('*')
+      .eq('status', 'approved')
+      .order('created_at', { ascending: false })
+      .limit(6);
+
+    if (error) {
+      console.error('loadReviews error:', error);
+      return;
+    }
+
+    const wrap = document.getElementById('review-list');
+    if (!wrap) return;
+
+    wrap.innerHTML = data.length
+      ? data.map(item => `
+        <article class="card review-card">
+          <img src="${item.image_url || fallbackReviewImage}" alt="${item.traveler_name || 'Traveler review'}" onerror="this.onerror=null;this.src='${fallbackReviewImage}'">
+          <div class="card-body">
+            <span class="tag">${stars(item.rating)}</span>
+            <h3>${item.traveler_name || ''}</h3>
+            <p class="muted">${item.country || ''}</p>
+            <p class="muted">${item.review_text || ''}</p>
+          </div>
+        </article>
+      `).join('')
+      : '<p class="muted">No traveler reviews published yet.</p>';
+  }
+
+  async function insertHotelSubmission(e) {
+    e.preventDefault();
+
+    try {
+      const imageFile = document.getElementById('hotel_image_file')?.files?.[0];
+
+      if (!imageFile) {
+        showNotice('hotel-notice', 'Please choose a hotel image.', 'error');
+        return;
+      }
+
+      showNotice('hotel-notice', 'Uploading image...', 'success');
+      const imageUrl = await uploadImageToBucket(HOTEL_IMAGE_BUCKET, imageFile, 'hotels');
+
+      const payload = {
+        name: document.getElementById('hotel_name').value.trim(),
+        property_type: document.getElementById('hotel_type').value,
+        location: document.getElementById('hotel_location').value.trim(),
+        price: document.getElementById('hotel_price').value.trim(),
+        email: document.getElementById('hotel_email').value.trim(),
+        phone: document.getElementById('hotel_phone').value.trim(),
+        image_url: imageUrl,
+        description: document.getElementById('hotel_description').value.trim(),
+        status: 'pending'
+      };
+
+      const { error } = await supabaseClient.from('property_submissions').insert([payload]);
+
+      if (error) {
+        throw error;
+      }
+
+      document.getElementById('hotel-form').reset();
+      showNotice('hotel-notice', 'Hotel or camp submitted successfully. We will review it before publishing.');
+    } catch (error) {
+      console.error('hotel insert error:', error);
+      showNotice('hotel-notice', error.message || 'Hotel submission failed.', 'error');
+    }
+  }
+async function insertGuideSubmission(e) {
+  e.preventDefault();
+
+  try {
+    const imageFile = document.getElementById('guide_image_file')?.files?.[0];
+
+    if (!imageFile) {
+      showNotice('guide-notice', 'Please choose a guide profile photo.', 'error');
+      return;
+    }
+
+    showNotice('guide-notice', 'Uploading profile photo...', 'success');
+    const imageUrl = await uploadImageToBucket(GUIDE_IMAGE_BUCKET, imageFile, 'guides');
+
+    const payload = {
+      full_name: document.getElementById('guide_name').value.trim(),
+      age: document.getElementById('guide_age').value ? Number(document.getElementById('guide_age').value) : null,
+      gender: document.getElementById('guide_gender').value,
+      phone: document.getElementById('guide_phone').value.trim(),
+      email: document.getElementById('guide_email').value.trim(),
+      profile_image_url: imageUrl,
+      experience_years: document.getElementById('guide_experience').value.trim(),
+      languages: document.getElementById('guide_languages').value.trim(),
+      special_regions: document.getElementById('guide_regions').value.trim(),
+      special_interests: document.getElementById('guide_specialties').value.trim(),
+      guide_type: document.getElementById('guide_type').value,
+      price: document.getElementById('guide_price').value.trim(),
+      bio: document.getElementById('guide_bio').value.trim(),
+      status: 'pending'
+    };
+
+    const { error } = await supabaseClient
+      .from('guide_submissions')
+      .insert([payload]);
+
+    if (error) throw error;
+
+    document.getElementById('guide-form').reset();
+    showNotice('guide-notice', 'Guide profile submitted successfully. We will review it before publishing.');
+  } catch (error) {
+    console.error('guide insert error:', error);
+    showNotice('guide-notice', error.message || 'Guide submission failed.', 'error');
+  }
+}
+  async function insertCarSubmission(e) {
+    e.preventDefault();
+
+    try {
+      const imageFile = document.getElementById('car_image_file')?.files?.[0];
+
+      if (!imageFile) {
+        showNotice('car-notice', 'Please choose a car image.', 'error');
+        return;
+      }
+
+      showNotice('car-notice', 'Uploading image...', 'success');
+      const imageUrl = await uploadImageToBucket(CAR_IMAGE_BUCKET, imageFile, 'cars');
+
+      const payload = {
+        title: document.getElementById('car_title').value.trim(),
+        vehicle_type: document.getElementById('car_type').value,
+        seats: document.getElementById('car_seats').value.trim(),
+        daily_rate: document.getElementById('car_rate').value.trim(),
+        contact_name: document.getElementById('car_contact_name').value.trim(),
+        phone: document.getElementById('car_phone').value.trim(),
+        email: document.getElementById('car_email').value.trim(),
+        image_url: imageUrl,
+        description: document.getElementById('car_description').value.trim(),
+        status: 'pending'
+      };
+
+      const { error } = await supabaseClient.from('vehicle_submissions').insert([payload]);
+
+      if (error) {
+        throw error;
+      }
+
+      document.getElementById('car-form').reset();
+      showNotice('car-notice', 'Transport service submitted successfully. We will review it before publishing.');
+    } catch (error) {
+      console.error('car insert error:', error);
+      showNotice('car-notice', error.message || 'Transport submission failed.', 'error');
+    }
+  }
+
+  async function insertReviewSubmission(e) {
+    e.preventDefault();
+
+    const payload = {
+      traveler_name: document.getElementById('review_name').value.trim(),
+      country: document.getElementById('review_country').value.trim(),
+      rating: document.getElementById('review_rating').value,
+      image_url: document.getElementById('review_image').value.trim(),
+      review_text: document.getElementById('review_text').value.trim(),
+      status: 'pending'
+    };
+
+    const { error } = await supabaseClient.from('review_submissions').insert([payload]);
+
+    if (error) {
+      console.error('review insert error:', error);
+      showNotice('review-notice', error.message, 'error');
+      return;
+    }
+
+    document.getElementById('review-form').reset();
+    showNotice('review-notice', 'Review submitted successfully. We will review it before publishing.');
+  }
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('hotel-form')?.addEventListener('submit', insertHotelSubmission);
+  document.getElementById('car-form')?.addEventListener('submit', insertCarSubmission);
+  document.getElementById('guide-form')?.addEventListener('submit', insertGuideSubmission);
+  document.getElementById('review-form')?.addEventListener('submit', insertReviewSubmission);
+
+  loadHotels();
+  loadCars();
+  loadGuides();
+  loadReviews();
+});
+</script>
+
+<script>
+    const slides = document.querySelectorAll('.hero-slide');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 4000);
+
+    const translations = {
+      en: {
+        topbar_left: "Local Mongolia Travel Expert • Private Tours • Transport Help",
+        topbar_right: "WhatsApp: +976 90283039 • English / 日本語 / 한국어",
+        nav_experiences: "Experiences",
+        nav_destinations: "Destinations",
+        nav_hotels: "Hotels",
+        nav_cars: "Car Rental",
+        nav_reviews: "Reviews",
+        nav_tours: "VIP Tours",
+        nav_guide: "Travel Guide",
+        nav_videos: "Videos",
+        nav_gallery: "Gallery",
+        nav_about: "About",
+        nav_contact: "Contact",
+        hero_eyebrow: "Authentic Mongolia Tours • Nomadic Life • Adventure • Festivals",
+        hero_title: "Discover the Real Mongolia with Local Experts",
+        hero_text: "Explore nomadic culture, reindeer families, Mongolia’s stunning landscapes, private journeys, and unforgettable local travel experiences.",
+        hero_btn_1: "View Tours",
+        hero_btn_2: "Travel Guide",
+        stat_1: "Province guides and destination ideas",
+        stat_2: "Private transport for remote areas",
+        stat_3: "Custom private tours and support",
+        stat_4: "Culture, food and travel tips",
+        exp_title: "Top Mongolia Experiences",
+        exp_text: "Discover the experiences many international travelers search for before visiting Mongolia.",
+        exp_tag_1: "Northern Mongolia",
+        exp_tag_2: "Western Mongolia",
+        exp_tag_3: "Southern Mongolia",
+        exp_tag_4: "Central Mongolia",
+        exp_tag_5: "Lake Adventure",
+        exp_tag_6: "Festival Season",
+        exp_card_1_title: "Reindeer Experience",
+        exp_card_1_text: "Meet Tsaatan reindeer families in the taiga and explore one of Mongolia’s most unique cultures.",
+        exp_card_2_title: "Eagle Hunter Experience",
+        exp_card_2_text: "Discover the famous eagle hunter tradition and the beauty of western Mongolia.",
+        exp_card_3_title: "Gobi Desert Expedition",
+        exp_card_3_text: "Experience sand dunes, camels, cliffs and dramatic desert scenery.",
+        exp_card_4_title: "Nomadic Life Experience",
+        exp_card_4_text: "Stay with local families and enjoy authentic Mongolian countryside life.",
+        exp_card_5_title: "Khuvsgul Lake Journey",
+        exp_card_5_text: "Visit Mongolia’s blue pearl with beautiful forests and fresh northern air.",
+        exp_card_6_title: "Naadam Festival",
+        exp_card_6_text: "Enjoy traditional wrestling, horse racing and archery during Mongolia’s biggest festival.",
+        dest_title: "Explore Mongolia by Destination",
+        dest_text: "Beautiful destinations, cultural places and nature highlights across Mongolia.",
+        dest_1: "Lake, taiga and northern adventures.",
+        dest_2: "High mountains, glaciers and western Mongolia landscapes.",
+        dest_3: "Sand dunes, camels and dramatic desert views.",
+        dest_4: "Rock formations, valleys and easy short trips from Ulaanbaatar.",
+        dest_5: "Historic capital and central Mongolia culture.",
+        dest_6: "Waterfalls, green valleys and classic nomadic scenery.",
+        tour_title: "Featured Tours",
+        tour_text: "Choose from private experiences and cultural routes across Mongolia.",
+        tour_tag_1: "Short Tour",
+        tour_tag_2: "Cultural Tour",
+        tour_tag_3: "Northern Adventure",
+        tour_tag_4: "Western Adventure",
+        tour_1_title: "3 Day Terelj & Hustai Tour",
+        tour_1_text: "Perfect for travelers who want nature, horses and countryside views near Ulaanbaatar.",
+        tour_1_price: "From $280 per person",
+        tour_2_title: "5 Day Central Mongolia Tour",
+        tour_2_text: "Discover Karakorum, Orkhon Valley and authentic nomadic life.",
+        tour_2_price: "From $650 per person",
+        tour_3_title: "7 Day Reindeer Experience",
+        tour_3_text: "Travel north and meet reindeer families in remote forest landscapes.",
+        tour_3_price: "From $1,180 per person",
+        tour_4_title: "10 Day Altai Expedition",
+        tour_4_text: "Premium travel through mountains, glaciers and western Mongolia scenery.",
+        tour_4_price: "From $1,650 per person",
+        guide_title: "Mongolia Travel Guide",
+        guide_text: "Helpful information for first-time visitors planning a trip to Mongolia.",
+        guide_main_title: "What Travelers Need to Know Before Visiting Mongolia",
+        guide_main_text: "Mongolia is a vast country with long travel distances, beautiful nature and unique nomadic culture. This guide helps travelers understand weather, food, transport and local travel realities.",
+        guide_1_title: "Nomadic Culture",
+        guide_1_text: "Learn about ger life, livestock and countryside hospitality.",
+        guide_2_title: "Religion & Traditions",
+        guide_2_text: "Buddhism, ovoo traditions and local customs.",
+        guide_3_title: "Food & Taste",
+        guide_3_text: "Traditional dishes, dairy food and tour meal expectations.",
+        guide_4_title: "Weather & Seasons",
+        guide_4_text: "Summer travel, winter conditions and what to pack.",
+        guide_5_title: "Money & Currency",
+        guide_5_text: "Cash, card use and typical travel costs in Mongolia.",
+        guide_6_title: "Transport Reality",
+        guide_6_text: "Travel distances, road conditions and why private transport helps.",
+        side_guide_1_title: "Transport in Mongolia",
+        side_guide_1_text: "Understand buses, flights, trains and remote travel challenges.",
+        side_guide_2_title: "Mongolian Ger & Daily Life",
+        side_guide_2_text: "Learn about ger etiquette and countryside daily life.",
+        read_more: "Read More",
+        video_title: "Discover Mongolia Videos",
+        video_text: "Watch real travel moments, landscapes and local experiences.",
+        gallery_title: "Mongolia Gallery",
+        gallery_text: "Real travel photos from Mongolia landscapes, nomadic life and experiences.",
+        about_title: "About Your Local Mongolia Travel Expert",
+        about_text_1: "This website is designed to help travelers discover Mongolia through real local knowledge, practical travel support and memorable cultural experiences.",
+        about_text_2: "From destinations and tours to travel guide information, the goal is to help visitors explore Mongolia comfortably and confidently.",
+        feature_1: "Local destination knowledge across Mongolia",
+        feature_2: "Support for private tours and trip planning",
+        feature_3: "Travel ideas for nature, culture and adventure",
+        feature_4: "Friendly help for international travelers",
+        contact_title: "Plan Your Mongolia Trip",
+        contact_text: "Contact us for private tours, travel questions or planning support.",
+        quick_contact: "Quick Contact",
+        support_lang: "Support: English, Japanese and Korean inquiry support",
+        form_name: "Full Name",
+        form_country: "Country",
+        form_email: "Email",
+        form_dates: "Travel Dates",
+        form_travelers: "Travelers",
+        form_interest: "Interested In",
+        form_message: "Message",
+        form_send: "Send Inquiry",
+        footer_text: "Local travel guide, private tours and Mongolia trip planning."
+      },
+      ja: {
+        topbar_left: "モンゴル現地旅行エキスパート • プライベートツアー • 移動サポート",
+        topbar_right: "WhatsApp: +976 90283039 • English / 日本語 / 한국어",
+        nav_experiences: "体験",
+        nav_destinations: "目的地",
+        nav_hotels: "ホテル",
+        nav_cars: "車両サービス",
+        nav_reviews: "レビュー",
+        nav_tours: "VIPツアー",
+        nav_guide: "旅行ガイド",
+        nav_videos: "動画",
+        nav_gallery: "ギャラリー",
+        nav_about: "紹介",
+        nav_contact: "お問い合わせ",
+        hero_eyebrow: "本物のモンゴルツアー • 遊牧民の暮らし • 冒険 • 祭り",
+        hero_title: "現地の専門家と本当のモンゴルを発見",
+        hero_text: "遊牧文化、トナカイ家族、美しい景色、プライベート旅行、忘れられない現地体験を楽しみましょう。",
+        hero_btn_1: "ツアーを見る",
+        hero_btn_2: "旅行ガイド",
+        stat_1: "各地域のガイドと目的地情報",
+        stat_2: "遠方地域への専用送迎",
+        stat_3: "カスタムプライベートツアー",
+        stat_4: "文化・食・旅行のヒント",
+        exp_title: "モンゴル人気体験",
+        exp_text: "モンゴル旅行前に多くの旅行者が探す人気体験をご紹介します。",
+        exp_tag_1: "北モンゴル",
+        exp_tag_2: "西モンゴル",
+        exp_tag_3: "南モンゴル",
+        exp_tag_4: "中央モンゴル",
+        exp_tag_5: "湖の冒険",
+        exp_tag_6: "祭りシーズン",
+        exp_card_1_title: "トナカイ体験",
+        exp_card_1_text: "タイガでツァータンのトナカイ家族に会い、特別な文化を体験します。",
+        exp_card_2_title: "イーグルハンター体験",
+        exp_card_2_text: "有名な鷹匠文化と西モンゴルの美しい景色を楽しみます。",
+        exp_card_3_title: "ゴビ砂漠探検",
+        exp_card_3_text: "砂丘、ラクダ、断崖絶壁など壮大な砂漠風景を体験します。",
+        exp_card_4_title: "遊牧民生活体験",
+        exp_card_4_text: "現地家庭に滞在し、本物のモンゴル田舎暮らしを感じられます。",
+        exp_card_5_title: "フブスグル湖の旅",
+        exp_card_5_text: "森と澄んだ空気に囲まれたモンゴルの青い真珠を訪れます。",
+        exp_card_6_title: "ナーダム祭",
+        exp_card_6_text: "相撲、競馬、弓術などモンゴル最大の祭りを楽しめます。",
+        dest_title: "目的地からモンゴルを探す",
+        dest_text: "モンゴル各地の自然、文化、見どころをご紹介します。",
+        dest_1: "湖、タイガ、北方の冒険。",
+        dest_2: "高山、氷河、西モンゴルの景色。",
+        dest_3: "砂丘、ラクダ、壮大な砂漠風景。",
+        dest_4: "奇岩と谷、ウランバートル近郊の短期旅行。",
+        dest_5: "歴史ある都と中央モンゴル文化。",
+        dest_6: "滝、緑の谷、遊牧風景。",
+        tour_title: "おすすめツアー",
+        tour_text: "モンゴル各地のプライベート旅行や文化ルートから選べます。",
+        tour_tag_1: "短期ツアー",
+        tour_tag_2: "文化ツアー",
+        tour_tag_3: "北方アドベンチャー",
+        tour_tag_4: "西方アドベンチャー",
+        tour_1_title: "3日間 テレルジ＆ホスタイツアー",
+        tour_1_text: "自然と馬、田舎の景色を楽しみたい方におすすめです。",
+        tour_1_price: "1名様 $280〜",
+        tour_2_title: "5日間 中央モンゴルツアー",
+        tour_2_text: "カラコルム、オルホン渓谷、遊牧文化を体験します。",
+        tour_2_price: "1名様 $650〜",
+        tour_3_title: "7日間 トナカイ体験",
+        tour_3_text: "北の森へ旅し、トナカイ家族に会います。",
+        tour_3_price: "1名様 $1,180〜",
+        tour_4_title: "10日間 アルタイ遠征",
+        tour_4_text: "山岳、氷河、西モンゴルの絶景を巡る上質な旅です。",
+        tour_4_price: "1名様 $1,650〜",
+        guide_title: "モンゴル旅行ガイド",
+        guide_text: "初めてモンゴルを訪れる方に役立つ情報です。",
+        guide_main_title: "モンゴル旅行前に知っておきたいこと",
+        guide_main_text: "モンゴルは広大で移動距離が長く、美しい自然と独特の遊牧文化があります。天気、食事、交通、旅行事情を理解するのに役立ちます。",
+        guide_1_title: "遊牧文化",
+        guide_1_text: "ゲルの暮らし、家畜、田舎のおもてなし。",
+        guide_2_title: "宗教と伝統",
+        guide_2_text: "仏教、オボー、現地習慣について。",
+        guide_3_title: "食文化",
+        guide_3_text: "伝統料理、乳製品、ツアー中の食事。",
+        guide_4_title: "天気と季節",
+        guide_4_text: "夏旅、冬の気候、持ち物情報。",
+        guide_5_title: "お金と通貨",
+        guide_5_text: "現金、カード利用、旅行費用の目安。",
+        guide_6_title: "交通事情",
+        guide_6_text: "距離、道路状況、専用車の便利さ。",
+        side_guide_1_title: "モンゴルの交通",
+        side_guide_1_text: "バス、飛行機、列車、遠隔地移動について。",
+        side_guide_2_title: "ゲルと日常生活",
+        side_guide_2_text: "ゲルのマナーや田舎の日常を学べます。",
+        read_more: "もっと見る",
+        video_title: "Discover Mongolia 動画",
+        video_text: "実際の旅行風景、景色、現地体験をご覧ください。",
+        gallery_title: "モンゴルギャラリー",
+        gallery_text: "モンゴルの景色、遊牧生活、旅の写真をご紹介します。",
+        about_title: "現地モンゴル旅行エキスパートについて",
+        about_text_1: "このサイトは、現地の知識と実用的な旅行サポートを通してモンゴルを紹介するために作られました。",
+        about_text_2: "目的地、ツアー、旅行情報を通じて、安心してモンゴルを楽しめるようお手伝いします。",
+        feature_1: "モンゴル各地の現地知識",
+        feature_2: "プライベートツアーと旅行計画サポート",
+        feature_3: "自然・文化・冒険の旅行アイデア",
+        feature_4: "海外旅行者への親切なサポート",
+        contact_title: "モンゴル旅行を計画しましょう",
+        contact_text: "プライベートツアーや旅行相談はこちらから。",
+        quick_contact: "クイックコンタクト",
+        support_lang: "対応言語: 英語・日本語・韓国語",
+        form_name: "お名前",
+        form_country: "国",
+        form_email: "メール",
+        form_dates: "旅行日程",
+        form_travelers: "人数",
+        form_interest: "ご希望内容",
+        form_message: "メッセージ",
+        form_send: "送信",
+        footer_text: "現地旅行ガイド、プライベートツアー、モンゴル旅行計画。"
+      },
+      ko: {
+        topbar_left: "몽골 현지 여행 전문가 • 프라이빗 투어 • 이동 지원",
+        topbar_right: "WhatsApp: +976 90283039 • English / 日本語 / 한국어",
+        nav_experiences: "체험",
+        nav_destinations: "여행지",
+        nav_hotels: "호텔",
+        nav_cars: "차량 서비스",
+        nav_reviews: "후기",
+        nav_tours: "VIP 투어",
+        nav_guide: "여행 가이드",
+        nav_videos: "영상",
+        nav_gallery: "갤러리",
+        nav_about: "소개",
+        nav_contact: "문의",
+        hero_eyebrow: "진짜 몽골 투어 • 유목민 생활 • 모험 • 축제",
+        hero_title: "현지 전문가와 함께 진짜 몽골을 만나보세요",
+        hero_text: "유목 문화, 순록 가족, 아름다운 풍경, 프라이빗 여행과 잊지 못할 현지 경험을 즐겨보세요.",
+        hero_btn_1: "투어 보기",
+        hero_btn_2: "여행 가이드",
+        stat_1: "지역 가이드와 여행지 정보",
+        stat_2: "오지 지역 전용 차량",
+        stat_3: "맞춤형 프라이빗 투어",
+        stat_4: "문화, 음식, 여행 팁",
+        exp_title: "몽골 대표 체험",
+        exp_text: "몽골 여행 전에 많은 여행자들이 찾는 인기 체험을 소개합니다.",
+        exp_tag_1: "북부 몽골",
+        exp_tag_2: "서부 몽골",
+        exp_tag_3: "남부 몽골",
+        exp_tag_4: "중앙 몽골",
+        exp_tag_5: "호수 여행",
+        exp_tag_6: "축제 시즌",
+        exp_card_1_title: "순록 체험",
+        exp_card_1_text: "타이가에서 차탄 순록 가족을 만나고 특별한 문화를 경험해보세요.",
+        exp_card_2_title: "독수리 사냥꾼 체험",
+        exp_card_2_text: "유명한 독수리 사냥 문화와 서부 몽골의 아름다운 풍경을 만나보세요.",
+        exp_card_3_title: "고비 사막 탐험",
+        exp_card_3_text: "사구, 낙타, 절벽과 장대한 사막 풍경을 경험해보세요.",
+        exp_card_4_title: "유목민 생활 체험",
+        exp_card_4_text: "현지 가족과 함께 머물며 진짜 몽골 시골 생활을 느껴보세요.",
+        exp_card_5_title: "홉스골 호수 여행",
+        exp_card_5_text: "숲과 맑은 공기로 둘러싸인 몽골의 푸른 진주를 방문해보세요.",
+        exp_card_6_title: "나담 축제",
+        exp_card_6_text: "전통 씨름, 말 경주, 활쏘기를 즐길 수 있는 몽골 최대 축제입니다.",
+        dest_title: "여행지로 만나는 몽골",
+        dest_text: "몽골 전역의 아름다운 자연과 문화 명소를 소개합니다.",
+        dest_1: "호수, 타이가, 북부 모험.",
+        dest_2: "고산, 빙하, 서부 몽골 풍경.",
+        dest_3: "사막, 낙타, 웅장한 풍경.",
+        dest_4: "기암괴석과 계곡, 울란바토르 근교 여행.",
+        dest_5: "역사적인 수도와 중앙 몽골 문화.",
+        dest_6: "폭포, 초원, 유목 풍경.",
+        tour_title: "추천 투어",
+        tour_text: "몽골의 프라이빗 여행과 문화 루트 중에서 선택해보세요.",
+        tour_tag_1: "단기 투어",
+        tour_tag_2: "문화 투어",
+        tour_tag_3: "북부 모험",
+        tour_tag_4: "서부 모험",
+        tour_1_title: "3일 테를지 & 후스타이 투어",
+        tour_1_text: "자연, 말, 시골 풍경을 원하는 여행자에게 적합합니다.",
+        tour_1_price: "1인당 $280부터",
+        tour_2_title: "5일 중앙 몽골 투어",
+        tour_2_text: "카라코룸, 오르혼 계곡과 유목 문화를 경험해보세요.",
+        tour_2_price: "1인당 $650부터",
+        tour_3_title: "7일 순록 체험",
+        tour_3_text: "북부 숲으로 이동해 순록 가족을 만나보세요.",
+        tour_3_price: "1인당 $1,180부터",
+        tour_4_title: "10일 알타이 원정",
+        tour_4_text: "산, 빙하, 서부 몽골 절경을 만나는 프리미엄 여행입니다.",
+        tour_4_price: "1인당 $1,650부터",
+        guide_title: "몽골 여행 가이드",
+        guide_text: "처음 몽골을 방문하는 여행자에게 도움이 되는 정보입니다.",
+        guide_main_title: "몽골 여행 전에 알아야 할 것",
+        guide_main_text: "몽골은 매우 넓고 이동 거리가 길며 아름다운 자연과 독특한 유목 문화가 있는 나라입니다. 날씨, 음식, 교통과 여행 현실을 이해하는 데 도움이 됩니다.",
+        guide_1_title: "유목 문화",
+        guide_1_text: "게르 생활, 가축, 시골 환대를 알아보세요.",
+        guide_2_title: "종교와 전통",
+        guide_2_text: "불교, 오보, 현지 관습을 소개합니다.",
+        guide_3_title: "음식과 맛",
+        guide_3_text: "전통 요리, 유제품, 투어 식사를 안내합니다.",
+        guide_4_title: "날씨와 계절",
+        guide_4_text: "여름 여행, 겨울 날씨, 준비물 정보입니다.",
+        guide_5_title: "돈과 화폐",
+        guide_5_text: "현금, 카드 사용, 여행 비용을 알려드립니다.",
+        guide_6_title: "교통 현실",
+        guide_6_text: "거리, 도로 상태와 전용 차량의 필요성.",
+        side_guide_1_title: "몽골 교통",
+        side_guide_1_text: "버스, 비행기, 기차와 오지 이동을 이해해보세요.",
+        side_guide_2_title: "게르와 일상생활",
+        side_guide_2_text: "게르 예절과 시골 일상을 배워보세요.",
+        read_more: "더 보기",
+        video_title: "Discover Mongolia 영상",
+        video_text: "실제 여행 장면과 풍경, 현지 체험을 만나보세요.",
+        gallery_title: "몽골 갤러리",
+        gallery_text: "몽골 풍경과 유목 생활, 여행 사진을 확인해보세요.",
+        about_title: "현지 몽골 여행 전문가 소개",
+        about_text_1: "이 웹사이트는 실제 현지 지식과 실용적인 여행 지원을 통해 몽골을 소개하기 위해 만들어졌습니다.",
+        about_text_2: "여행지, 투어, 여행 정보를 통해 편안하고 자신 있게 몽골을 여행할 수 있도록 돕습니다.",
+        feature_1: "몽골 전역의 현지 목적지 정보",
+        feature_2: "프라이빗 투어 및 일정 계획 지원",
+        feature_3: "자연, 문화, 모험 여행 아이디어",
+        feature_4: "해외 여행자를 위한 친절한 지원",
+        contact_title: "몽골 여행을 계획해보세요",
+        contact_text: "프라이빗 투어, 여행 문의, 계획 지원을 위해 연락하세요.",
+        quick_contact: "빠른 문의",
+        support_lang: "지원 언어: 영어, 일본어, 한국어",
+        form_name: "이름",
+        form_country: "국가",
+        form_email: "이메일",
+        form_dates: "여행 날짜",
+        form_travelers: "여행 인원",
+        form_interest: "관심 항목",
+        form_message: "메시지",
+        form_send: "문의 보내기",
+        footer_text: "현지 여행 가이드, 프라이빗 투어, 몽골 여행 플래닝."
+      }
+    };
+
+    function setLanguage(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll('.lang-switch button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+    }
+
+    document.querySelectorAll('.lang-switch button').forEach(button => {
+      button.addEventListener('click', () => {
+        setLanguage(button.dataset.lang);
+      });
+    });
+
+    setLanguage('en');
+  </script>
 </body>
 </html>
