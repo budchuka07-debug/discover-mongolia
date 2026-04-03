@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://visitmongoliatours.com/sitemap.xml
+Sitemap: https://bookingmongolia.com/sitemap.xml
