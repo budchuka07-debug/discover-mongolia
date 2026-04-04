@@ -16,6 +16,7 @@ gtag('config', 'G-XDG8KZWZCM');
   <title>Booking Mongolia - Tours, Hotels, Car Rental & Travel Guide</title>
   <meta name="description" content="Discover Mongolia with local travel experts. Private tours, nomadic experiences, travel guide, transport help, and Mongolia travel videos." />
   <link rel="canonical" href="https://bookingmongolia.com" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <style>
     :root{
       --primary:#0d3b66;
@@ -465,6 +466,35 @@ gtag('config', 'G-XDG8KZWZCM');
     .image-lightbox img{max-width:92vw;max-height:88vh;border-radius:18px;box-shadow:0 20px 40px rgba(0,0,0,.35)}
     .image-lightbox-close{position:absolute;top:16px;right:24px;color:#fff;font-size:42px;line-height:1;cursor:pointer}
 
+
+    .hotel-filter-bar{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 22px}
+    .hotel-filter-bar input,.hotel-filter-bar select{min-width:220px;background:#fff}
+    .hotel-booking-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(360px,.85fr);gap:22px;align-items:start}
+    .hotel-results-column{display:grid;gap:16px}
+    .hotel-result-count{font-size:14px;color:var(--muted);margin:-6px 0 2px}
+    .hotel-booking-card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);display:grid;grid-template-columns:260px 1fr;border:1px solid rgba(13,59,102,.08)}
+    .hotel-booking-card:hover{transform:translateY(-4px)}
+    .hotel-booking-card .hotel-cover{width:100%;height:100%;min-height:250px;object-fit:cover;background:#eef2f7}
+    .hotel-booking-body{padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+    .hotel-booking-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+    .hotel-booking-title{margin:0;font-size:24px;color:var(--primary-dark)}
+    .hotel-booking-location{color:var(--muted);font-size:14px}
+    .hotel-booking-price{font-weight:800;color:#15803d;font-size:20px;white-space:nowrap}
+    .hotel-booking-price small{display:block;color:var(--muted);font-size:12px;font-weight:600}
+    .hotel-booking-desc{color:var(--muted);margin:0}
+    .hotel-booking-tags{display:flex;gap:8px;flex-wrap:wrap}
+    .hotel-booking-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+    .hotel-mini-btn{display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;border-radius:999px;font-weight:700;border:1px solid #dbe3ef;background:#fff;color:var(--primary)}
+    .hotel-mini-btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}
+    .hotel-map-panel{position:sticky;top:100px;background:#fff;border-radius:22px;padding:14px;box-shadow:var(--shadow);border:1px solid rgba(13,59,102,.08)}
+    .hotel-map-title{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0 0 10px}
+    .hotel-map-title strong{font-size:16px;color:var(--primary-dark)}
+    #hotel-map{height:760px;border-radius:18px;overflow:hidden;background:#eef2f7}
+    .hotel-empty-state{background:#fff;border-radius:20px;padding:28px;box-shadow:var(--shadow);color:var(--muted);text-align:center}
+    .leaflet-popup-content-wrapper{border-radius:16px}
+    .hotel-popup img{width:100%;height:110px;object-fit:cover;border-radius:12px;margin-bottom:8px;background:#eef2f7}
+    .hotel-popup strong{display:block;font-size:15px;margin-bottom:4px;color:var(--primary-dark)}
+
     footer{
       background:#0d1b2a;
       color:rgba(255,255,255,.88);
@@ -510,15 +540,27 @@ gtag('config', 'G-XDG8KZWZCM');
     .quick-link{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);color:#fff;font-weight:700;font-size:14px;backdrop-filter:blur(4px)}
     .quick-link:hover{background:rgba(255,255,255,.22)}
     .section-accent{display:inline-block;padding:8px 14px;border-radius:999px;background:#eef4ff;color:var(--primary);font-size:13px;font-weight:700;margin-bottom:10px}
+
+    .register-service-section{background:linear-gradient(135deg,#eef4ff 0%,#f8fbff 100%)}
+    .register-shell{background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:26px;border:1px solid rgba(13,59,102,.08)}
+    .register-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+    .register-tab{border:1px solid #dbe3ef;background:#f5f8fc;color:var(--primary);padding:12px 18px;border-radius:999px;font-weight:800;cursor:pointer;transition:.25s ease}
+    .register-tab.active,.register-tab:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .register-panel{display:none}
+    .register-panel.active{display:block}
+    .register-note{margin:0 0 18px;color:var(--muted)}
+
     .sticky-book-bar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:200;background:rgba(13,27,42,.92);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 40px rgba(0,0,0,.18);border-radius:999px;padding:10px;display:flex;gap:10px;align-items:center;max-width:calc(100vw - 24px)}
     .sticky-book-bar .btn{padding:12px 18px}
     .sticky-book-bar .mini-note{color:#fff;font-size:13px;padding:0 8px 0 12px;white-space:nowrap}
 
     @media (max-width:1024px){
       .grid-4,.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .guide-wrap,.about-wrap,.booking-wrap,.local-guide-wrap{grid-template-columns:1fr}
+      .guide-wrap,.about-wrap,.booking-wrap,.local-guide-wrap,.hotel-booking-layout{grid-template-columns:1fr}
       .hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
       .video-small{grid-template-columns:1fr 1fr}
+      #hotel-map{height:420px}
+      .hotel-map-panel{position:relative;top:auto}
     }
     @media (max-width:720px){
       .sticky-book-bar{left:12px;right:12px;transform:none;border-radius:22px;justify-content:center;flex-wrap:wrap;padding:12px}
@@ -527,6 +569,9 @@ gtag('config', 'G-XDG8KZWZCM');
       .grid-4,.grid-3,.grid-2,.guide-grid,.feature-list,.hero-stats,.form-grid,.video-small,.guide-highlight-grid{
         grid-template-columns:1fr;
       }
+      .hotel-booking-card{grid-template-columns:1fr}
+      .hotel-booking-card .hotel-cover{min-height:220px}
+      .hotel-booking-top{flex-direction:column}
       .hero{min-height:auto}
       .hero-content{padding:80px 0 70px}
       .video-main iframe{min-height:260px}
@@ -593,6 +638,7 @@ gtag('config', 'G-XDG8KZWZCM');
           <a class="quick-link" href="#hotels">🏨 Hotels</a>
           <a class="quick-link" href="#cars">🚙 Car Rental</a>
           <a class="quick-link" href="#guides">🧭 Guides</a>
+          <a class="quick-link" href="#register-service">📝 Register Service</a>
           <a class="quick-link" href="#contact">✉️ Contact</a>
         </div>
 <section style="padding:60px 20px; text-align:center;">
@@ -1035,73 +1081,42 @@ gtag('config', 'G-XDG8KZWZCM');
   </section>
 
 
-  <section id="hotels" class="soft-section">
+    <section id="hotels" class="soft-section">
     <div class="container">
       <div class="section-head">
         <h2>Hotels & Camps</h2>
-        <p>Trusted accommodation partners submitted to our team and reviewed before publishing.</p>
+        <p>Booking style hotel list with map view. Approved accommodations only.</p>
       </div>
 
-      <div class="grid grid-3" id="hotel-list"></div>
+      <div class="hotel-filter-bar">
+        <input type="text" id="hotel-search" placeholder="Search hotel, camp, lodge...">
+        <select id="hotel-city-filter">
+          <option value="">All locations</option>
+        </select>
+        <select id="hotel-type-filter">
+          <option value="">All property types</option>
+        </select>
+      </div>
+
+      <div class="hotel-booking-layout">
+        <div class="hotel-results-column">
+          <div class="hotel-result-count" id="hotel-result-count">Loading hotels...</div>
+          <div id="hotel-list"></div>
+        </div>
+
+        <aside class="hotel-map-panel">
+          <div class="hotel-map-title">
+            <strong>Hotel Map</strong>
+            <span class="muted">Choose by location</span>
+          </div>
+          <div id="hotel-map"></div>
+        </aside>
+      </div>
 
       <div class="section-head" style="margin-top:42px">
-        <h3>List Your Hotel or Camp</h3>
-        <p>Accommodation owners can submit property details for review.</p>
+        <h3>Want to list your property?</h3>
+        <p>Use the registration service below to submit your hotel, guesthouse, ger camp or lodge for review.</p>
       </div>
-
-      <form id="hotel-form">
-        <div class="form-grid">
-          <div>
-            <label>Property Name</label>
-            <input type="text" id="hotel_name" required>
-          </div>
-          <div>
-            <label>Property Type</label>
-            <select id="hotel_type" required>
-              <option value="">Select type</option>
-              <option>Hotel</option>
-              <option>Ger Camp</option>
-              <option>Tourist Camp</option>
-              <option>Guesthouse</option>
-              <option>Lodge</option>
-              <option>Resort</option>
-              <option>Homestay</option>
-            </select>
-          </div>
-          <div>
-            <label>Location</label>
-            <input type="text" id="hotel_location" placeholder="Terelj / Gobi / Ulaanbaatar" required>
-          </div>
-          <div>
-            <label>Price From</label>
-            <input type="text" id="hotel_price" placeholder="From $80 per night">
-          </div>
-          <div>
-            <label>Contact Person</label>
-            <input type="text" id="hotel_contact_person">
-          </div>
-          <div>
-            <label>Email</label>
-            <input type="email" id="hotel_email">
-          </div>
-          <div>
-            <label>Phone / WhatsApp</label>
-            <input type="text" id="hotel_phone">
-          </div>
-          <div>
-            <label>Hotel Image</label>
-            <input type="file" id="hotel_image_file" accept="image/*" multiple required>
-          </div>
-          <div class="full">
-            <label>Short Description</label>
-            <textarea id="hotel_description" placeholder="Tell travelers about your property, room style, view and key facilities."></textarea>
-          </div>
-          <div class="full submit-actions">
-            <button class="btn btn-primary" type="submit">Submit Hotel / Camp</button>
-          </div>
-          <div class="full"><div id="hotel-notice" class="notice"></div></div>
-        </div>
-      </form>
     </div>
   </section>
 
@@ -1116,80 +1131,9 @@ gtag('config', 'G-XDG8KZWZCM');
     <div class="grid grid-3" id="guide-list"></div>
 
     <div class="section-head" style="margin-top:42px">
-      <h3>Apply as a Guide</h3>
-      <p>Guides can submit their profile for review.</p>
+      <h3>Want to work with us as a guide?</h3>
+      <p>Use the registration service below and submit your guide profile for approval.</p>
     </div>
-
-    <form id="guide-form">
-      <div class="form-grid">
-        <div>
-          <label>Full Name</label>
-          <input type="text" id="guide_name" required>
-        </div>
-        <div>
-          <label>Age</label>
-          <input type="number" id="guide_age" min="18" max="80">
-        </div>
-        <div>
-          <label>Gender</label>
-          <select id="guide_gender">
-            <option value="">Select</option>
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </div>
-        <div>
-          <label>Phone / WhatsApp</label>
-          <input type="text" id="guide_phone">
-        </div>
-        <div>
-          <label>Email</label>
-          <input type="email" id="guide_email">
-        </div>
-        <div>
-          <label>Profile Image</label>
-          <input type="file" id="guide_image_file" accept="image/*" required>
-        </div>
-        <div>
-          <label>Years of Experience</label>
-          <input type="text" id="guide_experience" placeholder="e.g. 8 years">
-        </div>
-        <div>
-          <label>Languages & Level</label>
-          <input type="text" id="guide_languages" placeholder="English - Advanced, Korean - Intermediate">
-        </div>
-        <div>
-          <label>Tour Regions</label>
-          <input type="text" id="guide_regions" placeholder="Gobi, Khangai, Khuvsgul, Terelj">
-        </div>
-        <div>
-          <label>Specialties</label>
-          <input type="text" id="guide_specialties" placeholder="Culture, photography, adventure, nomadic life">
-        </div>
-        <div>
-          <label>Price / Day Rate</label>
-          <input type="text" id="guide_price" placeholder="From $80 per day">
-        </div>
-        <div>
-          <label>Guide Type</label>
-          <select id="guide_type">
-            <option value="">Select type</option>
-            <option>Local Guide</option>
-            <option>Driver Guide</option>
-            <option>Cultural Guide</option>
-            <option>Adventure Guide</option>
-          </select>
-        </div>
-        <div class="full">
-          <label>Short Bio</label>
-          <textarea id="guide_bio" placeholder="Tell travelers about your guide style, experience and strengths."></textarea>
-        </div>
-        <div class="full submit-actions">
-          <button class="btn btn-primary" type="submit">Submit Guide</button>
-        </div>
-        <div class="full"><div id="guide-notice" class="notice"></div></div>
-      </div>
-    </form>
   </div>
 </section>
   <section id="cars">
@@ -1202,62 +1146,225 @@ gtag('config', 'G-XDG8KZWZCM');
       <div class="grid grid-3" id="car-list"></div>
 
       <div class="section-head" style="margin-top:42px">
-        <h3>Offer Transport Service</h3>
-        <p>Drivers and vehicle owners can submit their service for review.</p>
+        <h3>Offer transport service</h3>
+        <p>Use the registration service below to submit your driver or vehicle service for review.</p>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section id="register-service" class="register-service-section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Register Your Service</h2>
+        <p>Hotels, guesthouses, ger camps, guides and drivers can submit details here. We review first, then approve before publishing.</p>
       </div>
 
-      <form id="car-form">
-        <div class="form-grid">
-          <div>
-            <label>Service Title</label>
-            <input type="text" id="car_title" placeholder="Airport Transfer / 4x4 with Driver" required>
-          </div>
-          <div>
-            <label>Vehicle Type</label>
-            <select id="car_type" required>
-              <option value="">Select type</option>
-              <option>Airport Transfer</option>
-              <option>Private Driver</option>
-              <option>4x4 with Driver</option>
-              <option>Starex / Van</option>
-              <option>Alphard</option>
-              <option>SUV</option>
-            </select>
-          </div>
-          <div>
-            <label>Seats</label>
-            <input type="text" id="car_seats" placeholder="4 / 6 / 10" >
-          </div>
-          <div>
-            <label>Daily Rate</label>
-            <input type="text" id="car_rate" placeholder="From $120 per day">
-          </div>
-          <div>
-            <label>Contact Name</label>
-            <input type="text" id="car_contact_name">
-          </div>
-          <div>
-            <label>Phone / WhatsApp</label>
-            <input type="text" id="car_phone">
-          </div>
-          <div>
-            <label>Email</label>
-            <input type="email" id="car_email">
-          </div>
-          <div>
-            <label>Car Image</label>
-            <input type="file" id="car_image_file" accept="image/*" multiple required>
-          </div>
-          <div class="full">
-            <label>Description</label>
-            <textarea id="car_description" placeholder="Describe service area, driver, luggage, road type and any special features."></textarea>
-          </div>
-          <div class="full submit-actions">
-            <button class="btn btn-primary" type="submit">Submit Transport Service</button>
-          </div>
-          <div class="full"><div id="car-notice" class="notice"></div></div>
+      <div class="register-shell">
+        <div class="register-tabs">
+          <button type="button" class="register-tab active" data-register-tab="hotel">🏨 Hotel / Camp</button>
+          <button type="button" class="register-tab" data-register-tab="guide">🧭 Guide</button>
+          <button type="button" class="register-tab" data-register-tab="car">🚙 Driver / Car</button>
         </div>
-      </form>
+
+        <div class="register-panel active" id="register-panel-hotel">
+          <p class="register-note">Choose the right accommodation type and submit your place for review.</p>
+          <form id="hotel-form">
+            <div class="form-grid">
+              <div>
+                <label>Property Name</label>
+                <input type="text" id="hotel_name" required>
+              </div>
+              <div>
+                <label>Property Type</label>
+                <select id="hotel_type" required>
+                  <option value="">Select type</option>
+                  <option>Hotel</option>
+                  <option>Guesthouse</option>
+                  <option>Ger Camp</option>
+                  <option>Tourist Camp</option>
+                  <option>Lodge</option>
+                  <option>Resort</option>
+                  <option>Hostel</option>
+                  <option>Homestay</option>
+                  <option>Apartment</option>
+                </select>
+              </div>
+              <div>
+                <label>Location</label>
+                <input type="text" id="hotel_location" placeholder="Terelj / Gobi / Ulaanbaatar" required>
+              </div>
+              <div>
+                <label>Price From</label>
+                <input type="text" id="hotel_price" placeholder="From $80 per night">
+              </div>
+              <div>
+                <label>Contact Person</label>
+                <input type="text" id="hotel_contact_person">
+              </div>
+              <div>
+                <label>Email</label>
+                <input type="email" id="hotel_email">
+              </div>
+              <div>
+                <label>Phone / WhatsApp</label>
+                <input type="text" id="hotel_phone">
+              </div>
+              <div>
+                <label>Latitude</label>
+                <input type="text" id="hotel_latitude" placeholder="47.9184">
+              </div>
+              <div>
+                <label>Longitude</label>
+                <input type="text" id="hotel_longitude" placeholder="106.9177">
+              </div>
+              <div>
+                <label>Hotel Image</label>
+                <input type="file" id="hotel_image_file" accept="image/*" multiple required>
+              </div>
+              <div class="full">
+                <label>Short Description</label>
+                <textarea id="hotel_description" placeholder="Tell travelers about your property, room style, view and key facilities."></textarea>
+              </div>
+              <div class="full submit-actions">
+                <button class="btn btn-primary" type="submit">Submit Hotel / Camp</button>
+              </div>
+              <div class="full"><div id="hotel-notice" class="notice"></div></div>
+            </div>
+          </form>
+        </div>
+
+        <div class="register-panel" id="register-panel-guide">
+          <p class="register-note">Guides can submit language skills, regions and specialties for approval.</p>
+          <form id="guide-form">
+            <div class="form-grid">
+              <div>
+                <label>Full Name</label>
+                <input type="text" id="guide_name" required>
+              </div>
+              <div>
+                <label>Age</label>
+                <input type="number" id="guide_age" min="18" max="80">
+              </div>
+              <div>
+                <label>Gender</label>
+                <select id="guide_gender">
+                  <option value="">Select</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+              </div>
+              <div>
+                <label>Phone / WhatsApp</label>
+                <input type="text" id="guide_phone">
+              </div>
+              <div>
+                <label>Email</label>
+                <input type="email" id="guide_email">
+              </div>
+              <div>
+                <label>Profile Image</label>
+                <input type="file" id="guide_image_file" accept="image/*" required>
+              </div>
+              <div>
+                <label>Years of Experience</label>
+                <input type="text" id="guide_experience" placeholder="e.g. 8 years">
+              </div>
+              <div>
+                <label>Languages & Level</label>
+                <input type="text" id="guide_languages" placeholder="English - Advanced, Korean - Intermediate">
+              </div>
+              <div>
+                <label>Tour Regions</label>
+                <input type="text" id="guide_regions" placeholder="Gobi, Khangai, Khuvsgul, Terelj">
+              </div>
+              <div>
+                <label>Specialties</label>
+                <input type="text" id="guide_specialties" placeholder="Culture, photography, adventure, nomadic life">
+              </div>
+              <div>
+                <label>Price / Day Rate</label>
+                <input type="text" id="guide_price" placeholder="From $80 per day">
+              </div>
+              <div>
+                <label>Guide Type</label>
+                <select id="guide_type">
+                  <option value="">Select type</option>
+                  <option>Local Guide</option>
+                  <option>Driver Guide</option>
+                  <option>Cultural Guide</option>
+                  <option>Adventure Guide</option>
+                </select>
+              </div>
+              <div class="full">
+                <label>Short Bio</label>
+                <textarea id="guide_bio" placeholder="Tell travelers about your guide style, experience and strengths."></textarea>
+              </div>
+              <div class="full submit-actions">
+                <button class="btn btn-primary" type="submit">Submit Guide</button>
+              </div>
+              <div class="full"><div id="guide-notice" class="notice"></div></div>
+            </div>
+          </form>
+        </div>
+
+        <div class="register-panel" id="register-panel-car">
+          <p class="register-note">Drivers and transport providers can submit airport transfer, 4x4, van and private driver services.</p>
+          <form id="car-form">
+            <div class="form-grid">
+              <div>
+                <label>Service Title</label>
+                <input type="text" id="car_title" placeholder="Airport Transfer / 4x4 with Driver" required>
+              </div>
+              <div>
+                <label>Vehicle Type</label>
+                <select id="car_type" required>
+                  <option value="">Select type</option>
+                  <option>Airport Transfer</option>
+                  <option>Private Driver</option>
+                  <option>4x4 with Driver</option>
+                  <option>Starex / Van</option>
+                  <option>Alphard</option>
+                  <option>SUV</option>
+                </select>
+              </div>
+              <div>
+                <label>Seats</label>
+                <input type="text" id="car_seats" placeholder="4 / 6 / 10">
+              </div>
+              <div>
+                <label>Daily Rate</label>
+                <input type="text" id="car_rate" placeholder="From $120 per day">
+              </div>
+              <div>
+                <label>Contact Name</label>
+                <input type="text" id="car_contact_name">
+              </div>
+              <div>
+                <label>Phone / WhatsApp</label>
+                <input type="text" id="car_phone">
+              </div>
+              <div>
+                <label>Email</label>
+                <input type="email" id="car_email">
+              </div>
+              <div>
+                <label>Car Image</label>
+                <input type="file" id="car_image_file" accept="image/*" multiple required>
+              </div>
+              <div class="full">
+                <label>Description</label>
+                <textarea id="car_description" placeholder="Describe service area, driver, luggage, road type and any special features."></textarea>
+              </div>
+              <div class="full submit-actions">
+                <button class="btn btn-primary" type="submit">Submit Transport Service</button>
+              </div>
+              <div class="full"><div id="car-notice" class="notice"></div></div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1425,6 +1532,7 @@ gtag('config', 'G-XDG8KZWZCM');
   </footer>
 
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
   const SUPABASE_URL = "https://ebpjetcuabubihzximbb.supabase.co";
@@ -1565,43 +1673,208 @@ gtag('config', 'G-XDG8KZWZCM');
     return '★'.repeat(count) + '☆'.repeat(Math.max(0, 5 - count));
   }
 
+  let hotelMap;
+  let hotelMarkersLayer;
+  let approvedHotels = [];
+
+  const HOTEL_LOCATION_COORDS = {
+    ulaanbaatar: [47.9184, 106.9177],
+    ub: [47.9184, 106.9177],
+    terelj: [47.9974, 107.4208],
+    gobi: [43.5708, 104.4250],
+    dalanzadgad: [43.5708, 104.4250],
+    khuvsgul: [50.4364, 100.1544],
+    khatgal: [50.4476, 100.1633],
+    kharkhorin: [47.1975, 102.8238],
+    karakorum: [47.1975, 102.8238],
+    orkhoN: [46.9050, 102.7597],
+    orkhon: [46.9050, 102.7597],
+    bayan-olgii: [48.9683, 89.9625],
+    olgii: [48.9683, 89.9625],
+    altai: [46.3722, 96.2583],
+    murun: [49.6342, 100.1625]
+  };
+
+  function getHotelCoordinates(item) {
+    const lat = Number(item.latitude ?? item.lat);
+    const lng = Number(item.longitude ?? item.lng);
+
+    if (!Number.isNaN(lat) && !Number.isNaN(lng) && lat && lng) {
+      return [lat, lng];
+    }
+
+    const locationKey = String(item.location || '')
+      .toLowerCase()
+      .trim()
+      .split(',')[0]
+      .trim();
+
+    return HOTEL_LOCATION_COORDS[locationKey] || null;
+  }
+
+  function ensureHotelMap() {
+    if (hotelMap || !document.getElementById('hotel-map')) return;
+
+    hotelMap = L.map('hotel-map', { scrollWheelZoom: true }).setView([47.9184, 106.9177], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(hotelMap);
+    hotelMarkersLayer = L.layerGroup().addTo(hotelMap);
+  }
+
+  function populateHotelFilters(items) {
+    const cityFilter = document.getElementById('hotel-city-filter');
+    const typeFilter = document.getElementById('hotel-type-filter');
+    if (!cityFilter || !typeFilter) return;
+
+    const cities = [...new Set(items.map(item => (item.location || '').trim()).filter(Boolean))].sort();
+    const types = [...new Set(items.map(item => (item.property_type || '').trim()).filter(Boolean))].sort();
+
+    cityFilter.innerHTML = '<option value="">All locations</option>' + cities.map(city => `<option value="${city}">${city}</option>`).join('');
+    typeFilter.innerHTML = '<option value="">All property types</option>' + types.map(type => `<option value="${type}">${type}</option>`).join('');
+  }
+
+  function renderHotelMap(items) {
+    ensureHotelMap();
+    if (!hotelMarkersLayer || !hotelMap) return;
+
+    hotelMarkersLayer.clearLayers();
+    const bounds = [];
+
+    items.forEach((item, index) => {
+      const coords = getHotelCoordinates(item);
+      if (!coords) return;
+
+      const image = item.main_image_url || item.image_url || fallbackImage;
+      const marker = L.marker(coords).addTo(hotelMarkersLayer);
+      marker.bindPopup(`
+        <div class="hotel-popup">
+          <img src="${image}" alt="${item.name || 'Hotel'}" onerror="this.onerror=null;this.src='${fallbackImage}'">
+          <strong>${item.name || 'Hotel'}</strong>
+          <div>${item.location || ''}</div>
+          ${item.price ? `<div style="margin-top:4px;color:#15803d;font-weight:700;">${item.price}</div>` : ''}
+          ${item.phone ? `<div style="margin-top:4px;">📞 ${item.phone}</div>` : ''}
+        </div>
+      `);
+      bounds.push(coords);
+    });
+
+    if (bounds.length) {
+      hotelMap.fitBounds(bounds, { padding: [30, 30] });
+    } else {
+      hotelMap.setView([47.9184, 106.9177], 5);
+    }
+  }
+
+  function renderHotelCards(items) {
+    const wrap = document.getElementById('hotel-list');
+    const counter = document.getElementById('hotel-result-count');
+    if (!wrap) return;
+
+    if (counter) {
+      counter.textContent = items.length ? `${items.length} stay option${items.length > 1 ? 's' : ''} found` : 'No matching hotels found';
+    }
+
+    if (!items.length) {
+      wrap.innerHTML = '<div class="hotel-empty-state">No approved hotel matches this filter yet.</div>';
+      renderHotelMap([]);
+      return;
+    }
+
+    wrap.innerHTML = items.map((item, index) => {
+      const galleryUrls = normalizeGalleryUrls(item.gallery_urls, item.main_image_url || item.image_url || fallbackImage);
+      const mainImg = galleryUrls[0] || fallbackImage;
+      const typeTag = item.property_type || 'Property';
+      const desc = item.description || 'Comfortable stay option reviewed by our team.';
+      const phoneLink = item.phone ? `https://wa.me/${String(item.phone).replace(/[^0-9]/g,'')}` : '';
+      return `
+        <article class="hotel-booking-card">
+          <img class="hotel-cover" src="${mainImg}" alt="${item.name || 'Hotel'}" onerror="this.onerror=null;this.src='${fallbackImage}'">
+          <div class="hotel-booking-body">
+            <div class="hotel-booking-top">
+              <div>
+                <div class="tag">${typeTag}</div>
+                <h3 class="hotel-booking-title">${item.name || ''}</h3>
+                <div class="hotel-booking-location">📍 ${item.location || ''}</div>
+              </div>
+              <div class="hotel-booking-price">${item.price || 'Ask for price'}<small>${item.price ? 'per night / package' : 'contact for latest rate'}</small></div>
+            </div>
+
+            <div class="hotel-booking-tags">
+              ${item.phone ? `<span class="pill">📞 ${item.phone}</span>` : ''}
+              ${item.email ? `<span class="pill">✉️ ${item.email}</span>` : ''}
+              ${galleryUrls.length > 1 ? `<span class="pill">${galleryUrls.length} photos</span>` : ''}
+            </div>
+
+            <p class="hotel-booking-desc">${desc}</p>
+
+            <div class="hotel-booking-actions">
+              ${phoneLink ? `<a class="hotel-mini-btn primary" href="${phoneLink}" target="_blank" rel="noopener">Book / Contact</a>` : ''}
+              ${galleryUrls.length ? `<button class="hotel-mini-btn" type="button" onclick="openImageLightbox('${String(mainImg).replace(/'/g, "\'")}')">View photo</button>` : ''}
+              <button class="hotel-mini-btn" type="button" onclick="focusHotelOnMap(${index})">Show on map</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    renderHotelMap(items);
+  }
+
+  function applyHotelFilters() {
+    const searchTerm = (document.getElementById('hotel-search')?.value || '').toLowerCase().trim();
+    const cityValue = document.getElementById('hotel-city-filter')?.value || '';
+    const typeValue = document.getElementById('hotel-type-filter')?.value || '';
+
+    const filtered = approvedHotels.filter(item => {
+      const haystack = `${item.name || ''} ${item.location || ''} ${item.property_type || ''} ${item.description || ''}`.toLowerCase();
+      const matchesSearch = !searchTerm || haystack.includes(searchTerm);
+      const matchesCity = !cityValue || (item.location || '') === cityValue;
+      const matchesType = !typeValue || (item.property_type || '') === typeValue;
+      return matchesSearch && matchesCity && matchesType;
+    });
+
+    window.currentRenderedHotels = filtered;
+    renderHotelCards(filtered);
+  }
+
+  window.focusHotelOnMap = function(index) {
+    const items = window.currentRenderedHotels || [];
+    const item = items[index];
+    if (!item) return;
+    const coords = getHotelCoordinates(item);
+    if (!coords) return;
+    ensureHotelMap();
+    hotelMap.setView(coords, 11, { animate: true });
+
+    hotelMarkersLayer.eachLayer(layer => {
+      if (layer.getLatLng && layer.getLatLng().lat === coords[0] && layer.getLatLng().lng === coords[1]) {
+        layer.openPopup();
+      }
+    });
+  };
+
   async function loadHotels() {
     const { data, error } = await supabaseClient
       .from('property_submissions')
       .select('*')
       .eq('status', 'approved')
       .order('created_at', { ascending: false })
-      .limit(6);
+      .limit(24);
 
     if (error) {
       console.error('loadHotels error:', error);
+      const wrap = document.getElementById('hotel-list');
+      if (wrap) wrap.innerHTML = '<div class="hotel-empty-state">Could not load hotels right now.</div>';
       return;
     }
 
-    const wrap = document.getElementById('hotel-list');
-    if (!wrap) return;
-
-    wrap.innerHTML = data.length
-      ? data.map((item, index) => {
-          const galleryUrls = normalizeGalleryUrls(item.gallery_urls, item.main_image_url || item.image_url || fallbackImage);
-          return `
-        <article class="card listing-card">
-          ${renderGalleryBlock('hotel', index, galleryUrls, fallbackImage, item.name || 'Hotel')}
-          <div class="card-body">
-            <span class="tag">${item.property_type || 'Property'}</span>
-            <h3>${item.name || ''}</h3>
-            <p class="muted">${item.location || ''}</p>
-            <div class="listing-meta">
-              ${item.price ? `<span class="pill">${item.price}</span>` : ''}
-              ${item.phone ? `<span class="pill">${item.phone}</span>` : ''}
-            </div>
-            <p class="muted">${item.description || ''}</p>
-          </div>
-        </article>
-      `}).join('')
-      : '<p class="muted">No hotel listings published yet.</p>';
+    approvedHotels = data || [];
+    populateHotelFilters(approvedHotels);
+    applyHotelFilters();
   }
 async function loadGuides() {
+
   const { data, error } = await supabaseClient
     .from('guide_submissions')
     .select('*')
@@ -1739,6 +2012,8 @@ async function loadCars() {
         price: document.getElementById('hotel_price').value.trim(),
         email: document.getElementById('hotel_email').value.trim(),
         phone: document.getElementById('hotel_phone').value.trim(),
+        latitude: document.getElementById('hotel_latitude').value.trim() || null,
+        longitude: document.getElementById('hotel_longitude').value.trim() || null,
         image_url: imageUrls[0] || '',
         main_image_url: imageUrls[0] || '',
         gallery_urls: imageUrls,
@@ -1871,10 +2146,24 @@ async function insertGuideSubmission(e) {
   }
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  document.querySelectorAll('.register-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-register-tab');
+      document.querySelectorAll('.register-tab').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('.register-panel').forEach(panel => panel.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(`register-panel-${target}`)?.classList.add('active');
+    });
+  });
+
   document.getElementById('hotel-form')?.addEventListener('submit', insertHotelSubmission);
   document.getElementById('car-form')?.addEventListener('submit', insertCarSubmission);
   document.getElementById('guide-form')?.addEventListener('submit', insertGuideSubmission);
   document.getElementById('review-form')?.addEventListener('submit', insertReviewSubmission);
+  document.getElementById('hotel-search')?.addEventListener('input', applyHotelFilters);
+  document.getElementById('hotel-city-filter')?.addEventListener('change', applyHotelFilters);
+  document.getElementById('hotel-type-filter')?.addEventListener('change', applyHotelFilters);
 
   loadHotels();
   loadCars();
