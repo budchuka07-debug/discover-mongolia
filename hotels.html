@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotels | Booking Mongolia</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #222;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 16px;
+    }
+    .filters {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .filters select, .filters input {
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      min-width: 200px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 20px;
+    }
+    .hotel-list {
+      display: grid;
+      gap: 16px;
+    }
+    .hotel-card {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+    .hotel-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 220px;
+    }
+    .hotel-info {
+      padding: 18px;
+    }
+    .hotel-info h3 {
+      margin: 0 0 8px;
+    }
+    .meta {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .price {
+      font-weight: bold;
+      margin: 12px 0;
+      color: #0a7a3d;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 10px;
+      background: #111;
+      color: white;
+      text-decoration: none;
+    }
+    #map {
+      width: 100%;
+      height: 760px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+    .empty {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+    }
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      #map {
+        height: 420px;
+      }
+      .hotel-card {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Зочид буудал</h1>
+
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Буудлын нэр хайх..." />
+      <select id="cityFilter">
+        <option value="">Бүх байршил</option>
+      </select>
+      <select id="regionFilter">
+        <option value="">Бүх бүс</option>
+      </select>
+    </div>
+
+    <div class="layout">
+      <div id="hotelList" class="hotel-list"></div>
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const SUPABASE_URL = "YOUR_SUPABASE_URL";
+    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const hotelList = document.getElementById("hotelList");
+    const cityFilter = document.getElementById("cityFilter");
+    const regionFilter = document.getElementById("regionFilter");
+    const searchInput = document.getElementById("searchInput");
+
+    let hotels = [];
+    let filteredHotels = [];
+    let map;
+    let markersLayer;
+
+    function formatPrice(price) {
+      if (!price) return "";
+      return new Intl.NumberFormat("mn-MN").format(price) + "₮";
+    }
+
+    function renderFilters() {
+      const cities = [...new Set(hotels.map(h => h.city).filter(Boolean))];
+      const regions = [...new Set(hotels.map(h => h.region).filter(Boolean))];
+
+      cityFilter.innerHTML = `<option value="">Бүх байршил</option>` +
+        cities.map(city => `<option value="${city}">${city}</option>`).join("");
+
+      regionFilter.innerHTML = `<option value="">Бүх бүс</option>` +
+        regions.map(region => `<option value="${region}">${region}</option>`).join("");
+    }
+
+    function renderHotels(data) {
+      if (!data.length) {
+        hotelList.innerHTML = `<div class="empty">Илэрц олдсонгүй.</div>`;
+        return;
+      }
+
+      hotelList.innerHTML = data.map(hotel => `
+        <div class="hotel-card">
+          <img src="${hotel.main_image || 'https://via.placeholder.com/800x600?text=No+Image'}" alt="${hotel.name}">
+          <div class="hotel-info">
+            <h3>${hotel.name}</h3>
+            <div class="meta">${hotel.city || ''} ${hotel.region ? '• ' + hotel.region : ''}</div>
+            <div>${hotel.short_description || ''}</div>
+            <div class="price">Үнэ: ${formatPrice(hotel.price_from)}-с</div>
+            <a class="btn" href="hotel-detail.html?id=${hotel.id}">Дэлгэрэнгүй</a>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function initMap() {
+      map = L.map('map').setView([47.9184, 106.9177], 12);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      markersLayer = L.layerGroup().addTo(map);
+    }
+
+    function renderMap(data) {
+      markersLayer.clearLayers();
+
+      if (!data.length) return;
+
+      const bounds = [];
+
+      data.forEach(hotel => {
+        if (hotel.latitude && hotel.longitude) {
+          const marker = L.marker([hotel.latitude, hotel.longitude]).addTo(markersLayer);
+          marker.bindPopup(`
+            <div style="width:220px">
+              <img src="${hotel.main_image || 'https://via.placeholder.com/400x250?text=No+Image'}" 
+                   style="width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:8px;">
+              <strong>${hotel.name}</strong><br>
+              <small>${hotel.city || ''} ${hotel.region ? '• ' + hotel.region : ''}</small><br><br>
+              <a href="hotel-detail.html?id=${hotel.id}">Дэлгэрэнгүй</a>
+            </div>
+          `);
+          bounds.push([hotel.latitude, hotel.longitude]);
+        }
+      });
+
+      if (bounds.length) {
+        map.fitBounds(bounds, { padding: [40, 40] });
+      }
+    }
+
+    function applyFilters() {
+      const city = cityFilter.value.toLowerCase();
+      const region = regionFilter.value.toLowerCase();
+      const keyword = searchInput.value.toLowerCase().trim();
+
+      filteredHotels = hotels.filter(hotel => {
+        const matchCity = !city || (hotel.city || "").toLowerCase() === city;
+        const matchRegion = !region || (hotel.region || "").toLowerCase() === region;
+        const matchKeyword = !keyword || (hotel.name || "").toLowerCase().includes(keyword);
+        return matchCity && matchRegion && matchKeyword;
+      });
+
+      renderHotels(filteredHotels);
+      renderMap(filteredHotels);
+    }
+
+    async function loadHotels() {
+      const { data, error } = await supabaseClient
+        .from("hotels")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        hotelList.innerHTML = `<div class="empty">Алдаа гарлаа: ${error.message}</div>`;
+        return;
+      }
+
+      hotels = data || [];
+      renderFilters();
+      applyFilters();
+    }
+
+    cityFilter.addEventListener("change", applyFilters);
+    regionFilter.addEventListener("change", applyFilters);
+    searchInput.addEventListener("input", applyFilters);
+
+    initMap();
+    loadHotels();
+  </script>
+</body>
+</html>
