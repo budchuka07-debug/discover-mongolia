@@ -610,6 +610,15 @@ gtag('config', 'G-XDG8KZWZCM');
       .video-small iframe{height:220px}
       .about-photo{min-height:300px}
     }
+  
+    .multi-upload-box{display:flex;flex-direction:column;gap:10px}
+    .multi-upload-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .multi-upload-actions .btn{padding:10px 14px}
+    .multi-upload-list{display:grid;gap:8px}
+    .multi-upload-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e5e7eb;border-radius:12px;background:#fafafa;font-size:14px}
+    .multi-upload-empty{color:var(--muted);font-size:14px}
+    .multi-upload-remove{border:none;background:#fee2e2;color:#991b1b;border-radius:999px;padding:6px 10px;font-weight:700;cursor:pointer}
+
   </style>
 </head>
 <body>
@@ -1175,7 +1184,17 @@ gtag('config', 'G-XDG8KZWZCM');
               <div><label>Phone / WhatsApp</label><input type="text" id="hotel_phone"></div>
               <div><label>Latitude</label><input type="number" step="any" id="hotel_latitude" placeholder="47.9184"></div>
               <div><label>Longitude</label><input type="number" step="any" id="hotel_longitude" placeholder="106.9177"></div>
-              <div class="full"><label>Hotel Images</label><input type="file" id="hotel_image_file" accept="image/*" multiple required></div>
+              <div class="full"><label>Hotel Images</label>
+                <div class="multi-upload-box">
+                  <input type="file" id="hotel_image_file" accept="image/*" multiple required style="display:none">
+                  <div class="multi-upload-actions">
+                    <button type="button" class="btn btn-outline" style="color:var(--primary);border-color:#d1d5db" onclick="openImagePicker('hotel')">Choose hotel images</button>
+                    <button type="button" class="btn btn-outline" style="color:var(--primary);border-color:#d1d5db" onclick="openImagePicker('hotel')">Add more</button>
+                  </div>
+                  <div id="hotel-image-summary" class="multi-upload-empty">No images selected yet.</div>
+                  <div id="hotel-image-list" class="multi-upload-list"></div>
+                </div>
+              </div>
               <div class="full"><label>Short Description</label><textarea id="hotel_description" placeholder="Tell travelers about your property, room style, view and key facilities."></textarea></div>
               <div class="full submit-actions"><button class="btn btn-primary" type="submit">Submit Hotel / Camp</button></div>
               <div class="full"><div id="hotel-notice" class="notice"></div></div>
@@ -1215,7 +1234,17 @@ gtag('config', 'G-XDG8KZWZCM');
               <div><label>Contact Name</label><input type="text" id="car_contact_name"></div>
               <div><label>Phone / WhatsApp</label><input type="text" id="car_phone"></div>
               <div><label>Email</label><input type="email" id="car_email"></div>
-              <div class="full"><label>Car Images</label><input type="file" id="car_image_file" accept="image/*" multiple required></div>
+              <div class="full"><label>Car Images</label>
+                <div class="multi-upload-box">
+                  <input type="file" id="car_image_file" accept="image/*" multiple required style="display:none">
+                  <div class="multi-upload-actions">
+                    <button type="button" class="btn btn-outline" style="color:var(--primary);border-color:#d1d5db" onclick="openImagePicker('car')">Choose car images</button>
+                    <button type="button" class="btn btn-outline" style="color:var(--primary);border-color:#d1d5db" onclick="openImagePicker('car')">Add more</button>
+                  </div>
+                  <div id="car-image-summary" class="multi-upload-empty">No images selected yet.</div>
+                  <div id="car-image-list" class="multi-upload-list"></div>
+                </div>
+              </div>
               <div class="full"><label>Description</label><textarea id="car_description" placeholder="Describe service area, driver, luggage, road type and any special features."></textarea></div>
               <div class="full submit-actions"><button class="btn btn-primary" type="submit">Submit Transport Service</button></div>
               <div class="full"><div id="car-notice" class="notice"></div></div>
@@ -1458,13 +1487,10 @@ gtag('config', 'G-XDG8KZWZCM');
 
   async function uploadMultipleImages(bucketName, files, folder = 'uploads') {
     const urls = [];
-    const batchStamp = Date.now();
 
-    for (let i = 0; i < files.length; i += 1) {
-      const file = files[i];
+    for (const file of files) {
       const cleanName = sanitizeFileName(file.name);
-      const randomPart = Math.random().toString(36).slice(2, 8);
-      const filePath = `${folder}/${batchStamp}-${i}-${randomPart}-${cleanName}`;
+      const filePath = `${folder}/${Date.now()}-${cleanName}`;
 
       const { error: uploadError } = await supabaseClient.storage
         .from(bucketName)
@@ -1491,12 +1517,6 @@ gtag('config', 'G-XDG8KZWZCM');
         const parsed = JSON.parse(value);
         if (Array.isArray(parsed)) return parsed.filter(Boolean);
       } catch (e) {}
-
-      if (value.includes(',')) {
-        const splitValues = value.split(',').map(item => item.trim()).filter(Boolean);
-        if (splitValues.length) return splitValues;
-      }
-
       return [value];
     }
     return fallback ? [fallback] : [];
@@ -1945,11 +1965,69 @@ async function loadCars() {
       : '<p class="muted">No traveler reviews published yet.</p>';
   }
 
+
+  const pendingUploadFiles = {
+    hotel: [],
+    car: []
+  };
+
+  function openImagePicker(type) {
+    const input = document.getElementById(`${type}_image_file`);
+    if (input) input.click();
+  }
+
+  function attachIncrementalImagePicker(type) {
+    const input = document.getElementById(`${type}_image_file`);
+    if (!input) return;
+
+    input.addEventListener('change', () => {
+      const existing = pendingUploadFiles[type];
+      const incoming = Array.from(input.files || []);
+      if (!incoming.length) return;
+
+      incoming.forEach(file => {
+        const duplicate = existing.some(item => item.name === file.name && item.size === file.size && item.lastModified === file.lastModified);
+        if (!duplicate) existing.push(file);
+      });
+
+      input.value = '';
+      renderSelectedImages(type);
+    });
+  }
+
+  function removeSelectedImage(type, index) {
+    pendingUploadFiles[type].splice(index, 1);
+    renderSelectedImages(type);
+  }
+
+  function renderSelectedImages(type) {
+    const summary = document.getElementById(`${type}-image-summary`);
+    const list = document.getElementById(`${type}-image-list`);
+    const files = pendingUploadFiles[type] || [];
+    if (!summary || !list) return;
+
+    if (!files.length) {
+      summary.textContent = 'No images selected yet.';
+      summary.className = 'multi-upload-empty';
+      list.innerHTML = '';
+      return;
+    }
+
+    summary.textContent = `${files.length} image${files.length > 1 ? 's' : ''} selected`;
+    summary.className = 'multi-upload-empty';
+    list.innerHTML = files.map((file, index) => `
+      <div class="multi-upload-item">
+        <span>${file.name}</span>
+        <button type="button" class="multi-upload-remove" onclick="removeSelectedImage('${type}', ${index})">Remove</button>
+      </div>
+    `).join('');
+  }
+
   async function insertHotelSubmission(e) {
     e.preventDefault();
 
     try {
-      const imageFiles = Array.from(document.getElementById('hotel_image_file')?.files || []);
+      const imageFiles = pendingUploadFiles.hotel.length ? [...pendingUploadFiles.hotel] : Array.from(document.getElementById('hotel_image_file')?.files || []);
 
       if (!imageFiles.length) {
         showNotice('hotel-notice', 'Please choose hotel images.', 'error');
@@ -1982,6 +2060,8 @@ async function loadCars() {
       }
 
       document.getElementById('hotel-form').reset();
+      pendingUploadFiles.hotel = [];
+      renderSelectedImages('hotel');
       showNotice('hotel-notice', 'Hotel or camp submitted successfully. We will review it before publishing.');
     } catch (error) {
       console.error('hotel insert error:', error);
@@ -2036,7 +2116,7 @@ async function insertGuideSubmission(e) {
     e.preventDefault();
 
     try {
-      const imageFiles = Array.from(document.getElementById('car_image_file')?.files || []);
+      const imageFiles = pendingUploadFiles.car.length ? [...pendingUploadFiles.car] : Array.from(document.getElementById('car_image_file')?.files || []);
 
       if (!imageFiles.length) {
         showNotice('car-notice', 'Please choose car images.', 'error');
@@ -2068,6 +2148,8 @@ async function insertGuideSubmission(e) {
       }
 
       document.getElementById('car-form').reset();
+      pendingUploadFiles.car = [];
+      renderSelectedImages('car');
       showNotice('car-notice', 'Transport service submitted successfully. We will review it before publishing.');
     } catch (error) {
       console.error('car insert error:', error);
@@ -2115,6 +2197,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initRegisterModalFallback();
 
+  attachIncrementalImagePicker('hotel');
+  attachIncrementalImagePicker('car');
   document.getElementById('hotel-form')?.addEventListener('submit', insertHotelSubmission);
   document.getElementById('car-form')?.addEventListener('submit', insertCarSubmission);
   document.getElementById('guide-form')?.addEventListener('submit', insertGuideSubmission);
