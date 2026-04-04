@@ -632,11 +632,9 @@ gtag('config', 'G-XDG8KZWZCM');
         <a href="#guides">Guides</a>
         <a href="#cars" data-i18n="nav_cars">Car Rental</a>
         <a href="#reviews" data-i18n="nav_reviews">Reviews</a>
-        <a href="#contact" data-i18n="nav_contact">Contact</a>
         <a href="/vip-helicopter-expedition.html">Helicopter Tour</a>
         <a href="#tours" data-i18n="nav_tours">VIP Tours</a>
         <a href="#guide" data-i18n="nav_guide">Travel Guide</a>
-        <a href="/tour-calendar.html">Tour Calendar</a>
         <a href="#videos" data-i18n="nav_videos">Videos</a>
         <a href="#gallery" data-i18n="nav_gallery">Gallery</a>
         <a href="#about" data-i18n="nav_about">About</a>
@@ -664,11 +662,10 @@ gtag('config', 'G-XDG8KZWZCM');
         <h1 data-i18n="hero_title">Discover the Real Mongolia with Local Experts</h1>
         <p data-i18n="hero_text">Explore nomadic culture, reindeer families, Mongolia’s stunning landscapes, private journeys, and unforgettable local travel experiences.</p>
 
-       <div class="cta-row">
-  <a class="btn btn-primary" href="#tours" data-i18n="hero_btn_1">View Tours</a>
-  <a class="btn btn-outline" href="#guide" data-i18n="hero_btn_2">Travel Guide</a>
-  <a class="btn btn-outline" href="visa-requirements.html">Visa Requirements</a>
-</div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#tours" data-i18n="hero_btn_1">View Tours</a>
+          <a class="btn btn-outline" href="#guide" data-i18n="hero_btn_2">Travel Guide</a>
+        </div>
         <div class="quick-links">
           <a class="quick-link" href="#hotels">🏨 Hotels</a>
           <a class="quick-link" href="#cars">🚙 Car Rental</a>
@@ -1459,9 +1456,10 @@ gtag('config', 'G-XDG8KZWZCM');
   async function uploadMultipleImages(bucketName, files, folder = 'uploads') {
     const urls = [];
 
-    for (const file of files) {
-      const cleanName = sanitizeFileName(file.name);
-      const filePath = `${folder}/${Date.now()}-${cleanName}`;
+    for (const [index, file] of Array.from(files).entries()) {
+      const cleanName = sanitizeFileName(file.name || `image-${index + 1}.jpg`);
+      const uniqueToken = `${Date.now()}-${index}-${Math.random().toString(36).slice(2, 10)}`;
+      const filePath = `${folder}/${uniqueToken}-${cleanName}`;
 
       const { error: uploadError } = await supabaseClient.storage
         .from(bucketName)
@@ -1481,15 +1479,46 @@ gtag('config', 'G-XDG8KZWZCM');
     return urls;
   }
 
+  function escapeJsString(value = '') {
+    return String(value)
+      .replace(/\/g, '\\')
+      .replace(/'/g, "\'");
+  }
+
   function normalizeGalleryUrls(value, fallback = '') {
-    if (Array.isArray(value)) return value.filter(Boolean);
-    if (typeof value === 'string' && value.trim()) {
-      try {
-        const parsed = JSON.parse(value);
-        if (Array.isArray(parsed)) return parsed.filter(Boolean);
-      } catch (e) {}
-      return [value];
+    if (Array.isArray(value)) {
+      return value.filter(item => typeof item === 'string' && item.trim());
     }
+
+    if (value && typeof value === 'object') {
+      if (Array.isArray(value.urls)) {
+        return value.urls.filter(item => typeof item === 'string' && item.trim());
+      }
+      if (Array.isArray(value.gallery_urls)) {
+        return value.gallery_urls.filter(item => typeof item === 'string' && item.trim());
+      }
+    }
+
+    if (typeof value === 'string' && value.trim()) {
+      const raw = value.trim();
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          return parsed.filter(item => typeof item === 'string' && item.trim());
+        }
+        if (parsed && typeof parsed === 'object') {
+          if (Array.isArray(parsed.urls)) return parsed.urls.filter(Boolean);
+          if (Array.isArray(parsed.gallery_urls)) return parsed.gallery_urls.filter(Boolean);
+        }
+      } catch (e) {}
+
+      if (raw.includes(',')) {
+        return raw.split(',').map(item => item.trim()).filter(Boolean);
+      }
+
+      return [raw];
+    }
+
     return fallback ? [fallback] : [];
   }
 
@@ -1503,8 +1532,10 @@ gtag('config', 'G-XDG8KZWZCM');
 
   function closeImageLightbox() {
     const modal = document.getElementById('image-lightbox');
+    const img = document.getElementById('image-lightbox-img');
     if (!modal) return;
     modal.classList.remove('open');
+    if (img) img.src = '';
   }
 
   function changeGalleryImage(cardId, imageUrl, thumb) {
@@ -1513,7 +1544,7 @@ gtag('config', 'G-XDG8KZWZCM');
     const mainImage = card.querySelector('.listing-main-image');
     if (mainImage) {
       mainImage.src = imageUrl;
-      mainImage.setAttribute('onclick', `openImageLightbox('${String(imageUrl).replace(/'/g, "\'")}')`);
+      mainImage.setAttribute('onclick', `openImageLightbox('${escapeJsString(imageUrl)}')`);
     }
     card.querySelectorAll('.listing-thumbs img').forEach(img => img.classList.remove('active'));
     if (thumb) thumb.classList.add('active');
@@ -1527,14 +1558,14 @@ gtag('config', 'G-XDG8KZWZCM');
 
     return `
       <div class="listing-gallery" id="${cardId}">
-        <img src="${mainImg}" alt="${alt}" class="listing-main-image" onclick="openImageLightbox('${String(mainImg).replace(/'/g, "\'")}')" onerror="this.onerror=null;this.src='${fallback}'">
+        <img src="${mainImg}" alt="${alt}" class="listing-main-image" onclick="openImageLightbox('${escapeJsString(mainImg)}')" onerror="this.onerror=null;this.src='${fallback}'">
         ${safeGallery.length > 1 ? `
           <div class="listing-thumbs">
             ${safeGallery.map((img, imgIndex) => `
-              <img src="${img}" alt="${alt} thumbnail ${imgIndex + 1}" class="${imgIndex === 0 ? 'active' : ''}" onclick="changeGalleryImage('${cardId}', '${String(img).replace(/'/g, "\'")}', this)" onerror="this.onerror=null;this.src='${fallback}'">
+              <img src="${img}" alt="${alt} thumbnail ${imgIndex + 1}" class="${imgIndex === 0 ? 'active' : ''}" onclick="changeGalleryImage('${cardId}', '${escapeJsString(img)}', this)" onerror="this.onerror=null;this.src='${fallback}'">
             `).join('')}
           </div>
-        ` : ''}
+        ` : `<div class="listing-meta" style="margin-top:10px"><span class="pill">1 photo</span></div>`}
       </div>
     `;
   }
