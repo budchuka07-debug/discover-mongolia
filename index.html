@@ -682,6 +682,16 @@ gtag('config', 'G-XDG8KZWZCM');
     }
     .destination-province-link:hover,.destination-famous-link:hover{border-color:#0f3557;color:#0f3557}
 
+    .featured-places-section{padding-top:28px}
+    .featured-places-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+    .featured-place-card{display:block;background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(13,59,102,.08);transition:.25s ease}
+    .featured-place-card:hover{transform:translateY(-5px)}
+    .featured-place-card img{width:100%;height:200px;object-fit:cover;background:#e5e7eb}
+    .featured-place-body{padding:16px 18px}
+    .featured-place-meta{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#eef4ff;color:var(--primary);font-size:12px;font-weight:800;margin-bottom:10px}
+    .featured-place-body h3{font-size:20px;color:var(--primary-dark);margin-bottom:8px}
+    .featured-place-body p{margin:0;color:var(--muted);font-size:14px}
+
 
 @media (max-width:1024px){
       .grid-4,.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -709,7 +719,7 @@ gtag('config', 'G-XDG8KZWZCM');
       .video-main iframe{min-height:260px}
       .video-small iframe{height:220px}
       .about-photo{min-height:300px}
-      .destination-province-list,.destination-meta,.destination-attractions-list{grid-template-columns:1fr}
+      .destination-province-list,.destination-meta,.destination-attractions-list,.featured-places-grid{grid-template-columns:1fr}
     }
   
     .multi-upload-box{display:flex;flex-direction:column;gap:10px}
@@ -1001,6 +1011,126 @@ gtag('config', 'G-XDG8KZWZCM');
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="featured-places-section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Top Scenic Places Across Mongolia</h2>
+        <p>Travelers can also open famous destinations directly from these cards without using the map first.</p>
+      </div>
+
+      <div class="featured-places-grid">
+        <a href="destinations/arkhangai.html" class="featured-place-card">
+          <img src="images/destinations/terkhiin-tsagaan-nuur.jpg" alt="Terkhiin Tsagaan Lake">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Arkhangai</span>
+            <h3>Terkhiin Tsagaan Lake</h3>
+            <p>Volcanic lake landscapes, Khorgo volcano area and central Mongolia nature route.</p>
+          </div>
+        </a>
+
+        <a href="destinations/arkhangai.html" class="featured-place-card">
+          <img src="images/destinations/tsenkher.jpg" alt="Tsenkher Hot Spring">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Arkhangai</span>
+            <h3>Tsenkher Hot Spring</h3>
+            <p>Wellness stop in the mountains, ideal for relaxing after a long overland journey.</p>
+          </div>
+        </a>
+
+        <a href="destinations/umnugovi.html" class="featured-place-card">
+          <img src="images/destinations/khongor-dunes.jpg" alt="Khongor Sand Dunes">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Umnugovi</span>
+            <h3>Khongor Sand Dunes</h3>
+            <p>One of the most iconic desert landscapes in Mongolia with giant singing dunes.</p>
+          </div>
+        </a>
+
+        <a href="destinations/umnugovi.html" class="featured-place-card">
+          <img src="images/destinations/bayanzag.jpg" alt="Bayanzag">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Umnugovi</span>
+            <h3>Bayanzag</h3>
+            <p>Famous Flaming Cliffs known for dinosaur fossils and dramatic sunset colors.</p>
+          </div>
+        </a>
+
+        <a href="destinations/umnugovi.html" class="featured-place-card">
+          <img src="images/destinations/khermen-tsav.jpg" alt="Khermen Tsav">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Umnugovi</span>
+            <h3>Khermen Tsav</h3>
+            <p>Remote red canyon scenery for adventure travelers seeking Mongolia’s wildest views.</p>
+          </div>
+        </a>
+
+        <a href="destinations/dundgovi.html" class="featured-place-card">
+          <img src="images/destinations/ongiin-khiid.jpg" alt="Ongiin Monastery">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Dundgovi</span>
+            <h3>Ongiin Monastery</h3>
+            <p>Historic monastery ruins and peaceful river valley atmosphere in central Gobi.</p>
+          </div>
+        </a>
+
+        <a href="destinations/uvurkhangai.html" class="featured-place-card">
+          <img src="images/destinations/elsen-tasarkhai.jpg" alt="Elsen Tasarkhai">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Uvurkhangai</span>
+            <h3>Elsen Tasarkhai</h3>
+            <p>A short but beautiful sand dune zone between steppe and mountain landscapes.</p>
+          </div>
+        </a>
+
+        <a href="destinations/uvurkhangai.html" class="featured-place-card">
+          <img src="images/destinations/erdene-zuu.jpg" alt="Erdene Zuu Monastery">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Uvurkhangai</span>
+            <h3>Erdene Zuu & Kharkhorum</h3>
+            <p>Mongolia’s most important historical route with monastery heritage and old capital ruins.</p>
+          </div>
+        </a>
+
+        <a href="destinations/selenge.html" class="featured-place-card">
+          <img src="images/destinations/amarbayasgalant.jpg" alt="Amarbayasgalant Monastery">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Selenge</span>
+            <h3>Amarbayasgalant Monastery</h3>
+            <p>One of Mongolia’s greatest Buddhist architectural complexes in a beautiful valley.</p>
+          </div>
+        </a>
+
+        <a href="destinations/tuv.html" class="featured-place-card">
+          <img src="images/destinations/hustai.jpg" alt="Khustain Nuruu">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Tuv</span>
+            <h3>Khustain Nuruu</h3>
+            <p>See the famous takhi wild horses and enjoy one of Mongolia’s easiest wildlife trips.</p>
+          </div>
+        </a>
+
+        <a href="destinations/khuvsgul.html" class="featured-place-card">
+          <img src="images/destinations/khuvsgul-lake.jpg" alt="Khuvsgul Lake">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Khuvsgul</span>
+            <h3>Khuvsgul Lake</h3>
+            <p>The Blue Pearl of Mongolia with forested shorelines, boat views and fresh northern air.</p>
+          </div>
+        </a>
+
+        <a href="destinations/bayan-ulgii.html" class="featured-place-card">
+          <img src="images/destinations/altai-tavan-bogd.jpg" alt="Altai Tavan Bogd">
+          <div class="featured-place-body">
+            <span class="featured-place-meta">Bayan-Ulgii</span>
+            <h3>Altai Tavan Bogd</h3>
+            <p>Western Mongolia’s glacier and mountain region, home of eagle hunter culture and trekking.</p>
+          </div>
+        </a>
       </div>
     </div>
   </section>
