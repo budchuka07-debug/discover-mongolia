@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SWZZY2HBZB"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XDG8KZWZCM"></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 
-gtag('config', 'G-SWZZY2HBZB');
+gtag('config', 'G-XDG8KZWZCM');
 </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -45,23 +45,7 @@ gtag('config', 'G-SWZZY2HBZB');
     a{text-decoration:none;color:inherit}
     img{display:block;max-width:100%}
     .container{width:min(92%,var(--max));margin:0 auto}
-.header-register-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px 16px;
-  border-radius:999px;
-  background:var(--accent);
-  color:#fff;
-  font-weight:800;
-  border:1px solid var(--accent);
-  margin-left:8px;
-  transition:.25s ease;
-}
-.header-register-btn:hover{
-  background:var(--accent-dark);
-  border-color:var(--accent-dark);
-}
+
     .topbar{
       background:var(--primary);
       color:#fff;
@@ -601,7 +585,41 @@ gtag('config', 'G-SWZZY2HBZB');
     .sticky-book-bar .btn{padding:12px 18px}
     .sticky-book-bar .mini-note{color:#fff;font-size:13px;padding:0 8px 0 12px;white-space:nowrap}
 
-    @media (max-width:1024px){
+    
+    /* Destination map section */
+    .destination-map-wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    .destination-map-section .section-head{max-width:760px;margin-bottom:28px}
+    .destination-map-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+    .destination-map-panel{background:#fff;border-radius:18px;box-shadow:0 12px 30px rgba(0,0,0,.08);padding:24px}
+    .destination-mapbox{
+      position:relative;min-height:620px;border-radius:18px;overflow:hidden;
+      background:linear-gradient(180deg,#e8f0f7,#f7f5ef);
+      border:1px solid #e5e7eb;
+    }
+    .destination-map-bg{
+      position:absolute;inset:20px;
+      background:url('images/mongolia-map-placeholder.jpg') center/contain no-repeat;
+      opacity:.22;
+    }
+    .destination-point{
+      position:absolute;transform:translate(-50%,-50%);
+      background:#0f3557;color:#fff;border:none;border-radius:999px;
+      padding:10px 14px;font-weight:700;cursor:pointer;box-shadow:0 10px 18px rgba(15,53,87,.25)
+    }
+    .destination-point:hover,.destination-point.active{background:#c98b2f}
+    .destination-info-card h3{color:#0f3557}
+    .destination-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+    .destination-meta div{background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:12px}
+    .destination-map-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .destination-province-list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+    .destination-province-link{
+      display:block;padding:14px 16px;border-radius:12px;background:#f9fafb;border:1px solid #e5e7eb;
+      color:#111827;text-decoration:none;font-weight:700
+    }
+    .destination-province-link:hover{border-color:#0f3557;color:#0f3557}
+    .destination-tip{margin-top:18px;padding:16px;border-radius:14px;background:#eef6ff;border:1px solid #cfe2ff}
+
+@media (max-width:1024px){
       .grid-4,.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
       .guide-wrap,.about-wrap,.booking-wrap,.local-guide-wrap,.hotel-booking-layout{grid-template-columns:1fr}
       .register-service-top{align-items:flex-start}
@@ -609,6 +627,8 @@ gtag('config', 'G-SWZZY2HBZB');
       .video-small{grid-template-columns:1fr 1fr}
       #hotel-map{height:420px}
       .hotel-map-panel{position:relative;top:auto}
+      .destination-map-layout{grid-template-columns:1fr}
+      .destination-mapbox{min-height:480px}
     }
     @media (max-width:720px){
       .sticky-book-bar{left:12px;right:12px;transform:none;border-radius:22px;justify-content:center;flex-wrap:wrap;padding:12px}
@@ -625,6 +645,7 @@ gtag('config', 'G-SWZZY2HBZB');
       .video-main iframe{min-height:260px}
       .video-small iframe{height:220px}
       .about-photo{min-height:300px}
+      .destination-province-list,.destination-meta{grid-template-columns:1fr}
     }
   
     .multi-upload-box{display:flex;flex-direction:column;gap:10px}
@@ -669,15 +690,11 @@ gtag('config', 'G-SWZZY2HBZB');
         <a href="#contact" data-i18n="nav_contact">Contact</a>
       </nav>
 
-<div class="lang-switch">
-  <button class="active" data-lang="en">EN</button>
-  <button data-lang="ja">日本語</button>
-  <button data-lang="ko">한국어</button>
-
-  <a href="#" onclick="openRegisterModal('hotel'); return false;" class="header-register-btn">
-    List Your Service
-  </a>
-</div>
+      <div class="lang-switch">
+        <button class="active" data-lang="en">EN</button>
+        <button data-lang="ja">日本語</button>
+        <button data-lang="ko">한국어</button>
+      </div>
     </div>
   </header>
 
@@ -806,61 +823,62 @@ gtag('config', 'G-SWZZY2HBZB');
     </div>
   </section>
 
-  <section id="destinations">
+  
+  <section id="destinations" class="destination-map-section">
     <div class="container">
       <div class="section-head">
         <h2 data-i18n="dest_title">Explore Mongolia by Destination</h2>
         <p data-i18n="dest_text">Beautiful destinations, cultural places and nature highlights across Mongolia.</p>
       </div>
 
-      <div class="grid grid-3">
-        <article class="card dest-card">
-          <img src="images/destinations/dest-khuvsgul-lake.jpg" alt="Khuvsgul Lake">
-          <div class="card-body">
-            <h3>Khuvsgul</h3>
-            <p class="muted" data-i18n="dest_1">Lake, taiga and northern adventures.</p>
-          </div>
-        </article>
+      <div class="destination-map-wrap">
+        <div class="destination-map-layout">
+          <div class="destination-map-panel">
+            <div class="destination-mapbox">
+              <div class="destination-map-bg"></div>
 
-        <article class="card dest-card">
-          <img src="images/destinations/dest-altai-mountains.jpg" alt="Altai Mountains">
-          <div class="card-body">
-            <h3>Altai Mountains</h3>
-            <p class="muted" data-i18n="dest_2">High mountains, glaciers and western Mongolia landscapes.</p>
+              <button class="destination-point active" style="left:32%;top:45%" onclick="showProvince('khuvsgul', event)">Khuvsgul</button>
+              <button class="destination-point" style="left:18%;top:32%" onclick="showProvince('bayanulgii', event)">Bayan-Ulgii</button>
+              <button class="destination-point" style="left:57%;top:63%" onclick="showProvince('umnugovi', event)">Umnugovi</button>
+              <button class="destination-point" style="left:41%;top:44%" onclick="showProvince('arkhangai', event)">Arkhangai</button>
+              <button class="destination-point" style="left:50%;top:50%" onclick="showProvince('tuv', event)">Tuv</button>
+              <button class="destination-point" style="left:64%;top:48%" onclick="showProvince('khentii', event)">Khentii</button>
+              <button class="destination-point" style="left:45%;top:38%" onclick="showProvince('selenge', event)">Selenge</button>
+            </div>
           </div>
-        </article>
 
-        <article class="card dest-card">
-          <img src="images/destinations/dest-gobi-desert.jpg" alt="Gobi Desert">
-          <div class="card-body">
-            <h3>Gobi Desert</h3>
-            <p class="muted" data-i18n="dest_3">Sand dunes, camels and dramatic desert views.</p>
-          </div>
-        </article>
+          <div class="destination-map-panel destination-info-card">
+            <div id="provinceContent">
+              <h3>Khuvsgul</h3>
+              <p>The Blue Pearl of Mongolia, famous for Khuvsgul Lake, taiga forests and reindeer culture.</p>
+              <div class="destination-meta">
+                <div><strong>Best For</strong><br>Lake, taiga, reindeer</div>
+                <div><strong>From UB</strong><br>Flight or long-distance bus</div>
+                <div><strong>Best Season</strong><br>June – September</div>
+                <div><strong>Tour Type</strong><br>Nature, culture, adventure</div>
+              </div>
+              <div class="destination-map-cta">
+                <a class="btn btn-primary" href="destinations/khuvsgul.html">Open Province Page</a>
+                <a class="btn btn-secondary" href="tours/reindeer-tour.html">View Related Tour</a>
+              </div>
+            </div>
 
-        <article class="card dest-card">
-          <img src="images/destinations/dest-terelj-national-park.jpg" alt="Terelj National Park">
-          <div class="card-body">
-            <h3>Terelj National Park</h3>
-            <p class="muted" data-i18n="dest_4">Rock formations, valleys and easy short trips from Ulaanbaatar.</p>
-          </div>
-        </article>
+            <div class="destination-tip">
+              <strong>Tip:</strong> Click a province on the map to open a destination page with places to visit, transport, accommodation and tour suggestions.
+            </div>
 
-        <article class="card dest-card">
-          <img src="images/destinations/dest-karakorum.jpg" alt="Karakorum">
-          <div class="card-body">
-            <h3>Karakorum</h3>
-            <p class="muted" data-i18n="dest_5">Historic capital and central Mongolia culture.</p>
+            <h3 style="margin-top:22px">Quick Destination Links</h3>
+            <div class="destination-province-list">
+              <a class="destination-province-link" href="destinations/khuvsgul.html">Khuvsgul</a>
+              <a class="destination-province-link" href="destinations/bayan-ulgii.html">Bayan-Ulgii</a>
+              <a class="destination-province-link" href="destinations/umnugovi.html">Umnugovi</a>
+              <a class="destination-province-link" href="destinations/arkhangai.html">Arkhangai</a>
+              <a class="destination-province-link" href="destinations/tuv.html">Tuv</a>
+              <a class="destination-province-link" href="destinations/khentii.html">Khentii</a>
+              <a class="destination-province-link" href="destinations/selenge.html">Selenge</a>
+            </div>
           </div>
-        </article>
-
-        <article class="card dest-card">
-          <img src="images/destinations/dest-orkhon-valley.jpg" alt="Orkhon Valley">
-          <div class="card-body">
-            <h3>Orkhon Valley</h3>
-            <p class="muted" data-i18n="dest_6">Waterfalls, green valleys and classic nomadic scenery.</p>
-          </div>
-        </article>
+        </div>
       </div>
     </div>
   </section>
@@ -885,23 +903,22 @@ gtag('config', 'G-SWZZY2HBZB');
           </div>
         </article>
       </a>
-<a href="tours/horse-riding-tour.html" class="tour-link">
-  <div class="tour-card">
-    
-    <img src="images/tour/horse-tour-hero.jpg" alt="Horse Riding Tour">
-    
-    <div class="tag">Adventure</div>
-    
-    <h3>4 Day Horse Riding Adventure</h3>
-    
-    <p>
-      Explore Mongolia’s mountains and lakes on horseback.
-      Camp in nature and experience nomadic lifestyle.
-    </p>
-    
-    <strong>$350 / person</strong>
+<a href="/horse-riding-tour.html" class="tour-link">
+  <article class="card tour-card">
+    <img src="images/tours/horse-tour-hero.jpg" alt="Horse Riding Tour">
 
-  </div>
+    <div class="card-body">
+      <span class="tag">Adventure</span>
+
+      <h3>4 Day Horse Riding Adventure</h3>
+
+      <p class="muted">
+        Explore Mongolia’s mountains and lakes on horseback. Camp in nature and experience nomadic lifestyle.
+      </p>
+
+      <div class="price">$350 / person</div>
+    </div>
+  </article>
 </a>
       <a href="tours/central-mongolia-tour.html" class="tour-link">
         <article class="card tour-card">
@@ -1029,31 +1046,11 @@ gtag('config', 'G-SWZZY2HBZB');
           <p class="muted" data-i18n="guide_main_text">Mongolia is a vast country with long travel distances, beautiful nature and unique nomadic culture. This guide helps travelers understand weather, food, transport and local travel realities.</p>
 
           <div class="guide-grid">
-            <!-- Modern Ulaanbaatar Guide Card -->
-<article class="card guide-card">
-  <img src="images/guide/ulaanbaatar-modern-1.jpg" alt="Modern Ulaanbaatar">
-  <div class="card-body">
-    <h3>Modern Ulaanbaatar</h3>
-    <p class="muted">
-      Explore Mongolia’s capital city – shopping malls, museums, nightlife,
-      cashmere, winter culture, and practical travel tips for visitors.
-    </p>
-    <a class="btn btn-primary" href="guide/ulaanbaatar-modern-city.html">
-      Read More
-    </a>
-  </div>
-</article>
-           <div class="guide-mini">
-
-  <img src="images/tour/nomadic-life.jpg" alt="Nomadic Life">>
-
-  <h4>Nomadic Culture</h4>
-
-  <p>Learn about ger life, livestock and countryside hospitality.</p>
-
-  <a href="guide/nomadic-culture.html" class="btn btn-primary">Read More</a>
-
-</div>
+            <div class="guide-mini">
+              <h4 data-i18n="guide_1_title">Nomadic Culture</h4>
+              <p class="muted" data-i18n="guide_1_text">Learn about ger life, livestock and countryside hospitality.</p>
+              <a class="btn btn-primary" href="guide/nomadic-culture.html" data-i18n="read_more">Read More</a>
+            </div>
             <div class="guide-mini">
               <h4 data-i18n="guide_2_title">Religion & Traditions</h4>
               <p class="muted" data-i18n="guide_2_text">Buddhism, ovoo traditions and local customs.</p>
@@ -1183,7 +1180,7 @@ gtag('config', 'G-SWZZY2HBZB');
     </div>
   </section>
 
-  <section id="register-service" class="soft-section">
+  <section id="service-registration" class="soft-section">
     <div class="container">
       <div class="section-head">
         <h2>Register Your Service</h2>
@@ -2638,5 +2635,101 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setLanguage('en');
   </script>
+
+  <script>
+    const provinceData = {
+      khuvsgul: {
+        title: "Khuvsgul",
+        text: "The Blue Pearl of Mongolia, famous for Khuvsgul Lake, taiga forests and reindeer culture.",
+        bestFor: "Lake, taiga, reindeer",
+        fromUB: "Flight or long-distance bus",
+        season: "June – September",
+        type: "Nature, culture, adventure",
+        page: "destinations/khuvsgul.html",
+        tour: "tours/reindeer-tour.html"
+      },
+      bayanulgii: {
+        title: "Bayan-Ulgii",
+        text: "Western Mongolia’s mountain province with Altai Tavan Bogd, glaciers and eagle hunter culture.",
+        bestFor: "Mountains, trekking, culture",
+        fromUB: "Domestic flight recommended",
+        season: "June – September",
+        type: "Adventure, culture, trekking",
+        page: "destinations/bayan-ulgii.html",
+        tour: "tours/altai-tour.html"
+      },
+      umnugovi: {
+        title: "Umnugovi",
+        text: "Home of the Gobi Desert, Khongor dunes, Yol Valley and Flaming Cliffs.",
+        bestFor: "Desert, dunes, fossils",
+        fromUB: "Flight, bus or 4×4 tour",
+        season: "May – October",
+        type: "Desert adventure",
+        page: "destinations/umnugovi.html",
+        tour: "tours/gobi-desert-tour.html"
+      },
+      arkhangai: {
+        title: "Arkhangai",
+        text: "A beautiful region of volcanic landscapes, green valleys, lakes and central Mongolia experiences.",
+        bestFor: "Nature, hot springs, central route",
+        fromUB: "Bus or private vehicle",
+        season: "June – September",
+        type: "Scenic and cultural travel",
+        page: "destinations/arkhangai.html",
+        tour: "tours/central-mongolia-tour.html"
+      },
+      tuv: {
+        title: "Tuv",
+        text: "Easy access from Ulaanbaatar with Terelj, Hustai and Chinggis Khan Statue Complex.",
+        bestFor: "Short trips, family travel",
+        fromUB: "Bus, car or day tour",
+        season: "Year-round",
+        type: "Short trips and day tours",
+        page: "destinations/tuv.html",
+        tour: "tours/terelj-tour.html"
+      },
+      khentii: {
+        title: "Khentii",
+        text: "Historic homeland landscapes, open steppe and routes linked to Chinggis Khan history.",
+        bestFor: "History, culture, steppe",
+        fromUB: "Road trip or private vehicle",
+        season: "June – September",
+        type: "History and nature",
+        page: "destinations/khentii.html",
+        tour: "tours/history-steppe-tour.html"
+      },
+      selenge: {
+        title: "Selenge",
+        text: "Home to Amarbayasgalant Monastery, one of Mongolia’s most important Buddhist architectural complexes.",
+        bestFor: "Culture, monastery, history",
+        fromUB: "Road trip (5–6 hours)",
+        season: "May – October",
+        type: "Cultural travel",
+        page: "destinations/selenge.html",
+        tour: "tours/amarbayasgalant-tour.html"
+      }
+    };
+
+    function showProvince(key, e){
+      const d = provinceData[key];
+      document.querySelectorAll('.destination-point').forEach(p => p.classList.remove('active'));
+      if (e && e.target) e.target.classList.add('active');
+      document.getElementById('provinceContent').innerHTML = `
+        <h3>${d.title}</h3>
+        <p>${d.text}</p>
+        <div class="destination-meta">
+          <div><strong>Best For</strong><br>${d.bestFor}</div>
+          <div><strong>From UB</strong><br>${d.fromUB}</div>
+          <div><strong>Best Season</strong><br>${d.season}</div>
+          <div><strong>Tour Type</strong><br>${d.type}</div>
+        </div>
+        <div class="destination-map-cta">
+          <a class="btn btn-primary" href="${d.page}">Open Province Page</a>
+          <a class="btn btn-secondary" href="${d.tour}">View Related Tour</a>
+        </div>
+      `;
+    }
+  </script>
+
 </body>
 </html>
