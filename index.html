@@ -3178,9 +3178,25 @@ document.addEventListener('DOMContentLoaded', () => {
       renderProvinceContent('khuvsgul');
       highlightProvince('khuvsgul');
     });
-    function openBooking(){
+ function openBooking(tourName = ''){
   document.getElementById('bookingPopup').style.display = 'block';
+
+  const tourSelect = document.getElementById('tourSelect');
+  if(tourSelect && tourName){
+    tourSelect.value = tourName;
+  }
 }
+
+function closeBooking(){
+  document.getElementById('bookingPopup').style.display = 'none';
+}
+
+window.addEventListener('click', function(e){
+  const popup = document.getElementById('bookingPopup');
+  if(e.target === popup){
+    closeBooking();
+  }
+});
 
 function closeBooking(){
   document.getElementById('bookingPopup').style.display = 'none';
