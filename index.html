@@ -3184,5 +3184,38 @@ document.addEventListener('DOMContentLoaded', () => {
     <span>📅 Book Now</span>
     <small>Dates & multi-person prices</small>
   </a>
+  <div id="bookingPopup" class="booking-popup">
+  <div class="booking-box">
+    <span class="close-btn" onclick="closeBooking()">×</span>
+    <h2>Book Your Tour</h2>
+
+    <form action="https://formspree.io/f/FORM_ID_HIINE" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+
+      <select name="tour" required>
+        <option value="">Select Tour</option>
+        <option>Terelj National Park – 1 Day</option>
+        <option>Ulaanbaatar City Tour – Half Day</option>
+        <option>Terelj & Hustai – 2 Days</option>
+        <option>Gobi Classic 7 Days</option>
+        <option>Khuvsgul Lake 5 Days</option>
+        <option>Horse Riding Tour</option>
+        <option>Altai Tavan Bogd 7 Days</option>
+        <option>Taiga Reindeer 7 Days</option>
+        <option>Helicopter Tour (Request Quote)</option>
+      </select>
+
+      <input type="date" name="date">
+      <input type="number" name="people" placeholder="Number of travelers" min="1">
+
+      <button type="submit">Send Booking Request</button>
+    </form>
+
+    <a href="https://www.paypal.com/ncp/payment/X7A32FKV8GJP4" target="_blank" rel="noopener" class="paypal-btn">
+      Pay $100 Deposit
+    </a>
+  </div>
+</div>
 </body>
 </html>
