@@ -601,7 +601,7 @@ gtag('config', 'G-XDG8KZWZCM');
     .destination-map-layout{display:grid;grid-template-columns:1.08fr .92fr;gap:24px}
     .destination-map-panel{background:#fff;border-radius:18px;box-shadow:0 12px 30px rgba(0,0,0,.08);padding:24px}
     .destination-mapbox{
-      position:relative;min-height:680px;border-radius:18px;overflow:hidden;
+      position:relative;min-height:520px;border-radius:18px;overflow:hidden;
       background:linear-gradient(180deg,#edf4fb,#f7f5ef);
       border:1px solid #e5e7eb;
       isolation:isolate;
@@ -700,6 +700,21 @@ gtag('config', 'G-XDG8KZWZCM');
     .featured-place-body h3{font-size:20px;color:var(--primary-dark);margin-bottom:8px}
     .featured-place-body p{margin:0;color:var(--muted);font-size:14px}
 
+    .mongolia-story-section{padding:18px 0 12px}
+    .mongolia-story-box{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;background:#fff;border-radius:22px;box-shadow:var(--shadow);padding:28px;border:1px solid rgba(13,59,102,.08)}
+    .mongolia-story-copy h2{color:var(--primary-dark);margin-bottom:12px}
+    .mongolia-story-copy p{margin:0 0 14px;color:var(--muted)}
+    .mongolia-story-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+    .mongolia-story-facts .fact{background:#f8fafc;border:1px solid #e5e7eb;border-radius:16px;padding:14px 16px}
+    .mongolia-story-facts strong{display:block;color:var(--primary-dark);font-size:20px;margin-bottom:4px}
+    .mongolia-story-side{display:flex;flex-direction:column;gap:14px}
+    .mongolia-story-card{background:linear-gradient(135deg,#eef4ff 0%,#f8fbff 100%);border:1px solid #dbe7ff;border-radius:18px;padding:18px}
+    .mongolia-story-card h3{color:var(--primary-dark);margin-bottom:8px}
+    .mongolia-story-card p{margin:0;color:#475569}
+    .story-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .book-now-float{position:fixed;right:20px;bottom:22px;z-index:9998;display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border-radius:999px;background:linear-gradient(135deg,#c98b2f,#e7ad4a);color:#fff;font-weight:800;box-shadow:0 18px 32px rgba(0,0,0,.18);text-decoration:none}
+    .book-now-float small{display:block;font-size:11px;font-weight:700;opacity:.9;line-height:1.1}
+    .book-now-float:hover{transform:translateY(-2px)}
 
 @media (max-width:1024px){
       .grid-4,.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -710,7 +725,8 @@ gtag('config', 'G-XDG8KZWZCM');
       #hotel-map{height:420px}
       .hotel-map-panel{position:relative;top:auto}
       .destination-map-layout{grid-template-columns:1fr}
-      .destination-mapbox{min-height:480px}
+      .destination-mapbox{min-height:440px}
+      .mongolia-story-box{grid-template-columns:1fr}
     }
     @media (max-width:720px){
       .sticky-book-bar{left:12px;right:12px;transform:none;border-radius:22px;justify-content:center;flex-wrap:wrap;padding:12px}
@@ -729,7 +745,8 @@ gtag('config', 'G-XDG8KZWZCM');
       .video-main iframe{min-height:260px}
       .video-small iframe{height:220px}
       .about-photo{min-height:300px}
-      .destination-province-list,.destination-meta,.destination-attractions-list,.featured-places-grid{grid-template-columns:1fr}
+      .destination-province-list,.destination-meta,.destination-attractions-list,.featured-places-grid,.mongolia-story-facts{grid-template-columns:1fr}
+      .book-now-float{left:12px;right:12px;bottom:12px;justify-content:center}
     }
   
     .multi-upload-box{display:flex;flex-direction:column;gap:10px}
@@ -1028,6 +1045,38 @@ gtag('config', 'G-XDG8KZWZCM');
     </div>
   </section>
 
+
+  <section class="mongolia-story-section">
+    <div class="container">
+      <div class="mongolia-story-box">
+        <div class="mongolia-story-copy">
+          <h2>Why Mongolia Feels Different</h2>
+          <p>Mongolia is one of the most sparsely populated countries in the world, with vast open land, long empty roads and huge natural contrasts between taiga, steppe, mountains and the Gobi. This is a place where space itself becomes part of the travel experience.</p>
+          <p>In remote parts of the country, especially in the South Gobi, travelers can drive for long distances without seeing towns, crowds or even phone signal. Sometimes only a single nomadic family appears after many kilometers of silence. That rare feeling of wild, untouched land is exactly why Mongolia stays in people’s memory.</p>
+          <div class="mongolia-story-facts">
+            <div class="fact"><strong>1.56M km²</strong><span>Total land area of Mongolia.</span></div>
+            <div class="fact"><strong>Endless Space</strong><span>Wide landscapes with very low population density.</span></div>
+            <div class="fact"><strong>South Gobi</strong><span>Remote routes with no crowds, no traffic and little signal.</span></div>
+            <div class="fact"><strong>Wild Nature</strong><span>Steppe, desert, alpine mountains, taiga and crystal lakes.</span></div>
+          </div>
+        </div>
+        <div class="mongolia-story-side">
+          <div class="mongolia-story-card">
+            <h3>Travel for the feeling, not only the photo</h3>
+            <p>Come for the open horizon, star-filled nights, nomadic life, remote valleys and the sense of freedom that is becoming rare in the modern world.</p>
+          </div>
+          <div class="mongolia-story-card">
+            <h3>Ready to compare dates and prices?</h3>
+            <p>Open the tour calendar to see routes, seasonal departures and different prices for 1, 2, 3 or 4 travelers.</p>
+            <div class="story-cta-row">
+              <a class="btn btn-primary" href="/tour-calendar.html">View Tour Calendar</a>
+              <a class="destination-mini-link" href="#contact">Ask a Custom Route</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="featured-places-section">
     <div class="container">
@@ -3036,5 +3085,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   </script>
 
+  <a class="book-now-float" href="/tour-calendar.html" aria-label="Open tour calendar and prices">
+    <span>📅 Book Now</span>
+    <small>Dates & multi-person prices</small>
+  </a>
 </body>
 </html>
