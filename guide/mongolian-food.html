@@ -1,36 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mongolian Food Guide</title>
-<style>
-body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f7f5ef;color:#1f2937;line-height:1.7}
-header{background:#0f3557;color:white;padding:22px}
-.container{max-width:960px;margin:auto;padding:24px}
-.hero{height:280px;background:linear-gradient(rgba(8,20,33,.45),rgba(8,20,33,.55)),url('../images/guide-hero.jpg') center/cover;
-display:flex;align-items:center;justify-content:center;color:white;font-size:40px;font-weight:700;border-radius:18px;margin-top:24px}
-.box{background:white;padding:24px;border-radius:18px;box-shadow:0 12px 30px rgba(0,0,0,.08);margin-top:24px}
-.btn{display:inline-block;background:#0f3557;color:white;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:700}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mongolian Food & Traditional Cuisine | Discover Mongolia</title>
+  <meta name="description" content="Discover Mongolian food, traditional dairy products, khorkhog, khuushuur, everyday meals, meat culture, and what travelers should know about food in Mongolia." />
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+      color: #222;
+      background: #fff;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 62vh;
+      background: linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)),
+        url('../images/mongolian-food-hero.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      color: #fff;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    .intro {
+      font-size: 18px;
+      color: #444;
+      margin-bottom: 34px;
+    }
+
+    .content-section {
+      margin-bottom: 48px;
+    }
+
+    .content-section h2 {
+      font-size: 30px;
+      margin-bottom: 18px;
+      color: #111;
+    }
+
+    .content-section h3 {
+      font-size: 22px;
+      margin-top: 22px;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .content-section p {
+      margin-bottom: 16px;
+      font-size: 17px;
+      color: #333;
+    }
+
+    .content-section ul {
+      padding-left: 22px;
+      margin: 14px 0;
+    }
+
+    .content-section li {
+      margin-bottom: 10px;
+      font-size: 17px;
+    }
+
+    .highlight-box {
+      background: #f7f4ee;
+      border-left: 5px solid #b8894f;
+      padding: 22px;
+      border-radius: 8px;
+      margin: 26px 0;
+    }
+
+    .highlight-box h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    .image-block {
+      margin: 30px 0 10px;
+    }
+
+    .image-block img {
+      width: 100%;
+      border-radius: 14px;
+      display: block;
+    }
+
+    .image-caption {
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .cta-box {
+      background: #f2f6f7;
+      padding: 28px;
+      border-radius: 14px;
+      margin-top: 50px;
+    }
+
+    .cta-box h3 {
+      margin-top: 0;
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+
+    .note-box {
+      background: #fafafa;
+      border: 1px solid #e5e5e5;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 50vh;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 17px;
+      }
+
+      .container {
+        padding: 40px 18px;
+      }
+
+      .content-section h2 {
+        font-size: 25px;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-<header><h1>Discover Mongolia Guide</h1></header>
-<div class="container">
-  <div class="hero">Mongolian Food Guide</div>
-  <div class="box">
-    <h2>Mongolian Food Guide</h2>
-    
-<p>Mongolian food is shaped by nomadic life, dairy culture and the cold climate.</p>
-<h2>Popular Dishes</h2>
-<p>Buuz, khuushuur, tsuivan, horhog and boiled meat are commonly enjoyed.</p>
-<h2>Dairy Culture</h2>
-<p>Airag, yogurt, dried curds and milk tea are part of daily life.</p>
-<h2>What Travelers Can Expect</h2>
-<p>In the countryside, meals are usually simple, hearty and filling.</p>
 
-    <p><a class="btn" href="../booking.html">Plan Your Trip</a></p>
-  </div>
-</div>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Mongolian Food & Traditional Cuisine</h1>
+      <p>
+        Discover hearty everyday meals, dairy traditions, meat dishes, and the authentic food culture of Mongolia.
+      </p>
+    </div>
+  </section>
+
+  <main class="container">
+    <p class="intro">
+      Mongolian food is deeply connected to nomadic life, the climate, and livestock culture. Traditional meals are usually based on meat, dairy, flour, and simple vegetables. One of the best things about Mongolian food is that it is often hot, filling, natural, and relatively healthy. It is usually not overloaded with sauces, strong seasonings, or artificial flavors. In many cases, the taste comes from the original ingredients themselves — real meat, simple vegetables, flour, broth, and fresh dairy.
+    </p>
+
+    <section class="content-section">
+      <h2>What Makes Mongolian Food Special?</h2>
+      <p>
+        Mongolian cuisine is honest and straightforward. It is built around ingredients that have supported nomadic families for generations. Rather than heavy spices or complex seasoning, Mongolian food often focuses on freshness, warmth, and natural flavor. Many dishes are cooked the same day and served hot, especially in the countryside.
+      </p>
+      <p>
+        For many travelers, Mongolian food feels comforting because it is simple, warm, and nourishing. Compared to heavily processed or strongly seasoned food, many local meals feel more natural and balanced.
+      </p>
+
+      <ul>
+        <li>Hot and filling meals</li>
+        <li>Natural taste with minimal seasoning</li>
+        <li>Freshly cooked everyday food</li>
+        <li>Simple ingredients such as meat, flour, vegetables, and broth</li>
+        <li>Rich dairy tradition</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>A Meat-Centered Food Culture</h2>
+      <p>
+        Meat is at the center of Mongolian cuisine. In traditional life, livestock has always been the foundation of food, survival, and hospitality. Because of this, meat is not just an ingredient — it is part of the culture itself.
+      </p>
+      <p>
+        Mongolians use many different kinds of meat in their food depending on region, season, and tradition. Lamb and beef are the most common for travelers, but goat, mutton, horse meat, and camel are also part of Mongolian cuisine.
+      </p>
+      <p>
+        Especially in the countryside, a truly meat-free meal can be difficult to find. Even if you order a vegetable soup, it may still be a meat-based soup with vegetables in it. For this reason, travelers with vegetarian diets should clearly explain their needs in advance.
+      </p>
+    </section>
+
+    <div class="highlight-box">
+      <h3>Important for Travelers</h3>
+      <p>
+        In Mongolia, especially outside Ulaanbaatar, “vegetable soup” often means soup with vegetables and meat, not a fully vegetarian dish. If you do not eat meat, it is best to say so very clearly before ordering.
+      </p>
+    </div>
+
+    <section class="content-section">
+      <h2>Traditional Dairy Culture</h2>
+      <p>
+        Dairy products are one of the most important parts of Mongolian food culture. Known collectively as <strong>tsagaan idee</strong>, or “white foods,” these products are closely connected to nomadic life, especially during the warmer months.
+      </p>
+
+      <div class="two-col">
+        <div>
+          <ul>
+            <li><strong>Airag</strong> – fermented mare’s milk</li>
+            <li><strong>Aaruul</strong> – dried curd</li>
+            <li><strong>Urum</strong> – clotted cream</li>
+            <li><strong>Tarag</strong> – yogurt</li>
+            <li><strong>Aarts</strong> – curd</li>
+            <li><strong>Eezgii</strong> – traditional milk curd</li>
+          </ul>
+        </div>
+        <div>
+          <p>
+            These foods are not only traditional but also deeply tied to hospitality and seasonal life. Visiting a herder family in summer often includes tasting fresh dairy products made the same day.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>Everyday Mongolian Meals</h2>
+      <p>
+        Not all Mongolian food is ceremonial or unusual. Many daily meals are simple, practical, and very common in homes, roadside places, and local restaurants.
+      </p>
+
+      <h3>Buuz</h3>
+      <p>
+        Steamed dumplings usually filled with meat. They are popular during holidays, but also common as an everyday meal.
+      </p>
+
+      <h3>Khuushuur</h3>
+      <p>
+        Deep-fried meat pastry with a crispy outside and juicy filling. It is one of the most popular foods for travelers and is especially famous during Naadam.
+      </p>
+
+      <h3>Tsuivan</h3>
+      <p>
+        Fried noodles with meat and sometimes vegetables. This is one of the most common everyday dishes in Mongolia.
+      </p>
+
+      <h3>Guriltai Shul</h3>
+      <p>
+        A traditional soup made with meat broth and handmade noodles. It is simple, warming, and very common in daily life.
+      </p>
+
+      <h3>Banshtai Shul</h3>
+      <p>
+        Soup with small meat dumplings. It is a comforting hot meal, especially during cold weather.
+      </p>
+
+      <h3>Vegetable Soup — Often with Meat</h3>
+      <p>
+        Even if a dish sounds like a vegetable soup, it is often still made with meat stock or pieces of meat. In Mongolia, especially in rural areas, vegetables are usually added to a meat-based soup rather than replacing meat altogether.
+      </p>
+    </section>
+
+    <div class="image-block">
+      <img src="../images/mongolian-food-dishes.jpg" alt="Traditional Mongolian food dishes" />
+      <div class="image-caption">Traditional Mongolian cuisine is warm, hearty, and centered on natural ingredients.</div>
+    </div>
+
+    <section class="content-section">
+      <h2>Khorkhog – One of Mongolia’s Most Famous Dishes</h2>
+      <p>
+        Khorkhog is one of the most well-known traditional dishes in Mongolia and a favorite among travelers. It is usually made with mutton, hot stones, and simple vegetables such as potatoes and carrots, all cooked together in a sealed metal container.
+      </p>
+      <p>
+        The result is rich, hot, smoky, and deeply flavorful. Khorkhog is often prepared for groups, celebrations, or special countryside experiences, making it one of the most memorable meals visitors can try.
+      </p>
+    </section>
+
+    <section class="content-section">
+      <h2>Khuushuur – Crispy, Simple, and Loved by Everyone</h2>
+      <p>
+        Khuushuur is one of the easiest Mongolian foods for travelers to enjoy. It is familiar in form, satisfying, and widely available. While modern variations exist, the traditional version is made with meat. During Naadam, khuushuur is one of the most iconic foods you will see and smell everywhere.
+      </p>
+    </section>
+
+    <section class="content-section">
+      <h2>All Kinds of Meat Are Used</h2>
+      <p>
+        Mongolian cuisine makes use of many types of meat, depending on season and local lifestyle. This reflects the deep connection between food and livestock.
+      </p>
+
+      <ul>
+        <li>Lamb and mutton</li>
+        <li>Beef</li>
+        <li>Goat</li>
+        <li>Horse meat</li>
+        <li>Camel meat in some regions</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>Marmot Boodog – A Rare Seasonal Dish</h2>
+      <p>
+        If you are lucky and visit during summer, especially in July when marmot hunting season opens, some herders may prepare <strong>marmot boodog</strong>. This is a rare and traditional countryside dish, not something travelers see every day.
+      </p>
+      <p>
+        Many locals consider it incredibly tasty. It has a strong and distinctive smell, and some people say the flavor is somewhat similar to horse meat, though it is unique in its own way. It is one of those foods that feels very traditional, very local, and very connected to rural Mongolian life.
+      </p>
+
+      <div class="note-box">
+        <p>
+          Because this dish is seasonal and special, not every traveler will come across it. But if it is offered in an authentic local setting, it can be a very memorable experience.
+        </p>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>Horse Meat – A Winter Favorite</h2>
+      <p>
+        Horse meat is another important part of Mongolian food culture. It is especially associated with winter, when people value it as a warming and flavorful meat. Many Mongolians consider it easy to digest and appreciate its distinct taste.
+      </p>
+      <p>
+        The flavor is stronger and more characteristic than beef, and for those willing to try local specialties, it can be one of the more interesting tastes of Mongolia.
+      </p>
+    </section>
+
+    <section class="content-section">
+      <h2>Food in the Countryside vs. Ulaanbaatar</h2>
+      <p>
+        Ulaanbaatar offers a much wider range of food choices, including international cuisine, vegetarian restaurants, cafés, and bakeries. In the countryside, however, food is usually much more traditional and much more limited in variety.
+      </p>
+      <p>
+        Rural meals are often based on soup, noodles, meat, dairy, and fried dough or dumplings. They are simple but usually fresh, hot, and satisfying.
+      </p>
+    </section>
+
+    <section class="content-section">
+      <h2>Advice for Travelers</h2>
+      <ul>
+        <li>If you eat meat, Mongolian food is usually easy to enjoy.</li>
+        <li>If you are vegetarian, explain clearly and in advance.</li>
+        <li>Do not assume that “vegetable soup” is meat-free.</li>
+        <li>Try dairy products when visiting herder families in summer.</li>
+        <li>Khorkhog and khuushuur are among the best dishes to start with.</li>
+        <li>Be open to simple local food — it is often one of the most authentic parts of the trip.</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>Why Mongolian Food Is Memorable</h2>
+      <p>
+        Mongolian food is memorable not because it is overly decorated or heavily seasoned, but because it is deeply connected to real life. It reflects the land, the weather, the animals, the seasons, and the practical wisdom of nomadic culture.
+      </p>
+      <p>
+        For travelers, tasting Mongolian food means tasting a way of life — warm soup in the countryside, fresh dairy in summer, meat dishes cooked over fire, and simple meals that have fed generations.
+      </p>
+    </section>
+
+    <div class="cta-box">
+      <h3>Taste the Real Mongolia</h3>
+      <p>
+        From fresh dairy products to hearty soups and unforgettable meat dishes, Mongolian cuisine offers one of the most authentic cultural experiences of traveling in Mongolia.
+      </p>
+    </div>
+  </main>
+
 </body>
 </html>
