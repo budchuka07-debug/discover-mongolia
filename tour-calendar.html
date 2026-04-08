@@ -1,484 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0d3b66" />
-  <title>Mongolia Tour Calendar 2026 | Booking Mongolia</title>
-  <meta name="description" content="Browse Mongolia summer tour departures from May to October. Compare 1, 2, 3 and 4 person prices, route highlights, and book your trip easily." />
-  <link rel="canonical" href="https://bookingmongolia.com/tour-calendar.html" />
-  <style>
-    :root{
-      --primary:#0d3b66;
-      --primary-dark:#08243f;
-      --accent:#c98b2f;
-      --accent-dark:#a56f1f;
-      --bg:#f7f5ef;
-      --bg-soft:#fbfaf6;
-      --dark:#1f2937;
-      --muted:#6b7280;
-      --white:#ffffff;
-      --shadow:0 14px 34px rgba(0,0,0,.10);
-      --radius:20px;
-      --max:1200px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--dark);line-height:1.6}
-    a{text-decoration:none;color:inherit}
-    .container{width:min(92%,var(--max));margin:0 auto}
-    .topbar{background:var(--primary);color:#fff;font-size:14px;padding:10px 0}
-    .topbar .container{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,.06)}
-    .nav{display:flex;justify-content:space-between;align-items:center;min-height:78px;gap:16px}
-    .logo{font-size:26px;font-weight:800;color:var(--primary)}
-    .logo span{color:var(--accent)}
-    .nav-links{display:flex;gap:18px;flex-wrap:wrap;font-weight:600;font-size:15px}
-    .nav-links a:hover{color:var(--accent)}
-    .hero{position:relative;overflow:hidden;background:linear-gradient(rgba(8,20,33,.45),rgba(8,20,33,.62)),url('images/hero/hero-1-mongolia.jpg') center/cover no-repeat;color:#fff}
-    .hero .container{padding:90px 0 70px}
-    .eyebrow{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 14px;font-size:13px;margin-bottom:18px}
-    h1,h2,h3,h4{line-height:1.2;margin:0 0 14px}
-    h1{font-size:clamp(38px,6vw,62px)}
-    h2{font-size:clamp(28px,4vw,40px)}
-    p{margin:0 0 16px}
-    .hero p{font-size:18px;max-width:760px}
-    .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border-radius:999px;font-weight:700;border:2px solid transparent;transition:.25s ease;cursor:pointer}
-    .btn-primary{background:var(--accent);color:#fff}
-    .btn-primary:hover{background:var(--accent-dark)}
-    .btn-outline{border-color:rgba(255,255,255,.75);color:#fff}
-    .btn-outline:hover{background:rgba(255,255,255,.1)}
-    .hero-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:30px}
-    .stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:18px}
-    .stat strong{display:block;font-size:24px;margin-bottom:4px}
-    section{padding:70px 0}
-    .section-head{max-width:780px;margin-bottom:28px}
-    .section-head p,.muted{color:var(--muted)}
-    .filters-wrap{background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:22px;position:sticky;top:96px;z-index:20}
-    .filters-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-    label{display:block;font-weight:700;margin-bottom:6px;font-size:14px}
-    select,input{width:100%;border:1px solid #d1d5db;border-radius:12px;padding:13px 14px;font:inherit;background:#fff}
-    .filter-chip-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .chip{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;background:#f4f6f9;border:1px solid #dbe3ef;color:var(--primary);font-weight:700;cursor:pointer}
-    .chip.active,.chip:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
-    .summary-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px}
-    .summary-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:16px;padding:16px}
-    .summary-box strong{display:block;color:var(--primary);font-size:20px;margin-bottom:6px}
-    .calendar-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;margin-top:26px}
-    .result-count{font-size:14px;color:var(--muted)}
-    .tour-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
-    .tour-card{background:#fff;border-radius:24px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(13,59,102,.08);display:flex;flex-direction:column}
-    .tour-cover{height:230px;background:#e8edf3 center/cover no-repeat}
-    .tour-body{padding:22px;display:flex;flex-direction:column;gap:12px;height:100%}
-    .tour-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
-    .tour-badge{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;background:#eef4ff;color:var(--primary);font-size:12px;font-weight:800;margin-bottom:8px}
-    .tour-title{font-size:28px;color:var(--primary-dark);margin:0}
-    .tour-duration{white-space:nowrap;font-weight:800;color:#15803d;font-size:16px}
-    .tour-highlights{display:flex;gap:8px;flex-wrap:wrap}
-    .pill{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#f3f4f6;color:var(--dark);font-size:12px;font-weight:700}
-    .date-row{display:flex;gap:8px;flex-wrap:wrap}
-    .date-chip{display:inline-flex;align-items:center;padding:8px 10px;border-radius:999px;background:#fff8eb;color:#7c4a03;border:1px solid #f6d9a8;font-weight:700;font-size:12px}
-    .price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .price-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:12px}
-    .price-box strong{display:block;color:var(--primary-dark);font-size:18px;margin-bottom:4px}
-    .tour-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-    .tour-meta div{background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:12px;font-size:14px}
-    .status-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .status{display:inline-flex;align-items:center;padding:9px 12px;border-radius:999px;font-weight:800;font-size:12px}
-    .status.guaranteed{background:#ecfdf5;color:#166534;border:1px solid #bbf7d0}
-    .status.limited{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
-    .status.request{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
-    .tour-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
-    .tour-btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:999px;font-weight:800;border:1px solid #dbe3ef;background:#fff;color:var(--primary)}
-    .tour-btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-    .tour-btn.primary:hover{background:var(--accent-dark);border-color:var(--accent-dark)}
-    .story-section{background:linear-gradient(135deg,#fff8eb 0%,#f7f5ef 100%)}
-    .story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center}
-    .story-card{background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:28px}
-    .story-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
-    .story-facts .fact{background:#f9fafb;border:1px solid #e5e7eb;border-radius:18px;padding:18px}
-    .story-facts .fact strong{display:block;color:var(--primary-dark);font-size:22px;margin-bottom:6px}
-    footer{background:#0d1b2a;color:rgba(255,255,255,.88);padding:24px 0;font-size:14px}
-    .footer-wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    .floating-book{position:fixed;right:18px;bottom:18px;z-index:120;display:inline-flex;align-items:center;justify-content:center;padding:15px 20px;border-radius:999px;background:var(--accent);color:#fff;font-weight:800;box-shadow:0 18px 30px rgba(0,0,0,.2)}
-    .floating-book:hover{background:var(--accent-dark)}
-    .modal{position:fixed;inset:0;display:none;z-index:200}
-    .modal.open{display:block}
-    .modal-backdrop{position:absolute;inset:0;background:rgba(8,20,33,.66)}
-    .modal-dialog{position:relative;z-index:1;width:min(760px,92vw);margin:4vh auto;background:#fff;border-radius:24px;box-shadow:0 30px 60px rgba(0,0,0,.25);padding:24px;max-height:88vh;overflow:auto}
-    .modal-close{position:absolute;right:18px;top:10px;border:none;background:transparent;font-size:34px;line-height:1;cursor:pointer;color:var(--primary)}
-    .modal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-    textarea{width:100%;border:1px solid #d1d5db;border-radius:12px;padding:13px 14px;font:inherit;background:#fff;min-height:120px;resize:vertical}
-    .full{grid-column:1/-1}
-    .help-note{margin-top:14px;padding:14px 16px;border-radius:14px;background:#eef6ff;border:1px solid #cfe2ff;color:#244b75}
-    @media (max-width:1024px){
-      .filters-grid,.summary-strip,.hero-stats,.story-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .tour-grid,.story-grid{grid-template-columns:1fr}
-      .tour-meta{grid-template-columns:1fr 1fr 1fr}
-    }
-    @media (max-width:720px){
-      .nav-links{display:none}
-      .filters-grid,.summary-strip,.price-grid,.story-facts,.modal-grid,.tour-meta{grid-template-columns:1fr}
-      .hero .container{padding:80px 0 60px}
-      .tour-title{font-size:24px}
-      .floating-book{left:12px;right:12px;bottom:12px}
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Booking Mongolia - Tour Calendar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{font-family:Arial;margin:0;background:#f7f7f7}
+.container{max-width:1100px;margin:auto;padding:20px}
+.card{background:#fff;padding:16px;border-radius:12px;margin-bottom:16px}
+.btn{background:#c58a2b;color:#fff;padding:10px 16px;border:none;border-radius:8px;cursor:pointer}
+.tour{border-bottom:1px solid #eee;padding:10px 0}
+</style>
+
+<!-- PayPal SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
+
 </head>
 <body>
-  <div class="topbar">
-    <div class="container">
-      <div>Local Mongolia Travel Expert • Summer Departures • Private & Group Tours</div>
-      <div>WhatsApp: +976 90283039 • Book your dates early</div>
-    </div>
-  </div>
 
-  <header>
-    <div class="container nav">
-      <a href="/index.html" class="logo">Booking<span>Mongolia</span></a>
-      <nav class="nav-links">
-        <a href="/index.html#destinations">Destinations</a>
-        <a href="/index.html#tours">Featured Tours</a>
-        <a href="/index.html#hotels">Hotels</a>
-        <a href="/index.html#guides">Guides</a>
-        <a href="/index.html#cars">Car Rental</a>
-        <a href="#calendar-list">Tour Calendar</a>
-        <a href="/index.html#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+<div class="container">
 
-  <section class="hero">
-    <div class="container">
-      <div class="eyebrow">2026 Summer Tour Calendar • May to October</div>
-      <h1>Choose Your Route, Date and Price in One Place</h1>
-      <p>Browse Mongolia departures with clear routes, weekly travel dates, and 1, 2, 3 and 4 person pricing. From the Gobi to Khuvsgul, horse trekking to helicopter journeys, this page is built to help travelers decide faster.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#calendar-list">Browse Tours</a>
-        <a class="btn btn-outline" href="#why-mongolia">Why Mongolia</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><strong>20+</strong><span>Routes prepared</span></div>
-        <div class="stat"><strong>May–Oct</strong><span>Prime season departures</span></div>
-        <div class="stat"><strong>1–4 Pax</strong><span>Clear price options</span></div>
-        <div class="stat"><strong>Book Now</strong><span>Fast inquiry flow</span></div>
-      </div>
-    </div>
-  </section>
+<h2>2026 Mongolia Tour Calendar</h2>
 
-  <section id="why-mongolia" class="story-section">
-    <div class="container story-grid">
-      <div class="story-card">
-        <h2>Why Mongolia Feels Different</h2>
-        <p>Mongolia is not crowded travel. It is space, silence, distance and raw landscape. In remote parts of Umnugovi, you can travel for long stretches through open desert without passing a settlement, and in some areas there is still no mobile signal at all. That feeling of real distance is part of what makes Mongolia unforgettable.</p>
-        <p>The country is vast, the population is low, and many routes still feel wild and untouched. Travelers come for the Gobi, the lakes, the mountains, the horse culture and the nomadic way of life — but they remember the sense of freedom most.</p>
-      </div>
-      <div class="story-facts">
-        <div class="fact"><strong>1.56M km²</strong><span>Total land area with dramatic variety from desert to taiga.</span></div>
-        <div class="fact"><strong>Low Density</strong><span>One of the world’s least densely populated countries.</span></div>
-        <div class="fact"><strong>Remote Gobi</strong><span>Long empty stretches where the road, sky and silence dominate.</span></div>
-        <div class="fact"><strong>Real Adventure</strong><span>Horse trekking, reindeer country, western peaks and helicopter access.</span></div>
-      </div>
-    </div>
-  </section>
+<div class="card">
+<p>
+We also organize tailor-made private and family tours on your preferred dates. 
+Tell us the places you want to visit, and we will combine them into a custom Mongolia itinerary. 
+Nomadic family stays can also be arranged.
+</p>
+</div>
 
-  <section id="calendar-list">
-    <div class="container">
-      <div class="section-head">
-        <h2>2026 Mongolia Tour Calendar</h2>
-        <p>Use the filters to compare regions, travel styles and durations. Click Book Now to prefill the tour, dates and selected traveler count inside the inquiry form. Summer tours are open from May to October, and custom private departures can also be arranged on your preferred dates.</p>
-      </div>
+<div class="card" id="tourList"></div>
 
-      <div class="filters-wrap">
-        <div class="filters-grid">
-          <div>
-            <label for="regionFilter">Region</label>
-            <select id="regionFilter">
-              <option value="all">All Regions</option>
-              <option value="gobi">Gobi</option>
-              <option value="central">Central</option>
-              <option value="khangai">Khangai</option>
-              <option value="north">North</option>
-              <option value="west">West</option>
-              <option value="special">Special</option>
-            </select>
-          </div>
-          <div>
-            <label for="styleFilter">Style</label>
-            <select id="styleFilter">
-              <option value="all">All Styles</option>
-              <option value="adventure">Adventure</option>
-              <option value="culture">Culture</option>
-              <option value="nature">Nature</option>
-              <option value="horse">Horse Trek</option>
-              <option value="luxury">Luxury / VIP</option>
-            </select>
-          </div>
-          <div>
-            <label for="durationFilter">Duration</label>
-            <select id="durationFilter">
-              <option value="all">Any Duration</option>
-              <option value="1-3">1–3 Days</option>
-              <option value="4-5">4–5 Days</option>
-              <option value="6-7">6–7 Days</option>
-              <option value="8+">8+ Days</option>
-            </select>
-          </div>
-          <div>
-            <label for="searchFilter">Search</label>
-            <input id="searchFilter" type="text" placeholder="Gobi, horse, Khuvsgul..." />
-          </div>
-        </div>
-        <div class="filter-chip-row" id="quickPeopleRow">
-          <button class="chip active" data-people="1">1 Person Price</button>
-          <button class="chip" data-people="2">2 Person Price</button>
-          <button class="chip" data-people="3">3 Person Price</button>
-          <button class="chip" data-people="4">4 Person Price</button>
-        </div>
-        <div class="summary-strip">
-          <div class="summary-box"><strong id="tourCount">20</strong><span>Tours currently shown</span></div>
-          <div class="summary-box"><strong>Weekly</strong><span>Many routes repeat every 7 days in peak season</span></div>
-          <div class="summary-box"><strong>Flexible</strong><span>Private dates can also be arranged on request</span></div>
-          <div class="summary-box"><strong>Fast Reply</strong><span>Book Now prefills your chosen tour details</span></div>
-        </div>
+<div class="card" id="paypal-button-container"></div>
 
-        <div class="help-note">
-          We also offer tailor-made family and private tours on your preferred dates and can create a custom itinerary based on the places you want to visit. Summer tours are open from May to October. We can also arrange nomadic family stays for your preferred duration if you would like to experience real Mongolian herder life.
-        </div>
-      </div>
+</div>
 
-      <div class="calendar-layout">
-        <div class="result-count" id="resultCount">Showing all available tours.</div>
-        <div class="tour-grid" id="tourGrid"></div>
-      </div>
-    </div>
-  </section>
+<script>
 
-  <footer>
-    <div class="container footer-wrap">
-      <div>© 2026 Booking Mongolia • Tour Calendar</div>
-      <div><a href="/index.html">Back to Home</a> • <a href="/index.html#contact">Contact</a></div>
-    </div>
-  </footer>
+const tours = [
+ {name:"Gobi Highlights", days:5, price:700},
+ {name:"Orkhon Valley & Elsen Tasarkhai", days:4, price:650},
+ {name:"Kharkhorum Express", days:3, price:500},
+ {name:"VIP Helicopter Tour", days:1, price:null}
+];
 
-  <a href="#calendar-list" class="floating-book">Book Now</a>
+const list = document.getElementById("tourList");
 
-  <div class="modal" id="bookingModal" aria-hidden="true">
-    <div class="modal-backdrop" onclick="closeModal()"></div>
-    <div class="modal-dialog">
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-      <h3>Book This Tour</h3>
-      <p class="muted">Fill this quick form, then connect the submit action to Messenger, WhatsApp, email or your payment flow later.</p>
-      <form class="modal-grid" onsubmit="event.preventDefault();submitInquiry();">
-        <div>
-          <label>Selected Tour</label>
-          <input id="selectedTour" type="text" readonly>
-        </div>
-        <div>
-          <label>Preferred Date</label>
-          <input id="selectedDate" type="date" min="2026-05-01" max="2026-10-31">
-        </div>
-        <div>
-          <label>Travelers</label>
-          <select id="selectedPeople">
-            <option value="1">1 person</option>
-            <option value="2">2 people</option>
-            <option value="3">3 people</option>
-            <option value="4">4 people</option>
-          </select>
-        </div>
-        <div>
-          <label>Displayed Price</label>
-          <input id="selectedPrice" type="text" readonly>
-        </div>
-        <div>
-          <label>Your Name</label>
-          <input id="guestName" type="text" placeholder="Full name" required>
-        </div>
-        <div>
-          <label>WhatsApp / Email</label>
-          <input id="guestContact" type="text" placeholder="WhatsApp or email" required>
-        </div>
-        <div class="full">
-          <label>Message</label>
-          <textarea id="guestMessage" placeholder="Any special requests, room type, food preference, children, etc."></textarea>
-        </div>
-        <div class="full" style="display:flex;gap:12px;flex-wrap:wrap;">
-          <button class="btn btn-primary" type="submit">Send Inquiry</button>
-          <a class="btn" style="background:#25D366;color:#fff;" target="_blank" id="waLink" href="#">WhatsApp</a>
-          <a class="btn" style="background:#0084ff;color:#fff;" target="_blank" id="messengerLink" href="https://m.me/yourpage">Messenger</a>
-        </div>
-      </form>
-      <div class="help-note" id="submitNote">Need a different plan? We can arrange custom family tours on your preferred dates, design a route based on your requested itinerary, and also organize nomadic family stays for your preferred duration.</div>
-    </div>
-  </div>
+list.innerHTML = tours.map(t => `
+<div class="tour">
+  <strong>${t.name}</strong> - ${t.days} days
+  <br>
+  ${t.price ? "$"+t.price+" / person" : "Ask for price"}
+  <br>
+  <button class="btn" onclick='selectTour(${JSON.stringify(t)})'>Book</button>
+</div>
+`).join("");
 
-  <script>
-    const tours = [
-      {id:'gobi-highlights-5d',name:'Gobi Highlights 5 Days',region:'gobi',style:'adventure',days:5,status:'guaranteed',image:'images/destinations/khongor-dunes.jpg',highlights:['Khongor Dunes','Bayanzag','Yol Valley','Tsagaan Suvarga'],dates:['May 10','May 17','May 24','June 1'],prices:{1:1180,2:820,3:720,4:650},fromUB:'Flight or 4x4',season:'May–Oct',group:'4–5'},
-      {id:'gobi-classic-7d',name:'Gobi Classic 7 Days',region:'gobi',style:'adventure',days:7,status:'guaranteed',image:'images/destinations/bayanzag.jpg',highlights:['Khongor Dunes','Bayanzag','Yol Valley','Flaming Cliffs'],dates:['May 12','May 19','May 26','June 2'],prices:{1:1450,2:990,3:860,4:780},fromUB:'4x4 classic route',season:'May–Oct',group:'6–7'},
-      {id:'deep-gobi-10d',name:'Deep Gobi Expedition 10 Days',region:'gobi',style:'adventure',days:10,status:'limited',image:'images/destinations/khermen-tsav.jpg',highlights:['Khermen Tsav','Khongor','Bayanzag','Remote Desert'],dates:['May 15','May 29','June 12','June 26'],prices:{1:2280,2:1580,3:1410,4:1320},fromUB:'4x4 remote',season:'May–Sep',group:'8+'},
-      {id:'gobi-central-7d',name:'Gobi + Central 7 Days',region:'gobi',style:'culture',days:7,status:'guaranteed',image:'images/destinations/tsenkher.jpg',highlights:['Tsagaan Suvarga','Ongiin','Kharkhorum','Elsen Tasarkhai'],dates:['May 11','May 18','May 25','June 1'],prices:{1:1520,2:1020,3:890,4:810},fromUB:'4x4 mixed route',season:'May–Oct',group:'6–7'},
-      {id:'central-classic-5d',name:'Central Mongolia 5 Days',region:'central',style:'culture',days:5,status:'guaranteed',image:'images/destinations/erdene-zuu.jpg',highlights:['Kharkhorum','Erdene Zuu','Elsen Tasarkhai','Nomadic Stay'],dates:['May 9','May 16','May 23','May 30'],prices:{1:980,2:690,3:620,4:570},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
-      {id:'orkhon-valley-5d',name:'Orkhon Valley 5 Days',region:'central',style:'nature',days:5,status:'guaranteed',image:'images/destinations/terkhiin-tsagaan-nuur.jpg',highlights:['Orkhon Waterfall','Nomadic Valley','Kharkhorum','Horse Area'],dates:['May 14','May 21','May 28','June 4'],prices:{1:1020,2:720,3:650,4:590},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
-      {id:'kharkhorum-3d',name:'Kharkhorum & Erdene Zuu 3 Days',region:'central',style:'culture',days:3,status:'guaranteed',image:'images/destinations/erdene-zuu.jpg',highlights:['Kharkhorum','Erdene Zuu','Elsen Tasarkhai'],dates:['May 10','May 17','May 24','May 31'],prices:{1:620,2:450,3:390,4:360},fromUB:'Short road trip',season:'May–Oct',group:'1-3'},
-      {id:'amar-aglag-4d',name:'Amarbayasgalant + Aglag 4 Days',region:'central',style:'culture',days:4,status:'request',image:'images/destinations/amarbayasgalant.jpg',highlights:['Amarbayasgalant','Aglag Buteel','Countryside Drive'],dates:['May 13','May 20','May 27','June 3'],prices:{1:780,2:560,3:500,4:460},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
-      {id:'khangai-adventure-7d',name:'Khangai Adventure 7 Days',region:'khangai',style:'nature',days:7,status:'guaranteed',image:'images/destinations/khorgo.jpg',highlights:['Khorgo','Terkhiin Tsagaan Lake','Tsenkher','Taikhar'],dates:['May 12','May 19','May 26','June 2'],prices:{1:1490,2:1020,3:900,4:830},fromUB:'Road trip',season:'May–Oct',group:'6–7'},
-      {id:'tsenkher-khorgo-5d',name:'Tsenkher + Khorgo 5 Days',region:'khangai',style:'nature',days:5,status:'guaranteed',image:'images/destinations/tsenkher.jpg',highlights:['Tsenkher Hot Spring','Khorgo Volcano','Lake Views'],dates:['May 8','May 15','May 22','May 29'],prices:{1:990,2:710,3:640,4:590},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
-      {id:'horse-steppe-3d',name:'Horse Riding Steppe 3 Days',region:'special',style:'horse',days:3,status:'limited',image:'images/tours/horse-tour-hero.jpg',highlights:['Horse Trek','Nomadic Camp','Open Steppe'],dates:['May 10','May 17','May 24','May 31'],prices:{1:520,2:390,3:350,4:320},fromUB:'Drive + ride',season:'May–Sep',group:'1-3'},
-      {id:'horse-nomad-5d',name:'Nomadic Horse Tour 5 Days',region:'special',style:'horse',days:5,status:'guaranteed',image:'images/tours/horse-tour-hero.jpg',highlights:['Horse Trek','Nomadic Family','Campfire Nights'],dates:['May 11','May 18','May 25','June 1'],prices:{1:880,2:640,3:580,4:530},fromUB:'Drive + ride',season:'May–Sep',group:'4–5'},
-      {id:'mountain-horse-7d',name:'Mountain Horse Trek 7 Days',region:'special',style:'horse',days:7,status:'limited',image:'images/tours/horse-tour-hero.jpg',highlights:['Mountain Valleys','Horse Camping','Rivers'],dates:['May 13','May 27','June 10','June 24'],prices:{1:1380,2:980,3:870,4:820},fromUB:'Private support car',season:'Jun–Sep',group:'6–7'},
-      {id:'khuvsgul-lake-5d',name:'Khuvsgul Lake 5 Days',region:'north',style:'nature',days:5,status:'guaranteed',image:'images/destinations/khuvsgul-lake.jpg',highlights:['Khuvsgul Lake','Khatgal','Forest Shore'],dates:['June 1','June 8','June 15','June 22'],prices:{1:1280,2:930,3:840,4:780},fromUB:'Flight or overland',season:'Jun–Sep',group:'4–5'},
-      {id:'khuvsgul-north-7d',name:'Northern Khuvsgul 7 Days',region:'north',style:'nature',days:7,status:'limited',image:'images/destinations/khuvsgul-lake.jpg',highlights:['Khuvsgul','Remote Shore','Boat & Forest'],dates:['June 5','June 19','July 3','July 17'],prices:{1:1680,2:1190,3:1080,4:990},fromUB:'Flight + road',season:'Jun–Sep',group:'6–7'},
-      {id:'taiga-reindeer-7d',name:'Taiga Reindeer 7 Days',region:'north',style:'adventure',days:7,status:'request',image:'images/experiences/exp-reindeer.jpg',highlights:['Taiga','Reindeer Families','Northern Trails'],dates:['June 7','June 21','July 5','July 19'],prices:{1:1980,2:1450,3:1320,4:1240},fromUB:'Flight + rough road',season:'Jun–Sep',group:'6–7'},
-      {id:'altai-tavan-bogd-7d',name:'Altai Tavan Bogd 7 Days',region:'west',style:'adventure',days:7,status:'limited',image:'images/destinations/altai-tavan-bogd.jpg',highlights:['Altai Peaks','Glacier Views','Eagle Hunter Culture'],dates:['June 6','June 20','July 4','July 18'],prices:{1:1890,2:1360,3:1240,4:1160},fromUB:'Domestic flight',season:'Jun–Sep',group:'6–7'},
-      {id:'western-ultimates-9d',name:'Western Mongolia Ultimate 9 Days',region:'west',style:'adventure',days:9,status:'request',image:'images/destinations/altai-tavan-bogd.jpg',highlights:['Altai','Eagle Hunter','Lakes','Peaks'],dates:['June 8','June 22','July 6','July 20'],prices:{1:2390,2:1690,3:1540,4:1460},fromUB:'Flight + road',season:'Jun–Sep',group:'8+'},
-      {id:'hustai-elsen-3d',name:'Hustai + Elsen Tasarkhai 3 Days',region:'central',style:'culture',days:3,status:'guaranteed',image:'images/destinations/elsen-tasarkhai.jpg',highlights:['Hustai wild horses','Nomadic family','Camel riding','Mini Gobi'],dates:['May 12','May 19','May 26','June 2'],prices:{1:680,2:520,3:470,4:430},fromUB:'Road trip',season:'May–Oct',group:'1-3'},
-      {id:'family-central-4d',name:'Family Central Mongolia 4 Days',region:'central',style:'culture',days:4,status:'guaranteed',image:'images/destinations/erdene-zuu.jpg',highlights:['Kharkhorum','Nomadic family','Elsen Tasarkhai','Family-friendly route'],dates:['May 14','May 21','May 28','June 4'],prices:{1:860,2:620,3:560,4:510},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
-      {id:'custom-nomadic-stay',name:'Custom Nomadic Family Stay',region:'central',style:'culture',days:3,status:'request',image:'images/nomadic/nomadic-hero.jpg',highlights:['Tailor-made dates','Nomadic family','5 types of livestock','Traditional culture'],dates:['On Request'],prices:{1:520,2:390,3:340,4:310},fromUB:'Custom setup',season:'May–Oct',group:'1-3'},
-      {id:'helicopter-expedition-1d',name:'VIP Helicopter Expedition',region:'special',style:'luxury',days:1,status:'request',image:'images/hero/hero-1-mongolia.jpg',highlights:['Private Helicopter','Remote Access','Luxury Day Plan'],dates:['On Request','On Request','On Request','On Request'],prices:{1:4500,2:2600,3:2200,4:1900},fromUB:'Private heli',season:'May–Oct',group:'1-3'},
-      {id:'vip-grand-5d',name:'VIP Mongolia Signature 5 Days',region:'special',style:'luxury',days:5,status:'request',image:'images/hero/hero-khuvsgul-lake.jpg',highlights:['Luxury Camps','Private Guide','Flexible Route'],dates:['May 10','May 24','June 7','June 21'],prices:{1:3200,2:2100,3:1850,4:1700},fromUB:'Private setup',season:'May–Oct',group:'4–5'}
-    ];
+let selectedTour = null;
 
-    let selectedPeople = '1';
-    const tourGrid = document.getElementById('tourGrid');
-    const regionFilter = document.getElementById('regionFilter');
-    const styleFilter = document.getElementById('styleFilter');
-    const durationFilter = document.getElementById('durationFilter');
-    const searchFilter = document.getElementById('searchFilter');
-    const resultCount = document.getElementById('resultCount');
-    const tourCount = document.getElementById('tourCount');
+function selectTour(t){
+  selectedTour = t;
+  alert("Selected: "+t.name);
+}
 
-    function durationBucket(days){
-      if(days <= 3) return '1-3';
-      if(days <= 5) return '4-5';
-      if(days <= 7) return '6-7';
-      return '8+';
+paypal.Buttons({
+  createOrder: function(data, actions) {
+    if(!selectedTour || !selectedTour.price){
+      alert("Please select a tour with price");
+      return;
     }
-
-    function formatPrice(value){
-      if(value === null || value === undefined) return 'Ask for price';
-      return '$' + value.toLocaleString();
-    }
-
-    function renderTours(){
-      const region = regionFilter.value;
-      const style = styleFilter.value;
-      const duration = durationFilter.value;
-      const search = searchFilter.value.trim().toLowerCase();
-
-      const filtered = tours.filter(t => {
-        const matchRegion = region === 'all' || t.region === region;
-        const matchStyle = style === 'all' || t.style === style;
-        const matchDuration = duration === 'all' || durationBucket(t.days) === duration;
-        const haystack = [t.name, ...t.highlights, t.region, t.style].join(' ').toLowerCase();
-        const matchSearch = !search || haystack.includes(search);
-        return matchRegion && matchStyle && matchDuration && matchSearch;
-      });
-
-      resultCount.textContent = `Showing ${filtered.length} tour${filtered.length !== 1 ? 's' : ''}.`;
-      tourCount.textContent = filtered.length;
-
-      tourGrid.innerHTML = filtered.map(t => `
-        <article class="tour-card">
-          <div class="tour-cover" style="background-image:url('${t.image}')"></div>
-          <div class="tour-body">
-            <div class="tour-top">
-              <div>
-                <span class="tour-badge">${t.region.toUpperCase()} • ${t.style.toUpperCase()}</span>
-                <h3 class="tour-title">${t.name}</h3>
-              </div>
-              <div class="tour-duration">${t.days} Days</div>
-            </div>
-            <div class="tour-highlights">
-              ${t.highlights.map(h => `<span class="pill">${h}</span>`).join('')}
-            </div>
-            <div>
-              <strong>Travel Period</strong>
-              <div class="date-row">
-                <span class="date-chip">Open May–October</span>
-                ${t.dates.map(d => `<span class="date-chip">${d}</span>`).join('')}
-              </div>
-            </div>
-            <div>
-              <strong>${t.style === 'luxury' ? 'Price' : 'Price Options'}</strong>
-              ${t.style === 'luxury' ? `
-              <div class="price-box"><strong>Helicopter / VIP</strong><span>Ask for price</span></div>
-              ` : `
-              <div class="price-grid">
-                <div class="price-box"><strong>1 Person</strong><span>${formatPrice(t.prices[1])}</span></div>
-                <div class="price-box"><strong>2 People</strong><span>${formatPrice(t.prices[2])} / person</span></div>
-                <div class="price-box"><strong>3 People</strong><span>${formatPrice(t.prices[3])} / person</span></div>
-                <div class="price-box"><strong>4 People</strong><span>${formatPrice(t.prices[4])} / person</span></div>
-              </div>
-              `}
-            </div>
-            <div class="tour-meta">
-              <div><strong>From UB</strong><br>${t.fromUB}</div>
-              <div><strong>Season</strong><br>May–October Open</div>
-              <div><strong>Best Fit</strong><br>${durationBucket(t.days)} day trip</div>
-            </div>
-            <div class="status-row">
-              <span class="status ${t.status}">${t.status === 'guaranteed' ? 'Guaranteed departure' : t.status === 'limited' ? 'Limited seats / filling fast' : 'Private or on request'}</span>
-              <span class="pill">Best shown price: ${formatPrice(t.prices[selectedPeople])}${selectedPeople === '1' ? '' : ' / person'}</span>
-            </div>
-            <div class="tour-actions">
-              <button class="tour-btn primary" onclick='openBooking(${JSON.stringify(t).replace(/'/g,"&#39;")})'>Book Now</button>
-              <a class="tour-btn" href="/index.html#contact">Ask Custom Quote</a>
-            </div>
-          </div>
-        </article>
-      `).join('');
-    }
-
-    document.querySelectorAll('[data-people]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('[data-people]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        selectedPeople = btn.dataset.people;
-        renderTours();
-      });
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: selectedTour.price
+        }
+      }]
     });
-
-    [regionFilter, styleFilter, durationFilter, searchFilter].forEach(el => el.addEventListener('input', renderTours));
-
-    function openBooking(tour){
-      document.getElementById('bookingModal').classList.add('open');
-      document.getElementById('selectedTour').value = tour.name;
-      document.getElementById('selectedDate').value = '';
-      document.getElementById('selectedPeople').value = selectedPeople;
-      document.getElementById('selectedPrice').value = tour.style === 'luxury'
-        ? 'Ask for price'
-        : (selectedPeople === '1' ? formatPrice(tour.prices[selectedPeople]) : `${formatPrice(tour.prices[selectedPeople])} / person`);
-      document.getElementById('guestMessage').value = `Hello, I want to book ${tour.name}. Preferred date: . Travelers: ${selectedPeople}. We are also interested in a custom itinerary if possible.`;
-      updateWhatsAppLink();
-    }
-
-    function closeModal(){
-      document.getElementById('bookingModal').classList.remove('open');
-    }
-
-    function updateWhatsAppLink(){
-      const selectedDateValue = document.getElementById('selectedDate').value || '';
-      const baseMessage = document.getElementById('guestMessage').value || '';
-      const text = encodeURIComponent(
-        `${baseMessage}\nPreferred date: ${selectedDateValue}\nName: ${document.getElementById('guestName').value || ''}\nContact: ${document.getElementById('guestContact').value || ''}`
-      );
-      document.getElementById('waLink').href = `https://wa.me/97690283039?text=${text}`;
-    }
-
-    function submitInquiry(){
-      updateWhatsAppLink();
-      document.getElementById('submitNote').innerHTML = 'Inquiry details are ready. You can now continue with <strong>WhatsApp</strong> or <strong>Messenger</strong>. We can also arrange custom family tours on your preferred dates, create a custom route for your requested itinerary, and organize nomadic family stays for your preferred duration.';
-    }
-
-    ['guestName','guestContact','guestMessage','selectedPeople','selectedDate'].forEach(id => {
-      document.getElementById(id).addEventListener('input', updateWhatsAppLink);
-      document.getElementById(id).addEventListener('change', updateWhatsAppLink);
+  },
+  onApprove: function(data, actions) {
+    return actions.order.capture().then(function(details) {
+      fetch("https://your-backend.com/save-booking", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({
+          name: details.payer.name.given_name,
+          email: details.payer.email_address,
+          tour: selectedTour.name
+        })
+      });
+      alert("Payment completed!");
     });
+  }
+}).render('#paypal-button-container');
 
-    renderTours();
-  </script>
+</script>
+
 </body>
 </html>
