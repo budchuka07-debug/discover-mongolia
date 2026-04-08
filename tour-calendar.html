@@ -95,6 +95,8 @@
     .pill{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#f3f4f6;color:var(--dark);font-size:12px;font-weight:700}
     .date-row{display:flex;gap:8px;flex-wrap:wrap}
     .date-chip{display:inline-flex;align-items:center;padding:8px 10px;border-radius:999px;background:#fff8eb;color:#7c4a03;border:1px solid #f6d9a8;font-weight:700;font-size:12px}
+    button.date-chip{cursor:pointer;font:inherit}
+    button.date-chip:hover{background:#f7d9a8}
     .price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     .price-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:12px}
     .price-box strong{display:block;color:var(--primary-dark);font-size:18px;margin-bottom:4px}
@@ -307,12 +309,6 @@
           <button class="chip" data-people="3">3 Person Price</button>
           <button class="chip" data-people="4">4 Person Price</button>
         </div>
-        <div class="summary-strip">
-          <div class="summary-box"><strong id="tourCount">20</strong><span>Tours currently shown</span></div>
-          <div class="summary-box"><strong>To October</strong><span>Main departures shown through the end of the season</span></div>
-          <div class="summary-box"><strong>Flexible</strong><span>Private dates and custom routes are possible</span></div>
-          <div class="summary-box"><strong>Easy Form</strong><span>Short request form with route + contact only</span></div>
-        </div>
       </div>
 
       <div class="calendar-layout">
@@ -361,7 +357,7 @@
     </div>
   </footer>
 
-  <a href="#calendar-list" class="floating-book" onclick="openServiceRequest('General booking inquiry');return false;">Quick Request</a>
+  <a href="#calendar-list" class="floating-book" onclick="openServiceRequest('General booking inquiry');return false;">Custom Request</a>
 
   <div class="modal" id="bookingModal" aria-hidden="true">
     <div class="modal-backdrop" onclick="closeModal()"></div>
@@ -595,7 +591,7 @@
               ${t.highlights.map(h => `<span class="pill">${h}</span>`).join('')}
             </div>
             <div>
-              <strong>Departure Dates</strong>
+              <strong>Departure Dates — click to book</strong>
               <div class="date-row">${showDates(t.dates)}</div>
             </div>
             <div>
@@ -647,7 +643,7 @@
       });
     }
 
-    function openBooking(tour){
+    function openBooking(tour, chosenDate){
       activeTour = tour;
       document.getElementById('bookingModal').classList.add('open');
       document.getElementById('requestType').value = tour.priceMode === 'ask' ? 'heli' : 'tour';
