@@ -263,15 +263,7 @@
     document.getElementById('modalClose').addEventListener('click', closeModal);
     document.getElementById('bookingForm').addEventListener('submit', submitRequest);
     renderTours();
-      if(currentTour){ document.getElementById('selectedPeople').value = selectedPeople; updateSelectedPrice(); updateLinks(); }
-    }));
-
-    ['selectedDate','selectedPeople','guestName','guestContact','guestMessage'].forEach(id => {
-      const el = document.getElementById(id);
-      el.addEventListener('input', function(){ if(id==='selectedPeople'){ updateSelectedPrice(); } updateLinks(); });
-      el.addEventListener('change', function(){ if(id==='selectedPeople'){ updateSelectedPrice(); } updateLinks(); });
-    });
-
+   
     
   </script>
 <script src="https://www.paypal.com/sdk/js?client-id=ARbPVkSlqYY-svWFmOkYdQZzd7FAl_sMDyruwryRo-jNHhIBBLelzjCjTf2PkuscRukq8C_H1eq66cPq&currency=USD"></script>
