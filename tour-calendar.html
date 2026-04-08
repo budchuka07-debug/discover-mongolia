@@ -291,11 +291,33 @@
           <label>Contact (optional)</label>
           <input id="guestContact" type="text" placeholder="WhatsApp or email (optional)">
         </div>
-        <div class="full" style="display:flex;gap:12px;flex-wrap:wrap;">
-          <button class="btn btn-primary" type="submit" id="paypalBtn">Pay 20% Deposit</button>
-          <a class="btn" style="background:#25D366;color:#fff;" target="_blank" id="waLink" href="#">WhatsApp</a>
-          <a class="btn" style="background:#0084ff;color:#fff;" target="_blank" id="messengerLink" href="https://m.me/yourpage">Messenger</a>
-        </div>
+       <div class="full" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;">
+
+  <button class="btn btn-primary" type="submit">
+    Send Inquiry
+  </button>
+
+  <a class="btn" 
+     href="https://www.paypal.com/ncp/payment/WEXA5TUWBLCVY"
+     target="_blank"
+     style="background:#ffc439;color:#111827;font-weight:bold;">
+     💳 Pay $100 Deposit
+  </a>
+
+  <a class="btn" 
+     style="background:#25D366;color:#fff;" 
+     target="_blank" 
+     id="waLink" 
+     href="#">
+     WhatsApp
+  </a>
+
+</div>
+
+<div class="help-note" style="margin-top:12px;">
+  To confirm your booking, we require a small $100 deposit. 
+  The remaining balance can be paid upon arrival in Mongolia.
+</div>
       </form>
       <div class="help-note" id="submitNote">Replace the PayPal link inside the HTML with your real PayPal checkout or PayPal.me link. The deposit button already calculates 20% automatically.</div>
     </div>
