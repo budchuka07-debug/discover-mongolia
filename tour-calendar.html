@@ -164,11 +164,14 @@
     .detail-price{font-size:15px;font-weight:700;color:#14532d}
     .tour-actions .tour-btn{padding:9px 12px;font-size:13px}
 
+    @media (max-width:1200px){
+      .tour-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    }
     @media (max-width:1024px){
       .summary-strip,.hero-stats,.story-facts,.quick-services,.simple-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
       .tour-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .story-grid,.planner-grid{grid-template-columns:1fr}
-      .tour-meta{grid-template-columns:1fr 1fr 1fr}
+      .tour-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tour-meta{grid-template-columns:1fr 1fr 1fr}
     }
     @media (max-width:720px){
       .nav-links{display:none}
@@ -666,7 +669,6 @@
     const tourGrid = document.getElementById('tourGrid');
     const resultCount = document.getElementById('resultCount');
     const tourCount = document.getElementById('tourCount');
-    const PAYPAL_LINK = 'https://www.paypal.com/ncp/payment/WEXA5TUWBLCVY';
 
     function durationBucket(days){
       if(days <= 3) return '1-3';
@@ -848,7 +850,6 @@
         : `Hello, I want to book ${tour.name}.`;
       document.getElementById('guestFamilyInfo').value = '';
       document.getElementById('childcareOption').value = '';
-      const fp = document.getElementById('foodPreference'); if(fp) fp.value = '';
       const fp = document.getElementById('foodPreference'); if(fp) fp.value = '';
       updatePriceField();
       toggleRequestFields();
