@@ -80,21 +80,21 @@
     .summary-box strong{display:block;color:var(--primary);font-size:20px;margin-bottom:6px}
     .calendar-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;margin-top:26px}
     .result-count{font-size:14px;color:var(--muted)}
-    .tour-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+    .tour-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
     .tour-card{background:#fff;border-radius:24px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(13,59,102,.08);display:flex;flex-direction:column}
-    .tour-cover{height:230px;background:#e8edf3 center/cover no-repeat}
-    .tour-body{padding:22px;display:flex;flex-direction:column;gap:12px;height:100%}
+    .tour-cover{height:170px;background:#e8edf3 center/cover no-repeat}
+    .tour-body{padding:16px;display:flex;flex-direction:column;gap:10px;height:100%}
     .tour-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
     .tour-badge{display:inline-flex;align-items:center;padding:7px 11px;border-radius:999px;background:#eef4ff;color:var(--primary);font-size:12px;font-weight:800;margin-bottom:8px}
-    .tour-title{font-size:28px;color:var(--primary-dark);margin:0}
-    .tour-duration{white-space:nowrap;font-weight:800;color:#15803d;font-size:16px}
+    .tour-title{font-size:21px;color:var(--primary-dark);margin:0}
+    .tour-duration{white-space:nowrap;font-weight:800;color:#15803d;font-size:14px}
     .tour-highlights{display:flex;gap:8px;flex-wrap:wrap}
     .pill{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#f3f4f6;color:var(--dark);font-size:12px;font-weight:700}
     .date-row{display:flex;gap:8px;flex-wrap:wrap}
     .date-chip{display:inline-flex;align-items:center;padding:8px 10px;border-radius:999px;background:#fff8eb;color:#7c4a03;border:1px solid #f6d9a8;font-weight:700;font-size:12px}
     .price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
     .price-box{background:#f9fafb;border:1px solid #e5e7eb;border-radius:14px;padding:12px}
-    .price-box strong{display:block;color:var(--primary-dark);font-size:18px;margin-bottom:4px}
+    .price-box strong{display:block;color:var(--primary-dark);font-size:15px;margin-bottom:4px}
     .price-box.ask-only{display:flex;align-items:center;justify-content:space-between;gap:10px}
     .price-box.ask-only strong{margin:0}
     .tour-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -145,16 +145,35 @@
     .season-note{margin-top:18px;padding:16px 18px;border-radius:18px;background:#ecfdf5;border:1px solid #bbf7d0;color:#14532d}
     .route-examples{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
     .route-tag{display:inline-flex;padding:8px 12px;border-radius:999px;background:#eef4ff;color:var(--primary);font-weight:700;font-size:13px}
+
+    .tour-note-box{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:18px 20px;box-shadow:var(--shadow-soft);margin:18px 0 6px}
+    .tour-note-box p{margin:0 0 8px}
+    .tour-note-box p:last-child{margin-bottom:0}
+    .small-note{font-size:13px;color:var(--muted)}
+    .detail-list{margin:0;padding-left:18px}
+    .detail-list li{margin:0 0 8px}
+    .tier-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+    .tier-box{border:1px solid #e5e7eb;border-radius:16px;padding:14px;background:#fafafa}
+    .tier-box strong{display:block;margin-bottom:6px;color:var(--primary-dark)}
+    .tier-box.budget{background:#f8fafc}
+    .tier-box.standard{background:#fff8eb}
+    .tier-box.premium{background:#eef6ff}
+    .detail-topline{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+    .detail-section{margin-top:16px}
+    .detail-section h4{margin-bottom:10px;color:var(--primary-dark)}
+    .detail-price{font-size:15px;font-weight:700;color:#14532d}
+    .tour-actions .tour-btn{padding:10px 14px;font-size:14px}
+
     @media (max-width:1024px){
       .summary-strip,.hero-stats,.story-facts,.quick-services,.simple-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .tour-grid,.story-grid,.planner-grid{grid-template-columns:1fr}
+      .story-grid,.planner-grid{grid-template-columns:1fr}
       .tour-meta{grid-template-columns:1fr 1fr 1fr}
     }
     @media (max-width:720px){
       .nav-links{display:none}
-      .summary-strip,.price-grid,.story-facts,.modal-grid,.tour-meta,.quick-services,.simple-steps{grid-template-columns:1fr}
+      .summary-strip,.price-grid,.story-facts,.modal-grid,.tour-meta,.quick-services,.simple-steps,.tier-grid{grid-template-columns:1fr}
       .hero .container{padding:80px 0 60px}
-      .tour-title{font-size:24px}
+      .tour-title{font-size:20px}
       .floating-book{left:12px;right:12px;bottom:12px}
     }
   </style>
@@ -542,7 +561,17 @@
     </div>
   </div>
 
+
+  <div class="modal" id="detailModal" aria-hidden="true">
+    <div class="modal-backdrop" onclick="closeDetailModal()"></div>
+    <div class="modal-dialog">
+      <button class="modal-close" onclick="closeDetailModal()">&times;</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
   <script>
+    const PAYPAL_LINK = 'https://www.paypal.com/ncp/payment/WEXA5TUWBLCVY';
     const seasonDates = {
       weekly: ['May 10','May 17','May 24','May 31','June 7','June 14','June 21','June 28','July 5','July 12','July 19','July 26','August 2','August 9','August 16','August 23','September 6','September 20','October 4'],
       weeklyLate: ['May 12','May 19','May 26','June 2','June 9','June 16','June 23','June 30','July 7','July 14','July 21','July 28','August 4','August 11','August 18','August 25','September 8','September 22','October 6'],
@@ -579,6 +608,29 @@
       {id:'helicopter-expedition-1d',name:'VIP Helicopter Expedition',region:'special',style:'luxury',days:1,status:'request',image:'images/hero/hero-1-mongolia.jpg',highlights:['Private Helicopter','Remote Access','Luxury Day Plan'],dates:seasonDates.requestOnly,prices:null,fromUB:'Private heli',season:'May–Oct',group:'1-3',priceMode:'ask'},
       {id:'vip-grand-5d',name:'VIP Mongolia Signature 5 Days',region:'special',style:'luxury',days:5,status:'request',image:'images/hero/hero-khuvsgul-lake.jpg',highlights:['Luxury Camps','Private Guide','Flexible Route'],dates:seasonDates.vip,prices:{1:3200,2:2100,3:1850,4:1700},fromUB:'Private setup',season:'May–Oct',group:'4–5'}
     ];
+
+    const tourDetails = {
+      'gobi-highlights-5d': {route:'Ulaanbaatar → Tsagaan Suvarga → Yol Valley → Bayanzag → Khongor → Ulaanbaatar', itinerary:['Day 1: Drive south to Tsagaan Suvarga and overnight in tourist ger camp.','Day 2: Continue to Yol Valley, short hike, then move toward Bayanzag.','Day 3: Explore Flaming Cliffs area and continue to Khongor Sand Dunes.','Day 4: Camel riding, dune walk and sunset in Khongor region.','Day 5: Return drive toward Ulaanbaatar or connect onward.'], standard:'Tourist ger camp and standard local lodge where available.', budget:'Simple guesthouse or shared camp option to reduce total price.', premium:'Better vehicle, private room where possible, upgraded camp or hotel in city sections.'},
+      'gobi-classic-7d': {route:'Ulaanbaatar → Baga Gazriin Chuluu / Tsagaan Suvarga → Yol → Bayanzag → Khongor → Ongiin → Ulaanbaatar', itinerary:['Day 1: Start southbound and overnight on the central Gobi route.','Day 2: Reach Tsagaan Suvarga or Yol Valley depending on road plan.','Day 3: Explore Yol Valley and continue to Bayanzag.','Day 4: Visit Flaming Cliffs and continue to Khongor dunes.','Day 5: Full Khongor experience with camel ride and sunset.','Day 6: Drive to Ongiin monastery area.','Day 7: Return to Ulaanbaatar.'], standard:'Tourist ger camps and simple standard hotels/guesthouses on transit nights.', budget:'More basic guesthouse / shared bathroom stay setup.', premium:'Higher-comfort camps, stronger vehicle setup and private room preference.'},
+      'deep-gobi-10d': {route:'Ulaanbaatar → Middle Gobi → Yol → Bayanzag → Khongor → Khermen Tsav / remote Gobi → return', itinerary:['Day 1–2: Travel into middle and southern Gobi with scenic stops.','Day 3: Hike in Yol Valley and continue across desert route.','Day 4: Bayanzag and dinosaur cliffs region.','Day 5: Khongor dunes with camel riding and local family area.','Day 6–8: Remote expedition days toward deeper Gobi viewpoints.','Day 9: Start long return route north.','Day 10: Arrive Ulaanbaatar.'], standard:'Mix of ger camps and remote local stays depending on expedition section.', budget:'Simpler shared camp / guesthouse arrangement where available.', premium:'Stronger 4x4 setup, upgraded city hotel and more private service.'},
+      'gobi-central-7d': {route:'Ulaanbaatar → Tsagaan Suvarga → Ongiin → Kharkhorum → Elsen Tasarkhai → Ulaanbaatar', itinerary:['Day 1: Begin southbound to Tsagaan Suvarga.','Day 2: Scenic Gobi drive and overnight near Ongiin.','Day 3: Continue north toward Kharkhorum.','Day 4: Erdene Zuu monastery and historical area.','Day 5: Elsen Tasarkhai and nomadic family stop.','Day 6: Flexible countryside activities.','Day 7: Return to Ulaanbaatar.'], standard:'Ger camp plus standard hotel/guesthouse mix.', budget:'Guesthouse-focused version with simpler room standards.', premium:'Better rooms, private service touches and upgraded vehicle comfort.'},
+      'central-classic-5d': {route:'Ulaanbaatar → Kharkhorum → Erdene Zuu → Elsen Tasarkhai → nomadic stay → Ulaanbaatar', itinerary:['Day 1: Drive to Kharkhorum.','Day 2: Erdene Zuu and historical museum visits.','Day 3: Move to Elsen Tasarkhai and camel / dune experience.','Day 4: Nomadic family stay and countryside activities.','Day 5: Return to Ulaanbaatar.'], standard:'Standard tourist ger camp and family/guesthouse stay.', budget:'Simple local guesthouse instead of higher-priced camp nights.', premium:'Upgraded lodge/camp and private comfort setup.'},
+      'orkhon-valley-5d': {route:'Ulaanbaatar → Kharkhorum → Orkhon Valley → waterfall area → Ulaanbaatar', itinerary:['Day 1: Drive to Kharkhorum.','Day 2: Continue into Orkhon Valley and local camp.','Day 3: Waterfall and valley exploration.','Day 4: Horse activity or family visit in the valley.','Day 5: Return via central steppe route.'], standard:'Tourist ger camp and local valley guest stay.', budget:'Basic guesthouse / family stay version.', premium:'Better camp, private guide time and upgraded vehicle.'},
+      'kharkhorum-3d': {route:'Ulaanbaatar → Kharkhorum → Elsen Tasarkhai → Ulaanbaatar', itinerary:['Day 1: Road trip to Kharkhorum.','Day 2: Erdene Zuu and Elsen Tasarkhai stop.','Day 3: Return to Ulaanbaatar.'], standard:'Standard guesthouse or tourist camp.', budget:'Simple guesthouse option.', premium:'Better hotel in Ulaanbaatar section and private comfort service.'},
+      'amar-aglag-4d': {route:'Ulaanbaatar → Amarbayasgalant → Aglag Buteel → countryside stay → Ulaanbaatar', itinerary:['Day 1: Drive north to monastery zone.','Day 2: Explore Amarbayasgalant.','Day 3: Visit Aglag Buteel and countryside stop.','Day 4: Return to the city.'], standard:'Standard local guesthouse / monastery-region accommodation.', budget:'Simple guesthouse-focused overnight plan.', premium:'Improved hotel/vehicle comfort and slower private pacing.'},
+      'khangai-adventure-7d': {route:'Ulaanbaatar → Taikhar → Tsenkher → Khorgo → Terkhiin Tsagaan Lake → Ulaanbaatar', itinerary:['Day 1: Drive into Arkhangai region.','Day 2: Taikhar rock and countryside route.','Day 3: Tsenkher hot spring stay.','Day 4: Continue to Khorgo volcanic area.','Day 5: Explore Terkhiin Tsagaan Lake.','Day 6: Extra nature and hot spring time.','Day 7: Return to Ulaanbaatar.'], standard:'Tourist ger camps and standard hot spring stay.', budget:'Simple guesthouse/camp arrangement.', premium:'Better spring lodge, upgraded rooms and stronger private setup.'},
+      'tsenkher-khorgo-5d': {route:'Ulaanbaatar → Tsenkher → Khorgo → Terkhiin Tsagaan Lake → Ulaanbaatar', itinerary:['Day 1: Drive west into Khangai.','Day 2: Relax in Tsenkher hot spring area.','Day 3: Reach Khorgo volcano.','Day 4: Lake and crater exploration.','Day 5: Return to Ulaanbaatar.'], standard:'Standard ger camp and hot spring lodge mix.', budget:'Basic guesthouse version.', premium:'Better lodge room and upgraded private comfort.'},
+      'horse-steppe-3d': {route:'Ulaanbaatar → steppe riding camp → nomadic area → Ulaanbaatar', itinerary:['Day 1: Transfer to riding base, horse matching and short ride.','Day 2: Full riding day across open steppe with support camp.','Day 3: Morning ride and return transfer.'], standard:'Rider camp / ger camp with shared riding support facilities.', budget:'Simple camp or guesthouse support version.', premium:'Private support, stronger meals and upgraded camp comfort.'},
+      'horse-nomad-5d': {route:'Ulaanbaatar → riding base → nomadic family area → steppe loop → Ulaanbaatar', itinerary:['Day 1: Transfer and ride orientation.','Day 2: Steppe riding day with picnic stop.','Day 3: Continue riding into nomadic family zone.','Day 4: Full riding day and campfire evening.','Day 5: Return ride and transfer back.'], standard:'Standard rider camp / ger camp with local family element.', budget:'Basic camp and simpler meal/room standard.', premium:'Private horse support, better camp comfort and more flexible pace.'},
+      'mountain-horse-7d': {route:'Ulaanbaatar → mountain riding area → valley camp circuit → Ulaanbaatar', itinerary:['Day 1: Drive to riding region and prepare horses.','Day 2–5: Multi-day ride through valleys, rivers and camp areas.','Day 6: Final long ride with support vehicle nearby.','Day 7: Transfer back to Ulaanbaatar.'], standard:'Mountain camp / ger camp riding setup.', budget:'Simpler riding camp arrangement.', premium:'More support staff, better camp comfort and private logistics.'},
+      'khuvsgul-lake-5d': {route:'Ulaanbaatar → Murun / Khatgal → Khuvsgul shore → Ulaanbaatar', itinerary:['Day 1: Fly or overland transfer north.','Day 2: Khatgal and lake shore exploration.','Day 3: Boat / forest / lakeside day.','Day 4: Flexible activity day around Khuvsgul.','Day 5: Return to Ulaanbaatar.'], standard:'Standard lake lodge / ger camp near the shore.', budget:'Simple lakeside guesthouse.', premium:'Better lakeside lodge, private transport and more comfort.'},
+      'khuvsgul-north-7d': {route:'Ulaanbaatar → Khatgal → northern shore / forest area → Ulaanbaatar', itinerary:['Day 1: Transfer north.','Day 2: Khatgal orientation and shore time.','Day 3–5: Northern lake and forest exploration.','Day 6: Flexible extra lake day.','Day 7: Return to the city.'], standard:'Lake lodge + camp mix.', budget:'Basic lakeside guesthouse option.', premium:'Higher-category lodge and private service pace.'},
+      'taiga-reindeer-7d': {route:'Ulaanbaatar → Murun → taiga access route → reindeer family area → return', itinerary:['Day 1: Travel to northern gateway town.','Day 2: Road transfer toward taiga access point.','Day 3–5: Reach and stay near reindeer family area depending on route conditions.','Day 6: Return toward Murun.','Day 7: Return to Ulaanbaatar.'], standard:'Simple local lodge and expedition-style camp stay.', budget:'Very basic local stay where available.', premium:'Private support, better city hotel and upgraded logistics.'},
+      'altai-tavan-bogd-7d': {route:'Ulaanbaatar → Olgii → Tavan Bogd area → glacier / national park → return', itinerary:['Day 1: Domestic flight to western Mongolia.','Day 2: Drive into national park region.','Day 3–5: Glacier, peaks and eagle hunter cultural days.','Day 6: Return toward Olgii.','Day 7: Flight back to Ulaanbaatar.'], standard:'Standard western local hotel / ger camp mix.', budget:'Simpler local guesthouse and camp option.', premium:'Upgraded transport, better hotel in Olgii and stronger private support.'},
+      'western-ultimates-9d': {route:'Ulaanbaatar → western lakes / mountains / eagle hunter route → return', itinerary:['Day 1: Fly west.','Day 2–7: Multi-stop route through western highlights with mountain and cultural areas.','Day 8: Return toward Olgii.','Day 9: Fly back to Ulaanbaatar.'], standard:'Standard local hotels, camps and expedition overnights.', budget:'Simpler guesthouse/camp combination.', premium:'Better hotels, more private support and stronger comfort level.'},
+      'helicopter-expedition-1d': {route:'Private helicopter access route based on request', itinerary:['Day plan is built around your chosen location, landing time and sightseeing goals.','Suitable for VIP travelers, photographers or special occasions.'], standard:'Quote only after route and landing requirements are confirmed.', budget:'Not usually offered as a budget-style trip.', premium:'Premium by nature with private helicopter and custom planning.'},
+      'vip-grand-5d': {route:'Custom luxury Mongolia signature route', itinerary:['Day 1: Meet and greet with upgraded private service.','Day 2–4: Flexible luxury route based on your chosen region and comfort level.','Day 5: Return with private transfer support.'], standard:'This product is already positioned above standard level.', budget:'Budget version not recommended for this route.', premium:'Luxury hotels / top camps, private guide and tailored pacing.'}
+    };
 
     let selectedPeople = '2';
     let activeTour = null;
@@ -630,6 +682,12 @@
       return selectedPeople === '1' ? formatPrice(val) : `${formatPrice(val)} / person`;
     }
 
+    function getPriceFrom(t){
+      if(t.priceMode === 'ask') return 'Ask for quote';
+      const start = t.prices && t.prices[4] ? t.prices[4] : (t.prices && t.prices[1]);
+      return start ? `From ${formatPrice(start)} / person` : 'Ask for quote';
+    }
+
     function renderTours(){
       const filtered = tours;
       resultCount.textContent = `Showing ${filtered.length} tours.`;
@@ -647,32 +705,86 @@
               <div class="tour-duration">${t.days} Days</div>
             </div>
             <div class="tour-highlights">
-              ${t.highlights.map(h => `<span class="pill">${h}</span>`).join('')}
+              ${t.highlights.slice(0,3).map(h => `<span class="pill">${h}</span>`).join('')}
             </div>
-            <div>
-              <strong>Departure Dates</strong>
-              <div class="date-row">${showDates(t.dates)}</div>
-            </div>
-            <div>
-              <strong>${t.priceMode === 'ask' ? 'Quote' : 'Price Options'}</strong>
-              ${priceBlock(t)}
-            </div>
-            <div class="tour-meta">
-              <div><strong>From UB</strong><br>${t.fromUB}</div>
-              <div><strong>Season</strong><br>${t.season}</div>
-              <div><strong>Deposit</strong><br>${t.priceMode === 'ask' ? 'Quote first' : '20% via PayPal'}</div>
-            </div>
-            <div class="status-row">
-              <span class="status ${t.status}">${t.status === 'guaranteed' ? 'Guaranteed departure' : t.status === 'limited' ? 'Limited seats / filling fast' : 'Private or on request'}</span>
-              <span class="pill">${t.priceMode === 'ask' ? 'Ask for quote' : 'Reserve with 20% deposit'}</span>
-            </div>
+            <div class="detail-price">${getPriceFrom(t)}</div>
+            <div class="small-note">Standard package shown. Budget and Premium options available.</div>
+            <div class="small-note">Group price is lower when 2–4 travelers join together.</div>
             <div class="tour-actions">
+              <button class="tour-btn" onclick="openDetailModal('${t.id}')">View Details</button>
               <button class="tour-btn primary" onclick='openBooking(${JSON.stringify(t).replace(/'/g,"&#39;")})'>${t.priceMode === 'ask' ? 'Ask Quote' : 'Book / Pay Deposit'}</button>
-              <button class="tour-btn" onclick="openServiceRequest('Custom itinerary planning')">Custom Route</button>
             </div>
           </div>
         </article>
       `).join('');
+    }
+
+    function openDetailModal(id){
+      const tour = tours.find(t => t.id === id);
+      const detail = tourDetails[id];
+      if(!tour || !detail) return;
+      const perDay = (tour.priceMode === 'ask' || !tour.prices) ? 'Quote first' : `${formatPrice(Math.round(tour.prices[1] / tour.days))} approx / day for 1 traveler`;
+      const modalHtml = `
+        <div class="detail-topline">
+          <span class="tour-badge">${tour.region.toUpperCase()} • ${tour.style.toUpperCase()}</span>
+          <span class="pill">${tour.days} Days</span>
+          <span class="pill">${tour.season}</span>
+          <span class="pill">May–October open</span>
+        </div>
+        <h3>${tour.name}</h3>
+        <p><strong>Route:</strong> ${detail.route}</p>
+        <p class="small-note">${tour.priceMode === 'ask' ? 'Private quote product.' : 'Most departures are private journeys for up to 4 travelers in one vehicle. Larger groups are possible on request.'}</p>
+
+        <div class="detail-section">
+          <h4>Sample itinerary</h4>
+          <ul class="detail-list">
+            ${detail.itinerary.map(item => `<li>${item}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="detail-section">
+          <h4>Accommodation & travel style options</h4>
+          <div class="tier-grid">
+            <div class="tier-box budget"><strong>Budget</strong><div>${detail.budget}</div></div>
+            <div class="tier-box standard"><strong>Standard</strong><div>${detail.standard}</div></div>
+            <div class="tier-box premium"><strong>Premium</strong><div>${detail.premium}</div></div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h4>Price guide</h4>
+          ${tour.priceMode === 'ask' ? `<p>Price is prepared after route, landing zone and group size are confirmed.</p>` : `
+            <div class="price-grid">
+              <div class="price-box"><strong>1 traveler</strong><span>${formatPrice(tour.prices[1])}</span></div>
+              <div class="price-box"><strong>2 travelers</strong><span>${formatPrice(tour.prices[2])} / person</span></div>
+              <div class="price-box"><strong>3 travelers</strong><span>${formatPrice(tour.prices[3])} / person</span></div>
+              <div class="price-box"><strong>4 travelers</strong><span>${formatPrice(tour.prices[4])} / person</span></div>
+            </div>
+            <p class="small-note">The more people join together, the lower the price per person becomes.</p>
+            <p class="small-note">${perDay}</p>
+          `}
+        </div>
+
+        <div class="detail-section">
+          <h4>Possible add-ons</h4>
+          <ul class="detail-list">
+            <li>Car with driver, guide-only service, family support or babysitter option</li>
+            <li>Route extension, more destinations, or slower travel pace</li>
+            <li>Budget guesthouse version or premium hotel / private camp version</li>
+          </ul>
+        </div>
+
+        <div class="tour-actions" style="margin-top:18px;">
+          <button class="tour-btn primary" onclick='openBooking(${JSON.stringify(tour).replace(/'/g,"&#39;")}); closeDetailModal();'>${tour.priceMode === 'ask' ? 'Ask Quote' : 'Book / Pay Deposit'}</button>
+          <button class="tour-btn" onclick="closeDetailModal()">Close</button>
+        </div>
+      `;
+      document.getElementById('detailContent').innerHTML = modalHtml;
+      document.getElementById('detailModal').classList.add('open');
+    }
+
+    function closeDetailModal(){
+      document.getElementById('detailModal').classList.remove('open');
     }
 
     function fillDateOptions(dates, selected){
