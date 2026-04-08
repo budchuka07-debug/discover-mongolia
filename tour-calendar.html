@@ -253,21 +253,21 @@
     </div>
   </footer>
 
-  <a href="/index.html#contact" class="floating-book">Custom Request</a>
+  <a href="#calendar-list" class="floating-book">Choose Date & Book</a>
 
   <div class="modal" id="bookingModal" aria-hidden="true">
     <div class="modal-backdrop" onclick="closeModal()"></div>
     <div class="modal-dialog">
       <button class="modal-close" onclick="closeModal()">&times;</button>
-      <h3>Book This Tour</h3>
-      <p class="muted">Fill this quick form, then connect the submit action to Messenger, WhatsApp, email or your payment flow later.</p>
-      <form class="modal-grid" onsubmit="event.preventDefault();submitInquiry();">
+      <h3>Reserve This Tour</h3>
+      <p class="muted">Choose your date, see the 20% PayPal deposit, and continue in the easiest way.</p>
+      <form class="modal-grid" onsubmit="event.preventDefault();goToPayPal();">
         <div>
           <label>Selected Tour</label>
           <input id="selectedTour" type="text" readonly>
         </div>
         <div>
-          <label>Preferred Date</label>
+          <label>Departure Date</label>
           <input id="selectedDate" type="text" readonly>
         </div>
         <div>
@@ -280,63 +280,63 @@
           </select>
         </div>
         <div>
-          <label>Displayed Price</label>
+          <label>Trip Price</label>
           <input id="selectedPrice" type="text" readonly>
         </div>
         <div>
-          <label>Your Name</label>
-          <input id="guestName" type="text" placeholder="Full name" required>
+          <label>20% Deposit</label>
+          <input id="selectedDeposit" type="text" readonly>
         </div>
         <div>
-          <label>WhatsApp / Email</label>
-          <input id="guestContact" type="text" placeholder="WhatsApp or email" required>
-        </div>
-        <div class="full">
-          <label>Message</label>
-          <textarea id="guestMessage" placeholder="Any special requests, room type, food preference, children, etc."></textarea>
+          <label>Contact (optional)</label>
+          <input id="guestContact" type="text" placeholder="WhatsApp or email (optional)">
         </div>
         <div class="full" style="display:flex;gap:12px;flex-wrap:wrap;">
-          <button class="btn btn-primary" type="submit">Send Inquiry</button>
+          <button class="btn btn-primary" type="submit" id="paypalBtn">Pay 20% Deposit</button>
           <a class="btn" style="background:#25D366;color:#fff;" target="_blank" id="waLink" href="#">WhatsApp</a>
           <a class="btn" style="background:#0084ff;color:#fff;" target="_blank" id="messengerLink" href="https://m.me/yourpage">Messenger</a>
         </div>
       </form>
-      <div class="help-note" id="submitNote">Tip: change the WhatsApp and Messenger links in the HTML to your real links later.</div>
+      <div class="help-note" id="submitNote">Replace the PayPal link inside the HTML with your real PayPal checkout or PayPal.me link. The deposit button already calculates 20% automatically.</div>
     </div>
   </div>
 
   <script>
     const tours = [
-      {id:'gobi-highlights-5d',name:'Gobi Highlights 5 Days',region:'gobi',style:'adventure',days:5,status:'guaranteed',image:'images/destinations/khongor-dunes.jpg',highlights:['Khongor Dunes','Bayanzag','Yol Valley','Tsagaan Suvarga'],dates:['May 10','May 17','May 24','June 1'],prices:{1:1180,2:820,3:720,4:650},fromUB:'Flight or 4x4',season:'May–Oct',group:'4–5'},
-      {id:'gobi-classic-7d',name:'Gobi Classic 7 Days',region:'gobi',style:'adventure',days:7,status:'guaranteed',image:'images/destinations/bayanzag.jpg',highlights:['Khongor Dunes','Bayanzag','Yol Valley','Flaming Cliffs'],dates:['May 12','May 19','May 26','June 2'],prices:{1:1450,2:990,3:860,4:780},fromUB:'4x4 classic route',season:'May–Oct',group:'6–7'},
-      {id:'deep-gobi-10d',name:'Deep Gobi Expedition 10 Days',region:'gobi',style:'adventure',days:10,status:'limited',image:'images/destinations/khermen-tsav.jpg',highlights:['Khermen Tsav','Khongor','Bayanzag','Remote Desert'],dates:['May 15','May 29','June 12','June 26'],prices:{1:2280,2:1580,3:1410,4:1320},fromUB:'4x4 remote',season:'May–Sep',group:'8+'},
-      {id:'gobi-central-7d',name:'Gobi + Central 7 Days',region:'gobi',style:'culture',days:7,status:'guaranteed',image:'images/destinations/tsenkher.jpg',highlights:['Tsagaan Suvarga','Ongiin','Kharkhorum','Elsen Tasarkhai'],dates:['May 11','May 18','May 25','June 1'],prices:{1:1520,2:1020,3:890,4:810},fromUB:'4x4 mixed route',season:'May–Oct',group:'6–7'},
-      {id:'central-classic-5d',name:'Central Mongolia 5 Days',region:'central',style:'culture',days:5,status:'guaranteed',image:'images/destinations/erdene-zuu.jpg',highlights:['Kharkhorum','Erdene Zuu','Elsen Tasarkhai','Nomadic Stay'],dates:['May 9','May 16','May 23','May 30'],prices:{1:980,2:690,3:620,4:570},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
-      {id:'orkhon-valley-5d',name:'Orkhon Valley 5 Days',region:'central',style:'nature',days:5,status:'guaranteed',image:'images/destinations/terkhiin-tsagaan-nuur.jpg',highlights:['Orkhon Waterfall','Nomadic Valley','Kharkhorum','Horse Area'],dates:['May 14','May 21','May 28','June 4'],prices:{1:1020,2:720,3:650,4:590},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
-      {id:'kharkhorum-3d',name:'Kharkhorum & Erdene Zuu 3 Days',region:'central',style:'culture',days:3,status:'guaranteed',image:'images/destinations/erdene-zuu.jpg',highlights:['Kharkhorum','Erdene Zuu','Elsen Tasarkhai'],dates:['May 10','May 17','May 24','May 31'],prices:{1:620,2:450,3:390,4:360},fromUB:'Short road trip',season:'May–Oct',group:'1-3'},
-      {id:'amar-aglag-4d',name:'Amarbayasgalant + Aglag 4 Days',region:'central',style:'culture',days:4,status:'request',image:'images/destinations/amarbayasgalant.jpg',highlights:['Amarbayasgalant','Aglag Buteel','Countryside Drive'],dates:['May 13','May 20','May 27','June 3'],prices:{1:780,2:560,3:500,4:460},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
-      {id:'khangai-adventure-7d',name:'Khangai Adventure 7 Days',region:'khangai',style:'nature',days:7,status:'guaranteed',image:'images/destinations/khorgo.jpg',highlights:['Khorgo','Terkhiin Tsagaan Lake','Tsenkher','Taikhar'],dates:['May 12','May 19','May 26','June 2'],prices:{1:1490,2:1020,3:900,4:830},fromUB:'Road trip',season:'May–Oct',group:'6–7'},
-      {id:'tsenkher-khorgo-5d',name:'Tsenkher + Khorgo 5 Days',region:'khangai',style:'nature',days:5,status:'guaranteed',image:'images/destinations/tsenkher.jpg',highlights:['Tsenkher Hot Spring','Khorgo Volcano','Lake Views'],dates:['May 8','May 15','May 22','May 29'],prices:{1:990,2:710,3:640,4:590},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
-      {id:'horse-steppe-3d',name:'Horse Riding Steppe 3 Days',region:'special',style:'horse',days:3,status:'limited',image:'images/tours/horse-tour-hero.jpg',highlights:['Horse Trek','Nomadic Camp','Open Steppe'],dates:['May 10','May 17','May 24','May 31'],prices:{1:520,2:390,3:350,4:320},fromUB:'Drive + ride',season:'May–Sep',group:'1-3'},
-      {id:'horse-nomad-5d',name:'Nomadic Horse Tour 5 Days',region:'special',style:'horse',days:5,status:'guaranteed',image:'images/tours/horse-tour-hero.jpg',highlights:['Horse Trek','Nomadic Family','Campfire Nights'],dates:['May 11','May 18','May 25','June 1'],prices:{1:880,2:640,3:580,4:530},fromUB:'Drive + ride',season:'May–Sep',group:'4–5'},
-      {id:'mountain-horse-7d',name:'Mountain Horse Trek 7 Days',region:'special',style:'horse',days:7,status:'limited',image:'images/tours/horse-tour-hero.jpg',highlights:['Mountain Valleys','Horse Camping','Rivers'],dates:['May 13','May 27','June 10','June 24'],prices:{1:1380,2:980,3:870,4:820},fromUB:'Private support car',season:'Jun–Sep',group:'6–7'},
-      {id:'khuvsgul-lake-5d',name:'Khuvsgul Lake 5 Days',region:'north',style:'nature',days:5,status:'guaranteed',image:'images/destinations/khuvsgul-lake.jpg',highlights:['Khuvsgul Lake','Khatgal','Forest Shore'],dates:['June 1','June 8','June 15','June 22'],prices:{1:1280,2:930,3:840,4:780},fromUB:'Flight or overland',season:'Jun–Sep',group:'4–5'},
-      {id:'khuvsgul-north-7d',name:'Northern Khuvsgul 7 Days',region:'north',style:'nature',days:7,status:'limited',image:'images/destinations/khuvsgul-lake.jpg',highlights:['Khuvsgul','Remote Shore','Boat & Forest'],dates:['June 5','June 19','July 3','July 17'],prices:{1:1680,2:1190,3:1080,4:990},fromUB:'Flight + road',season:'Jun–Sep',group:'6–7'},
-      {id:'taiga-reindeer-7d',name:'Taiga Reindeer 7 Days',region:'north',style:'adventure',days:7,status:'request',image:'images/experiences/exp-reindeer.jpg',highlights:['Taiga','Reindeer Families','Northern Trails'],dates:['June 7','June 21','July 5','July 19'],prices:{1:1980,2:1450,3:1320,4:1240},fromUB:'Flight + rough road',season:'Jun–Sep',group:'6–7'},
-      {id:'altai-tavan-bogd-7d',name:'Altai Tavan Bogd 7 Days',region:'west',style:'adventure',days:7,status:'limited',image:'images/destinations/altai-tavan-bogd.jpg',highlights:['Altai Peaks','Glacier Views','Eagle Hunter Culture'],dates:['June 6','June 20','July 4','July 18'],prices:{1:1890,2:1360,3:1240,4:1160},fromUB:'Domestic flight',season:'Jun–Sep',group:'6–7'},
-      {id:'western-ultimates-9d',name:'Western Mongolia Ultimate 9 Days',region:'west',style:'adventure',days:9,status:'request',image:'images/destinations/altai-tavan-bogd.jpg',highlights:['Altai','Eagle Hunter','Lakes','Peaks'],dates:['June 8','June 22','July 6','July 20'],prices:{1:2390,2:1690,3:1540,4:1460},fromUB:'Flight + road',season:'Jun–Sep',group:'8+'},
-      {id:'helicopter-expedition-1d',name:'VIP Helicopter Expedition',region:'special',style:'luxury',days:1,status:'request',image:'images/hero/hero-1-mongolia.jpg',highlights:['Private Helicopter','Remote Access','Luxury Day Plan'],dates:['On Request','On Request','On Request','On Request'],prices:{1:4500,2:2600,3:2200,4:1900},fromUB:'Private heli',season:'May–Oct',group:'1-3'},
-      {id:'vip-grand-5d',name:'VIP Mongolia Signature 5 Days',region:'special',style:'luxury',days:5,status:'request',image:'images/hero/hero-khuvsgul-lake.jpg',highlights:['Luxury Camps','Private Guide','Flexible Route'],dates:['May 10','May 24','June 7','June 21'],prices:{1:3200,2:2100,3:1850,4:1700},fromUB:'Private setup',season:'May–Oct',group:'4–5'}
+      {id:'gobi-highlights-5d',name:'Gobi Highlights 5 Days',region:'gobi',style:'adventure',days:5,status:'guaranteed',image:'images/destinations/khongor-dunes.jpg',highlights:['Khongor Dunes','Bayanzag','Yol Valley','Tsagaan Suvarga'],dates:['May 10','May 17','May 24','June 1','June 15','July 1','July 15','August 1','August 15','September 1','September 15','October 1'],prices:{1:1180,2:820,3:720,4:650},fromUB:'Flight or 4x4',season:'May–Oct',group:'4–5'},
+      {id:'gobi-classic-7d',name:'Gobi Classic 7 Days',region:'gobi',style:'adventure',days:7,status:'guaranteed',image:'images/destinations/bayanzag.jpg',highlights:['Khongor Dunes','Bayanzag','Yol Valley','Flaming Cliffs'],dates:['May 12','May 19','May 26','June 2','June 16','July 2','July 16','August 2','August 16','September 2','September 16','October 2'],prices:{1:1450,2:990,3:860,4:780},fromUB:'4x4 classic route',season:'May–Oct',group:'6–7'},
+      {id:'deep-gobi-10d',name:'Deep Gobi Expedition 10 Days',region:'gobi',style:'adventure',days:10,status:'limited',image:'images/destinations/khermen-tsav.jpg',highlights:['Khermen Tsav','Khongor','Bayanzag','Remote Desert'],dates:['May 15','May 29','June 12','June 26','July 10','July 24','August 7','August 21','September 4','September 18'],prices:{1:2280,2:1580,3:1410,4:1320},fromUB:'4x4 remote',season:'May–Sep',group:'8+'},
+      {id:'gobi-central-7d',name:'Gobi + Central 7 Days',region:'gobi',style:'culture',days:7,status:'guaranteed',image:'images/destinations/tsenkher.jpg',highlights:['Tsagaan Suvarga','Ongiin','Kharkhorum','Elsen Tasarkhai'],dates:['May 11','May 18','May 25','June 1','June 15','July 1','July 15','August 1','August 15','September 1','September 15','October 1'],prices:{1:1520,2:1020,3:890,4:810},fromUB:'4x4 mixed route',season:'May–Oct',group:'6–7'},
+      {id:'central-classic-5d',name:'Central Mongolia 5 Days',region:'central',style:'culture',days:5,status:'guaranteed',image:'images/destinations/erdene-zuu.jpg',highlights:['Kharkhorum','Erdene Zuu','Elsen Tasarkhai','Nomadic Stay'],dates:['May 9','May 16','May 23','May 30','June 13','June 27','July 11','July 25','August 8','August 22','September 5','September 19','October 3'],prices:{1:980,2:690,3:620,4:570},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
+      {id:'orkhon-valley-5d',name:'Orkhon Valley 5 Days',region:'central',style:'nature',days:5,status:'guaranteed',image:'images/destinations/terkhiin-tsagaan-nuur.jpg',highlights:['Orkhon Waterfall','Nomadic Valley','Kharkhorum','Horse Area'],dates:['May 14','May 21','May 28','June 4','June 18','July 4','July 18','August 4','August 18','September 4','September 18','October 4'],prices:{1:1020,2:720,3:650,4:590},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
+      {id:'kharkhorum-3d',name:'Kharkhorum & Erdene Zuu 3 Days',region:'central',style:'culture',days:3,status:'guaranteed',image:'images/destinations/erdene-zuu.jpg',highlights:['Kharkhorum','Erdene Zuu','Elsen Tasarkhai'],dates:['May 10','May 17','May 24','May 31','June 14','June 28','July 12','July 26','August 9','August 23','September 6','September 20','October 4'],prices:{1:620,2:450,3:390,4:360},fromUB:'Short road trip',season:'May–Oct',group:'1-3'},
+      {id:'amar-aglag-4d',name:'Amarbayasgalant + Aglag 4 Days',region:'central',style:'culture',days:4,status:'request',image:'images/destinations/amarbayasgalant.jpg',highlights:['Amarbayasgalant','Aglag Buteel','Countryside Drive'],dates:['May 13','May 20','May 27','June 3','June 17','July 3','July 17','August 3','August 17','September 3','September 17','October 3'],prices:{1:780,2:560,3:500,4:460},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
+      {id:'khangai-adventure-7d',name:'Khangai Adventure 7 Days',region:'khangai',style:'nature',days:7,status:'guaranteed',image:'images/destinations/khorgo.jpg',highlights:['Khorgo','Terkhiin Tsagaan Lake','Tsenkher','Taikhar'],dates:['May 12','May 19','May 26','June 2','June 16','July 2','July 16','August 2','August 16','September 2','September 16','October 2'],prices:{1:1490,2:1020,3:900,4:830},fromUB:'Road trip',season:'May–Oct',group:'6–7'},
+      {id:'tsenkher-khorgo-5d',name:'Tsenkher + Khorgo 5 Days',region:'khangai',style:'nature',days:5,status:'guaranteed',image:'images/destinations/tsenkher.jpg',highlights:['Tsenkher Hot Spring','Khorgo Volcano','Lake Views'],dates:['May 8','May 15','May 22','May 29','June 12','June 26','July 10','July 24','August 7','August 21','September 4','September 18','October 2'],prices:{1:990,2:710,3:640,4:590},fromUB:'Road trip',season:'May–Oct',group:'4–5'},
+      {id:'horse-steppe-3d',name:'Horse Riding Steppe 3 Days',region:'special',style:'horse',days:3,status:'limited',image:'images/tours/horse-tour-hero.jpg',highlights:['Horse Trek','Nomadic Camp','Open Steppe'],dates:['May 10','May 17','May 24','May 31','June 14','June 28','July 12','July 26','August 9','August 23','September 6'],prices:{1:520,2:390,3:350,4:320},fromUB:'Drive + ride',season:'May–Sep',group:'1-3'},
+      {id:'horse-nomad-5d',name:'Nomadic Horse Tour 5 Days',region:'special',style:'horse',days:5,status:'guaranteed',image:'images/tours/horse-tour-hero.jpg',highlights:['Horse Trek','Nomadic Family','Campfire Nights'],dates:['May 11','May 18','May 25','June 1','June 15','July 1','July 15','August 1','August 15','September 1'],prices:{1:880,2:640,3:580,4:530},fromUB:'Drive + ride',season:'May–Sep',group:'4–5'},
+      {id:'mountain-horse-7d',name:'Mountain Horse Trek 7 Days',region:'special',style:'horse',days:7,status:'limited',image:'images/tours/horse-tour-hero.jpg',highlights:['Mountain Valleys','Horse Camping','Rivers'],dates:['May 13','May 27','June 10','June 24','July 8','July 22','August 5','August 19','September 2'],prices:{1:1380,2:980,3:870,4:820},fromUB:'Private support car',season:'Jun–Sep',group:'6–7'},
+      {id:'khuvsgul-lake-5d',name:'Khuvsgul Lake 5 Days',region:'north',style:'nature',days:5,status:'guaranteed',image:'images/destinations/khuvsgul-lake.jpg',highlights:['Khuvsgul Lake','Khatgal','Forest Shore'],dates:['June 1','June 8','June 15','June 22','July 6','July 20','August 3','August 17','September 1'],prices:{1:1280,2:930,3:840,4:780},fromUB:'Flight or overland',season:'Jun–Sep',group:'4–5'},
+      {id:'khuvsgul-north-7d',name:'Northern Khuvsgul 7 Days',region:'north',style:'nature',days:7,status:'limited',image:'images/destinations/khuvsgul-lake.jpg',highlights:['Khuvsgul','Remote Shore','Boat & Forest'],dates:['June 5','June 19','July 3','July 17','August 1','August 15','September 1'],prices:{1:1680,2:1190,3:1080,4:990},fromUB:'Flight + road',season:'Jun–Sep',group:'6–7'},
+      {id:'taiga-reindeer-7d',name:'Taiga Reindeer 7 Days',region:'north',style:'adventure',days:7,status:'request',image:'images/experiences/exp-reindeer.jpg',highlights:['Taiga','Reindeer Families','Northern Trails'],dates:['June 7','June 21','July 5','July 19','August 2','August 16'],prices:{1:1980,2:1450,3:1320,4:1240},fromUB:'Flight + rough road',season:'Jun–Sep',group:'6–7'},
+      {id:'altai-tavan-bogd-7d',name:'Altai Tavan Bogd 7 Days',region:'west',style:'adventure',days:7,status:'limited',image:'images/destinations/altai-tavan-bogd.jpg',highlights:['Altai Peaks','Glacier Views','Eagle Hunter Culture'],dates:['June 6','June 20','July 4','July 18','August 1','August 15','September 1'],prices:{1:1890,2:1360,3:1240,4:1160},fromUB:'Domestic flight',season:'Jun–Sep',group:'6–7'},
+      {id:'western-ultimates-9d',name:'Western Mongolia Ultimate 9 Days',region:'west',style:'adventure',days:9,status:'request',image:'images/destinations/altai-tavan-bogd.jpg',highlights:['Altai','Eagle Hunter','Lakes','Peaks'],dates:['June 8','June 22','July 6','July 20','August 3','August 17'],prices:{1:2390,2:1690,3:1540,4:1460},fromUB:'Flight + road',season:'Jun–Sep',group:'8+'},
+      {id:'helicopter-expedition-1d',name:'VIP Helicopter Expedition',region:'special',style:'luxury',days:1,status:'request',image:'images/hero/hero-1-mongolia.jpg',highlights:['Private Helicopter','Remote Access','Luxury Day Plan'],dates:['On Request'],prices:{1:0,2:0,3:0,4:0},fromUB:'Private heli',season:'May–Oct',group:'1-3',quoteOnly:true},
+      {id:'vip-grand-5d',name:'VIP Mongolia Signature 5 Days',region:'special',style:'luxury',days:5,status:'request',image:'images/hero/hero-khuvsgul-lake.jpg',highlights:['Luxury Camps','Private Guide','Flexible Route'],dates:['May 10','May 24','June 7','June 21','July 5','July 19','August 2','August 16','September 1','September 15','October 1'],prices:{1:3200,2:2100,3:1850,4:1700},fromUB:'Private setup',season:'May–Oct',group:'4–5'},
+      {id:'custom-route-service',name:'Custom Route Planner',region:'special',style:'culture',days:5,status:'request',image:'images/hero/hero-1-mongolia.jpg',highlights:['Your own route','Flexible dates','Private guide','Custom vehicle'],dates:['On Request'],prices:{1:0,2:0,3:0,4:0},fromUB:'Anywhere in Mongolia',season:'May–Oct',group:'Flexible',quoteOnly:true},
+      {id:'nomad-family-stay',name:'Nomadic Family Stay',region:'central',style:'culture',days:3,status:'request',image:'images/tours/horse-tour-hero.jpg',highlights:['Stay any number of nights','Local family','Traditional food','Countryside life'],dates:['On Request'],prices:{1:0,2:0,3:0,4:0},fromUB:'Road trip or add-on',season:'May–Oct',group:'Flexible',quoteOnly:true}
     ];
 
     let selectedPeople = '1';
+    let activeTour = null;
+    let activeDate = '';
+    const PAYPAL_BASE_URL = 'https://www.paypal.com/paypalme/YOURACCOUNT';
     const tourGrid = document.getElementById('tourGrid');
     const regionFilter = document.getElementById('regionFilter');
     const styleFilter = document.getElementById('styleFilter');
     const durationFilter = document.getElementById('durationFilter');
     const searchFilter = document.getElementById('searchFilter');
     const resultCount = document.getElementById('resultCount');
-    const tourCount = document.getElementById('tourCount');
 
     function durationBucket(days){
       if(days <= 3) return '1-3';
@@ -346,7 +346,74 @@
     }
 
     function formatPrice(value){
-      return '$' + value.toLocaleString();
+      return '$' + Number(value || 0).toLocaleString();
+    }
+
+    function getGroupTotal(tour, people){
+      if(tour.quoteOnly) return 0;
+      const count = Number(people || 1);
+      const perPerson = Number(tour.prices[count] || 0);
+      return count === 1 ? perPerson : perPerson * count;
+    }
+
+    function getDeposit(tour, people){
+      return Math.round(getGroupTotal(tour, people) * 0.2);
+    }
+
+    function openBookingById(tourId, date){
+      const tour = tours.find(t => t.id === tourId);
+      if(!tour) return;
+      activeTour = tour;
+      activeDate = date || tour.dates[0] || 'On Request';
+      document.getElementById('bookingModal').classList.add('open');
+      document.getElementById('selectedTour').value = tour.name;
+      document.getElementById('selectedDate').value = activeDate;
+      document.getElementById('selectedPeople').value = selectedPeople;
+      refreshBookingPrice();
+      updateQuickLinks();
+    }
+
+    function refreshBookingPrice(){
+      if(!activeTour) return;
+      const people = document.getElementById('selectedPeople').value;
+      const total = getGroupTotal(activeTour, people);
+      const deposit = getDeposit(activeTour, people);
+      document.getElementById('selectedPrice').value = activeTour.quoteOnly ? 'Ask for quote' : formatPrice(total) + ' total';
+      document.getElementById('selectedDeposit').value = activeTour.quoteOnly ? 'Ask for quote' : formatPrice(deposit);
+      const paypalBtn = document.getElementById('paypalBtn');
+      paypalBtn.textContent = activeTour.quoteOnly ? 'Ask for Quote' : 'Pay 20% Deposit';
+      document.getElementById('submitNote').innerHTML = activeTour.quoteOnly
+        ? 'This service is quote-only. The PayPal button below now works like an inquiry button. You can also use WhatsApp or Messenger.'
+        : 'PayPal deposit = 20% of the total trip price. Replace the PayPal link inside the HTML with your real PayPal checkout or PayPal.me link.';
+    }
+
+    function updateQuickLinks(){
+      if(!activeTour) return;
+      const people = document.getElementById('selectedPeople').value;
+      const deposit = getDeposit(activeTour, people);
+      const contact = document.getElementById('guestContact').value || '';
+      const message = activeTour.quoteOnly
+        ? `Hello, I want to book ${activeTour.name}. Date: ${activeDate}. Travelers: ${people}. Please send me the price.`
+        : `Hello, I want to book ${activeTour.name}. Date: ${activeDate}. Travelers: ${people}. 20% PayPal deposit: ${formatPrice(deposit)}. Contact: ${contact}`;
+      document.getElementById('waLink').href = `https://wa.me/97690283039?text=${encodeURIComponent(message)}`;
+      document.getElementById('messengerLink').href = `https://m.me/yourpage?ref=${encodeURIComponent(activeTour.name + ' | ' + activeDate + ' | ' + people + ' pax')}`;
+    }
+
+    function goToPayPal(){
+      if(!activeTour) return;
+      if(activeTour.quoteOnly){
+        window.open(document.getElementById('waLink').href, '_blank');
+        return;
+      }
+      const people = document.getElementById('selectedPeople').value;
+      const deposit = getDeposit(activeTour, people);
+      const note = encodeURIComponent(`${activeTour.name} | ${activeDate} | ${people} pax | 20% deposit`);
+      const url = `${PAYPAL_BASE_URL}/${deposit}?note=${note}`;
+      window.open(url, '_blank');
+    }
+
+    function closeModal(){
+      document.getElementById('bookingModal').classList.remove('open');
     }
 
     function renderTours(){
@@ -365,9 +432,19 @@
       });
 
       resultCount.textContent = `Showing ${filtered.length} tour${filtered.length !== 1 ? 's' : ''}.`;
-      tourCount.textContent = filtered.length;
 
-      tourGrid.innerHTML = filtered.map(t => `
+      tourGrid.innerHTML = filtered.map(t => {
+        const currentPrice = t.quoteOnly ? 'Ask for quote' : (selectedPeople === '1' ? formatPrice(t.prices[1]) : `${formatPrice(t.prices[selectedPeople])} / person`);
+        const datesHtml = t.dates.map(d => `<button type="button" class="date-chip" onclick="openBookingById('${t.id}','${d.replace(/'/g, "&#39;")}')">${d}</button>`).join('');
+        const priceHtml = t.quoteOnly ? `
+          <div class="price-box full" style="grid-column:1/-1"><strong>Price</strong><span>Ask for quote</span></div>
+        ` : `
+          <div class="price-box"><strong>1 Person</strong><span>${formatPrice(t.prices[1])}</span></div>
+          <div class="price-box"><strong>2 People</strong><span>${formatPrice(t.prices[2])} / person</span></div>
+          <div class="price-box"><strong>3 People</strong><span>${formatPrice(t.prices[3])} / person</span></div>
+          <div class="price-box"><strong>4 People</strong><span>${formatPrice(t.prices[4])} / person</span></div>
+        `;
+        return `
         <article class="tour-card">
           <div class="tour-cover" style="background-image:url('${t.image}')"></div>
           <div class="tour-body">
@@ -383,33 +460,28 @@
             </div>
             <div>
               <strong>Departure Dates</strong>
-              <div class="date-row">${t.dates.map(d => `<button type="button" class="date-chip" onclick='openBookingByDate(${JSON.stringify(t).replace(/'/g,"&#39;")}, ${JSON.stringify(d).replace(/'/g,"&#39;")})'>${d}</button>`).join('')}</div>
+              <div class="date-row">${datesHtml}</div>
             </div>
             <div>
               <strong>Price Options</strong>
-              <div class="price-grid">
-                <div class="price-box"><strong>1 Person</strong><span>${formatPrice(t.prices[1])}</span></div>
-                <div class="price-box"><strong>2 People</strong><span>${formatPrice(t.prices[2])} / person</span></div>
-                <div class="price-box"><strong>3 People</strong><span>${formatPrice(t.prices[3])} / person</span></div>
-                <div class="price-box"><strong>4 People</strong><span>${formatPrice(t.prices[4])} / person</span></div>
-              </div>
+              <div class="price-grid">${priceHtml}</div>
             </div>
             <div class="tour-meta">
               <div><strong>From UB</strong><br>${t.fromUB}</div>
               <div><strong>Season</strong><br>${t.season}</div>
-              <div><strong>Best Fit</strong><br>${durationBucket(t.days)} day trip</div>
+              <div><strong>Best Fit</strong><br>${t.quoteOnly ? 'Custom / request' : durationBucket(t.days) + ' day trip'}</div>
             </div>
             <div class="status-row">
               <span class="status ${t.status}">${t.status === 'guaranteed' ? 'Guaranteed departure' : t.status === 'limited' ? 'Limited seats / filling fast' : 'Private or on request'}</span>
-              <span class="pill">Best shown price: ${formatPrice(t.prices[selectedPeople])}${selectedPeople === '1' ? '' : ' / person'}</span>
+              <span class="pill">${t.quoteOnly ? 'Ask for quote' : 'Selected price: ' + currentPrice}</span>
             </div>
             <div class="tour-actions">
-              <button class="tour-btn primary" onclick='openBookingByDate(${JSON.stringify(t).replace(/'/g,"&#39;")}, ${JSON.stringify(t.dates[0]).replace(/'/g,"&#39;")})'>Book First Date</button>
+              <button class="tour-btn primary" type="button" onclick="openBookingById('${t.id}','${(t.dates[0] || 'On Request').replace(/'/g, "&#39;")}')">${t.quoteOnly ? 'Ask & Reserve' : 'Book Now'}</button>
               <a class="tour-btn" href="/index.html#contact">Ask Custom Quote</a>
             </div>
           </div>
-        </article>
-      `).join('');
+        </article>`;
+      }).join('');
     }
 
     document.querySelectorAll('[data-people]').forEach(btn => {
@@ -422,37 +494,11 @@
     });
 
     [regionFilter, styleFilter, durationFilter, searchFilter].forEach(el => el.addEventListener('input', renderTours));
-
-    function openBookingByDate(tour, date){
-      document.getElementById('bookingModal').classList.add('open');
-      document.getElementById('selectedTour').value = tour.name;
-      document.getElementById('selectedDate').value = date;
-      document.getElementById('selectedPeople').value = selectedPeople;
-      document.getElementById('selectedPrice').value = selectedPeople === '1' ? formatPrice(tour.prices[selectedPeople]) : `${formatPrice(tour.prices[selectedPeople])} / person`;
-      document.getElementById('guestMessage').value = `Hello, I want to book ${tour.name}. Preferred date: ${date}. Travelers: ${selectedPeople}.`;
-      updateWhatsAppLink();
-    }
-
-    function closeModal(){
-      document.getElementById('bookingModal').classList.remove('open');
-    }
-
-    function updateWhatsAppLink(){
-      const text = encodeURIComponent(
-        `${document.getElementById('guestMessage').value}\nName: ${document.getElementById('guestName').value || ''}\nContact: ${document.getElementById('guestContact').value || ''}`
-      );
-      document.getElementById('waLink').href = `https://wa.me/97690283039?text=${text}`;
-    }
-
-    function submitInquiry(){
-      updateWhatsAppLink();
-      document.getElementById('submitNote').innerHTML = 'Inquiry details are ready. You can now continue with <strong>WhatsApp</strong> or <strong>Messenger</strong>, or later connect this form to email, Google Sheets, Supabase or QPay deposit.';
-    }
-
-    ['guestName','guestContact','guestMessage','selectedPeople'].forEach(id => {
-      document.getElementById(id).addEventListener('input', updateWhatsAppLink);
-      document.getElementById(id).addEventListener('change', updateWhatsAppLink);
+    document.getElementById('selectedPeople').addEventListener('change', () => {
+      refreshBookingPrice();
+      updateQuickLinks();
     });
+    document.getElementById('guestContact').addEventListener('input', updateQuickLinks);
 
     renderTours();
   </script>
