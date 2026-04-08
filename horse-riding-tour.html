@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horse Riding Adventure Tour | Booking Mongolia</title>
+  <meta name="description" content="Join our 4-day horse riding adventure tour in Mongolia. Explore mountains, lakes and wild landscapes with local guides." />
+  <link rel="canonical" href="https://bookingmongolia.com/horse-riding-tour.html" />
+
+  <style>
+    :root{
+      --primary:#0d3b66;
+      --accent:#c98b2f;
+      --bg:#f7f5ef;
+      --dark:#1f2937;
+      --muted:#6b7280;
+      --white:#ffffff;
+      --shadow:0 12px 30px rgba(0,0,0,.10);
+      --radius:18px;
+      --max:1150px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--dark);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    .container{width:min(92%,var(--max));margin:0 auto}
+
+    .topbar{
+      background:var(--primary);
+      color:#fff;
+      text-align:center;
+      padding:10px 16px;
+      font-size:14px;
+    }
+
+    header{
+      background:#fff;
+      border-bottom:1px solid rgba(0,0,0,.06);
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+    .nav{
+      min-height:74px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+    .logo{
+      font-size:28px;
+      font-weight:800;
+      color:var(--primary);
+    }
+    .logo span{color:var(--accent)}
+    .nav-links{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      font-weight:700;
+      color:#374151;
+    }
+    .nav-links a:hover{color:var(--accent)}
+
+    .hero{
+      position:relative;
+      min-height:72vh;
+      display:flex;
+      align-items:center;
+      color:#fff;
+      background:url('images/tours/horse-tour-hero.jpg') center/cover no-repeat;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(rgba(8,20,33,.45),rgba(8,20,33,.65));
+    }
+    .hero-content{
+      position:relative;
+      z-index:2;
+      max-width:760px;
+      padding:90px 0;
+    }
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:16px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.22);
+      font-size:13px;
+      font-weight:700;
+    }
+    h1,h2,h3{line-height:1.2;margin:0 0 14px}
+    h1{font-size:clamp(34px,6vw,58px)}
+    h2{font-size:clamp(26px,4vw,38px)}
+    .hero p{
+      font-size:18px;
+      max-width:680px;
+      margin:0 0 28px;
+    }
+    .btn-row{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 22px;
+      border-radius:999px;
+      font-weight:700;
+      transition:.25s ease;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+    }
+    .btn-primary:hover{opacity:.92}
+    .btn-outline{
+      border:2px solid rgba(255,255,255,.8);
+      color:#fff;
+    }
+    .btn-outline:hover{background:rgba(255,255,255,.1)}
+
+    section{padding:72px 0}
+    .section-head{
+      max-width:760px;
+      margin-bottom:28px;
+    }
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .quick-info{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+      margin-top:-46px;
+      position:relative;
+      z-index:5;
+    }
+    .info-card{
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+    .info-card strong{
+      display:block;
+      font-size:15px;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+    .info-card span{
+      font-size:22px;
+      font-weight:800;
+      color:var(--primary);
+    }
+
+    .grid{
+      display:grid;
+      gap:22px;
+    }
+    .overview-grid{
+      grid-template-columns:1.15fr .85fr;
+      align-items:start;
+    }
+    .card{
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card-body{padding:26px}
+    .muted{color:var(--muted)}
+
+    .tour-highlight-list{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+    .tour-highlight{
+      padding:16px 18px;
+      border-radius:14px;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+    }
+
+    .itinerary{
+      display:grid;
+      gap:24px;
+    }
+    .day-card{
+      display:grid;
+      grid-template-columns:.95fr 1.05fr;
+      gap:0;
+      background:#fff;
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+    .day-card img{
+      width:100%;
+      height:100%;
+      min-height:320px;
+      object-fit:cover;
+      background:#e5e7eb;
+    }
+    .day-content{
+      padding:28px;
+    }
+    .day-badge{
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:999px;
+      background:#eef4ff;
+      color:var(--primary);
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+    .day-content ul{
+      padding-left:18px;
+      margin:10px 0 0;
+    }
+
+    .included-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:22px;
+    }
+    .price-box{
+      background:linear-gradient(135deg,#0d3b66,#123f6a);
+      color:#fff;
+    }
+    .price{
+      font-size:44px;
+      font-weight:800;
+      margin:10px 0 4px;
+    }
+    .small{
+      font-size:14px;
+      opacity:.9;
+    }
+
+    footer{
+      background:#0d1b2a;
+      color:rgba(255,255,255,.88);
+      padding:24px 0;
+      margin-top:20px;
+    }
+    .footer-wrap{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:980px){
+      .quick-info{grid-template-columns:repeat(2,1fr)}
+      .overview-grid,
+      .day-card,
+      .included-grid{grid-template-columns:1fr}
+    }
+
+    @media (max-width:720px){
+      .nav-links{display:none}
+      .quick-info{grid-template-columns:1fr;margin-top:20px}
+      .hero{min-height:auto}
+      .hero-content{padding:72px 0}
+      .day-card img{min-height:220px}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    Horse Riding Adventure Tour in Mongolia • Booking Mongolia
+  </div>
+
+  <header>
+    <div class="container nav">
+      <a href="/" class="logo">Booking<span>Mongolia</span></a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/#tours">Tours</a>
+        <a href="/#hotels">Hotels</a>
+        <a href="/#cars">Car Rental</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="eyebrow">Adventure Tour • Horse Riding • Mountains & Lakes</div>
+        <h1>Horse Riding Adventure Tour – Kherkhluuriin Saridag</h1>
+        <p>
+          Experience Mongolia on horseback through mountains, lakes and untouched wilderness.
+          This 4-day adventure combines horse riding, camping, hiking, local food and unforgettable scenery.
+        </p>
+        <div class="btn-row">
+          <a href="/booking.html" class="btn btn-primary">Book Now</a>
+          <a href="/#contact" class="btn btn-outline">Ask for Details</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="quick-info">
+      <div class="info-card">
+        <strong>Duration</strong>
+        <span>4 Days / 3 Nights</span>
+      </div>
+      <div class="info-card">
+        <strong>Price</strong>
+        <span>350 USD</span>
+      </div>
+      <div class="info-card">
+        <strong>Horse Riding Distance</strong>
+        <span>25–35 km</span>
+      </div>
+      <div class="info-card">
+        <strong>Style</strong>
+        <span>Adventure Camping</span>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>Tour Overview</h2>
+        <p>
+          This horse riding tour is designed for travelers who want to discover Mongolia’s raw beauty,
+          mountain landscapes and peaceful lakes while enjoying a real outdoor adventure.
+        </p>
+      </div>
+
+      <div class="grid overview-grid">
+        <div class="card">
+          <div class="card-body">
+            <h3>About the Tour</h3>
+            <p class="muted">
+              During this trip you will travel through beautiful mountain valleys and highland scenery,
+              ride local horses, camp in the wilderness and enjoy traditional Mongolian meals.
+              One of the highlights of the journey is reaching a landscape often described as
+              the “Yosemite of Mongolia.”
+            </p>
+
+            <div class="tour-highlight-list">
+              <div class="tour-highlight"><strong>Day 1:</strong> Drive from Ulaanbaatar and begin horse riding to the campsite.</div>
+              <div class="tour-highlight"><strong>Day 2:</strong> Full rest day, hiking, photography and lake exploration.</div>
+              <div class="tour-highlight"><strong>Day 3:</strong> Main horse riding day through mountain and lake scenery.</div>
+              <div class="tour-highlight"><strong>Day 4:</strong> Final ride, return to vehicle and drive back to Ulaanbaatar.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card price-box">
+          <div class="card-body">
+            <h3>Price</h3>
+            <div class="price">350 USD</div>
+            <div class="small">per person</div>
+
+            <p style="margin-top:18px;">
+              A perfect short adventure for travelers who want a real horse riding experience
+              in Mongolia with camping, landscapes and local support.
+            </p>
+
+            <a href="/booking.html" class="btn btn-primary" style="margin-top:14px;">Reserve This Tour</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="container">
+      <div class="section-head">
+        <h2>Detailed Itinerary</h2>
+        <p>Comfortable pace, rest time and scenic stops are included throughout the journey.</p>
+      </div>
+
+      <div class="itinerary">
+
+        <article class="day-card">
+          <img src="images/tours/horse-tour-day1.jpg" alt="Horse Riding Tour Day 1">
+          <div class="day-content">
+            <span class="day-badge">Day 1</span>
+            <h3>Ulaanbaatar – Starting Point – Horse Riding to Camp</h3>
+            <p class="muted">
+              Breakfast in the morning. The guides load the luggage and the group departs around 10:00 AM.
+              After arrival at the starting point, horses and gear are prepared and the adventure begins.
+            </p>
+            <ul>
+              <li>Drive from Ulaanbaatar to the riding area</li>
+              <li>Safety briefing and horse preparation</li>
+              <li>Horse riding for about 3–4 hours</li>
+              <li>Approximate riding distance: 10–12 km</li>
+              <li>Arrival at a scenic area known as the “Yosemite of Mongolia”</li>
+              <li>Camp setup, dinner and campfire</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="day-card">
+          <img src="images/tours/horse-tour-day2.jpg" alt="Horse Riding Tour Day 2">
+          <div class="day-content">
+            <span class="day-badge">Day 2</span>
+            <h3>Rest Day – Lakes, Hiking and Nature Exploration</h3>
+            <p class="muted">
+              This day is dedicated to rest and exploration. The region features 7–8 connected lakes
+              fed by mountain streams from the Yan Saridag range, creating a truly beautiful natural landscape.
+            </p>
+            <ul>
+              <li>No horse riding on this day</li>
+              <li>Morning breakfast at camp</li>
+              <li>Hike toward the Kherkhluuriin Saridag peak area</li>
+              <li>Free time for photography and walking by the lakes</li>
+              <li>Traditional hot pot meal in the evening</li>
+              <li>Relax around the campfire and overnight camping</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="day-card">
+          <img src="images/tours/horse-tour-day3.jpg" alt="Horse Riding Tour Day 3">
+          <div class="day-content">
+            <span class="day-badge">Day 3</span>
+            <h3>Main Horse Riding Day</h3>
+            <p class="muted">
+              After breakfast, the luggage is loaded again and the journey continues deeper through
+              mountain and lake scenery. This is the main riding day of the tour.
+            </p>
+            <ul>
+              <li>Breakfast at camp</li>
+              <li>Horse riding for more than 5 hours</li>
+              <li>Approximate riding distance: 15–20 km</li>
+              <li>2–3 rest stops along the route</li>
+              <li>Light snacks and packed food during the day</li>
+              <li>Evening camp, dinner and rest</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="day-card">
+          <img src="images/tours/horse-tour-day4.jpg" alt="Horse Riding Tour Day 4">
+          <div class="day-content">
+            <span class="day-badge">Day 4</span>
+            <h3>Final Ride – Return to Vehicle – Drive to Ulaanbaatar</h3>
+            <p class="muted">
+              The final morning includes breakfast, camp packing and a short final horse ride
+              before reaching the vehicle and returning to Ulaanbaatar.
+            </p>
+            <ul>
+              <li>Breakfast and camp packing</li>
+              <li>Short final horse riding section</li>
+              <li>Return to vehicle around the late afternoon</li>
+              <li>Drive back to Ulaanbaatar</li>
+              <li>Estimated arrival in the city around 11:00 PM</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>What’s Included</h2>
+        <p>Everything you need for a comfortable short horse riding adventure.</p>
+      </div>
+
+      <div class="included-grid">
+        <div class="card">
+          <div class="card-body">
+            <h3>Included</h3>
+            <ul>
+              <li>Local guide</li>
+              <li>Horses and horse handlers</li>
+              <li>Camping equipment</li>
+              <li>Meals during the tour</li>
+              <li>Transportation from and back to Ulaanbaatar</li>
+              <li>Adventure route support</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h3>Not Included</h3>
+            <ul>
+              <li>Personal expenses</li>
+              <li>Travel insurance</li>
+              <li>Alcoholic drinks</li>
+              <li>Additional snacks outside the program</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h2>Why Choose This Tour?</h2>
+          <p class="muted">
+            This is not just a ride — it is a full Mongolian outdoor experience.
+            You will enjoy horseback adventure, mountain scenery, peaceful lakes,
+            campfire evenings and real time in nature far from the city.
+          </p>
+          <a href="/booking.html" class="btn btn-primary">Book This Horse Tour</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-wrap">
+      <div>© 2026 Booking Mongolia</div>
+      <div>Horse Riding Tours, Adventure Travel and Local Experiences in Mongolia</div>
+    </div>
+  </footer>
+
+</body>
+</html>
