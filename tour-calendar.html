@@ -583,7 +583,7 @@
         </div>
 
         <div class="full" style="display:flex;gap:12px;flex-wrap:wrap;">
-          <button class="btn btn-primary" type="submit">Prepare Request</button>
+          <button class="btn btn-primary" type="submit">Prepare Request + Open PayPal</button>
           <a class="btn" style="background:#0070ba;color:#fff;" target="_blank" id="paypalLink" href="https://www.paypal.com/ncp/payment/WEXA5TUWBLCVY">Pay 20% Deposit</a>
           <a class="btn" style="background:#25D366;color:#fff;" target="_blank" id="waLink" href="#">WhatsApp</a>
           <a class="btn" style="background:#0084ff;color:#fff;" target="_blank" id="messengerLink" href="https://m.me/yourpage">Messenger</a>
@@ -980,7 +980,12 @@
 
     function submitInquiry(){
       updateWhatsAppLink();
-      document.getElementById('submitNote').innerHTML = 'Your request is ready. Continue with <strong>PayPal</strong> for the 20% deposit, or send the same details by <strong>WhatsApp</strong> / <strong>Messenger</strong>.';
+      const paypalBtn = document.getElementById('paypalLink');
+      const type = document.getElementById('requestType').value;
+      document.getElementById('submitNote').innerHTML = 'Your request is ready. Opening <strong>PayPal</strong> now. If PayPal does not open, click the blue <strong>Pay 20% Deposit</strong> button.';
+      if(type === 'tour' || type === 'heli') {
+        window.open(paypalBtn.href, '_blank', 'noopener');
+      }
     }
 
     ['guestName','guestContact','guestMessage','selectedPeople','selectedTour','selectedDate','travelMonth','nomadNights','routeRequest','guestFamilyInfo','foodPreference','childcareOption'].forEach(id => {
