@@ -519,10 +519,31 @@ gtag('config', 'G-XDG8KZWZCM');
     .hotel-booking-card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);display:grid;grid-template-columns:260px 1fr;border:1px solid rgba(13,59,102,.08)}
     .hotel-booking-card:hover{transform:translateY(-4px)}
     .hotel-booking-card .hotel-cover{width:100%;height:100%;min-height:250px;object-fit:cover;background:#eef2f7}
-    .hotel-booking-card .listing-gallery{height:100%;background:#eef2f7;padding:0}
-    .hotel-booking-card .listing-main-image{width:100%;min-height:250px;height:250px;object-fit:cover;border-radius:0}
-    .hotel-booking-card .listing-thumbs{padding:10px 10px 12px;background:#fff}
-    .hotel-booking-card .listing-thumbs img{width:64px;height:64px}
+  .hotel-booking-card .listing-gallery{
+  padding:0;
+  background:#eef2f7;
+  height:auto;
+}
+
+.hotel-booking-card .listing-main-image{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:0;
+}
+
+.hotel-booking-card .listing-thumbs{
+  padding:10px;
+  background:#fff;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.hotel-booking-card .listing-thumbs img{
+  width:56px;
+  height:56px;
+}
     .hotel-booking-body{padding:18px 20px;display:flex;flex-direction:column;gap:10px}
     .hotel-booking-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
     .hotel-booking-title{margin:0;font-size:24px;color:var(--primary-dark)}
