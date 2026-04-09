@@ -2199,20 +2199,19 @@ gtag('config', 'G-XDG8KZWZCM');
     }
   }
 
-  function renderHotelCards(items) {
-    const wrap = document.getElementById('hotel-list');
-    const counter = document.getElementById('hotel-result-count');
-    if (!wrap) return;
+  window.switchHotelCardImage = function(id, src, thumbEl) {
+  const main = document.getElementById(`hotel-main-${id}`);
+  if (!main) return;
 
-    if (counter) {
-      counter.textContent = items.length ? `${items.length} stay option${items.length > 1 ? 's' : ''} found` : 'No matching hotels found';
-    }
+  main.src = src;
+  main.setAttribute('onclick', `openImageLightbox('${String(src).replace(/'/g, "\\'")}')`);
 
-    if (!items.length) {
-      wrap.innerHTML = '<div class="hotel-empty-state">No approved hotel matches this filter yet.</div>';
-      renderHotelMap([]);
-      return;
-    }
+  const thumbsWrap = thumbEl?.parentElement;
+  if (thumbsWrap) {
+    thumbsWrap.querySelectorAll('img').forEach(img => img.classList.remove('active'));
+  }
+  if (thumbEl) thumbEl.classList.add('active');
+};
 
     wrap.innerHTML = items.map((item, index) => {
       const galleryUrls = normalizeGalleryUrls(item.gallery_urls, item.main_image_url || item.image_url || fallbackImage);
