@@ -2259,62 +2259,83 @@ gtag('config', 'G-XDG8KZWZCM');
     }
   }
 
-  function renderHotelCards(items) {
-    const wrap = document.getElementById('hotel-list');
-    const counter = document.getElementById('hotel-result-count');
-    if (!wrap) return;
+ function renderHotelCards(items = []) {
+  const wrap = document.getElementById('hotel-list');
+  const counter = document.getElementById('hotel-result-count');
+  if (!wrap) return;
 
-    if (counter) {
-      counter.textContent = items.length ? `${items.length} stay option${items.length > 1 ? 's' : ''} found` : 'No matching hotels found';
-    }
-
-    if (!items.length) {
-      wrap.innerHTML = '<div class="hotel-empty-state">No approved hotel matches this filter yet.</div>';
-      renderHotelMap([]);
-      return;
-    }
-
-    wrap.innerHTML = items.map((item, index) => {
-      const galleryUrls = normalizeGalleryUrls([item.gallery_urls, item.main_image_url, item.image_url], item.main_image_url || item.image_url || fallbackImage);
-      const mainImg = galleryUrls[0] || fallbackImage;
-      const typeTag = item.property_type || 'Property';
-      const desc = item.description || 'Comfortable stay option reviewed by our team.';
-      const phoneLink = item.phone ? `https://wa.me/${String(item.phone).replace(/[^0-9]/g,'')}` : '';
-      return `
-        <article class="hotel-booking-card">
-          ${renderGalleryBlock('hotel', index, galleryUrls, fallbackImage, item.name || 'Hotel')}
-          <div class="hotel-booking-body">
-            <div class="hotel-booking-top">
-              <div>
-                <div class="tag">${typeTag}</div>
-                <h3 class="hotel-booking-title">${item.name || ''}</h3>
-                <div class="hotel-booking-location">📍 ${item.location || ''}</div>
-              </div>
-              <div class="hotel-booking-price">${item.price || 'Ask for price'}<small>${item.price ? 'per night / package' : 'contact for latest rate'}</small></div>
-            </div>
-
-            <div class="hotel-booking-tags">
-              ${item.phone ? `<span class="pill">📞 ${item.phone}</span>` : ''}
-              ${item.email ? `<span class="pill">✉️ ${item.email}</span>` : ''}
-              ${galleryUrls.length > 1 ? `<span class="pill">${galleryUrls.length} photos</span>` : ''}
-            </div>
-
-            <p class="hotel-booking-desc">${desc}</p>
-
-            <div class="hotel-booking-actions">
-              <a class="hotel-mini-btn primary" href="hotel-detail.html?id=${item.id}">View details</a>
-              ${phoneLink ? `<a class="hotel-mini-btn" href="${phoneLink}" target="_blank" rel="noopener">Book / Contact</a>` : ''}
-              ${galleryUrls.length ? `<button class="hotel-mini-btn" type="button" onclick="openImageLightbox('${String(mainImg).replace(/'/g, "\'")}')">View photo</button>` : ''}
-              <button class="hotel-mini-btn" type="button" onclick="focusHotelOnMap(${index})">Show on map</button>
-            </div>
-          </div>
-        </article>
-      `;
-    }).join('');
-
-    renderHotelMap(items);
+  if (counter) {
+    counter.textContent = items.length
+      ? `${items.length} stay option${items.length > 1 ? 's' : ''} found`
+      : 'No matching hotels found';
   }
 
+  if (!items.length) {
+    wrap.innerHTML = `<div class="hotel-empty-state">No approved hotel matches this filter yet.</div>`;
+    renderHotelMap([]);
+    return;
+  }
+
+  wrap.innerHTML = items.map((item, index) => {
+    const galleryUrls = normalizeGalleryUrls(
+      item.gallery_urls,
+      item.main_image_url || item.image_url || fallbackImage
+    );
+
+    const mainImg = galleryUrls[0] || fallbackImage;
+    const typeTag = item.property_type || 'Property';
+    const desc = item.description || 'Comfortable stay option reviewed by our team.';
+    const phoneLink = item.phone
+      ? `https://wa.me/${String(item.phone).replace(/[^0-9]/g, '')}`
+      : '';
+
+    return `
+      <article class="hotel-booking-card">
+        <div class="hotel-cover-wrap">
+          ${renderGalleryBlock(
+            "hotel",
+            index,
+            item.gallery_urls || item.main_image_url || item.image_url,
+            item.main_image_url || item.image_url || fallbackImage,
+            item.name || "Hotel"
+          )}
+        </div>
+
+        <div class="hotel-booking-body">
+          <div class="hotel-booking-top">
+            <div>
+              <div class="tag">${typeTag}</div>
+              <h3 class="hotel-booking-title">${item.name || ''}</h3>
+              <div class="hotel-booking-location">📍 ${item.location || ''}</div>
+            </div>
+
+            <div class="hotel-booking-price">
+              ${item.price || 'Ask for price'}
+              <small>${item.price ? 'per night / package' : 'contact for latest rate'}</small>
+            </div>
+          </div>
+
+          <div class="hotel-booking-tags">
+            ${item.phone ? `<span class="pill">📞 ${item.phone}</span>` : ''}
+            ${item.email ? `<span class="pill">✉️ ${item.email}</span>` : ''}
+            ${galleryUrls.length > 1 ? `<span class="pill">${galleryUrls.length} photos</span>` : ''}
+          </div>
+
+          <p class="hotel-booking-desc">${desc}</p>
+
+          <div class="hotel-booking-actions">
+            <a class="hotel-mini-btn primary" href="hotel-detail.html?id=${item.id}">View details</a>
+            ${phoneLink ? `<a class="hotel-mini-btn" href="${phoneLink}" target="_blank" rel="noopener">Book / Contact</a>` : ''}
+            ${galleryUrls.length ? `<button class="hotel-mini-btn" type="button" onclick="openImageLightbox('${String(mainImg).replace(/'/g, "\\'")}')">View photo</button>` : ''}
+            <button class="hotel-mini-btn" type="button" onclick="focusHotelOnMap(${index})">Show on map</button>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  renderHotelMap(items);
+}
   function applyHotelFilters() {
     const searchTerm = (document.getElementById('hotel-search')?.value || '').toLowerCase().trim();
     const cityValue = document.getElementById('hotel-city-filter')?.value || '';
