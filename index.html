@@ -1975,15 +1975,71 @@ gtag('config', 'G-XDG8KZWZCM');
   }
 
   function normalizeGalleryUrls(value, fallback = '') {
-    if (Array.isArray(value)) return value.filter(Boolean);
-    if (typeof value === 'string' && value.trim()) {
-      try {
-        const parsed = JSON.parse(value);
-        if (Array.isArray(parsed)) return parsed.filter(Boolean);
-      } catch (e) {}
-      return [value];
+    const fallbackList = fallback ? [fallback].filter(Boolean) : [];
+
+    const cleanUrls = (urls = []) => {
+      const seen = new Set();
+      return urls
+        .flatMap(item => {
+          if (!item) return [];
+          if (Array.isArray(item)) return item;
+          if (typeof item === 'object') {
+            return [item.publicUrl, item.url, item.src, item.path].filter(Boolean);
+          }
+          return [String(item).trim()];
+        })
+        .map(item => item.trim())
+        .filter(Boolean)
+        .filter(item => {
+          const normalized = item.replace(/^"|"$/g, '').replace(/^'|'$/g, '').trim();
+          if (!normalized || seen.has(normalized)) return false;
+          seen.add(normalized);
+          return true;
+        });
+    };
+
+    if (Array.isArray(value)) {
+      const arr = cleanUrls(value);
+      return arr.length ? arr : fallbackList;
     }
-    return fallback ? [fallback] : [];
+
+    if (value && typeof value === 'object') {
+      const arr = cleanUrls([value.gallery_urls, value.main_image_url, value.image_url]);
+      return arr.length ? arr : fallbackList;
+    }
+
+    if (typeof value === 'string') {
+      const raw = value.trim();
+      if (!raw) return fallbackList;
+
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          const arr = cleanUrls(parsed);
+          return arr.length ? arr : fallbackList;
+        }
+        if (parsed && typeof parsed === 'object') {
+          const arr = cleanUrls([parsed.gallery_urls, parsed.main_image_url, parsed.image_url, parsed]);
+          return arr.length ? arr : fallbackList;
+        }
+      } catch (e) {}
+
+      if (raw.startsWith('{') && raw.endsWith('}')) {
+        const arr = cleanUrls(raw.slice(1, -1).split(','));
+        return arr.length ? arr : fallbackList;
+      }
+
+      if (raw.includes(',') || raw.includes(';') || raw.includes('
+')) {
+        const arr = cleanUrls(raw.split(/[,;
+]+/));
+        return arr.length ? arr : fallbackList;
+      }
+
+      return cleanUrls([raw]).length ? cleanUrls([raw]) : fallbackList;
+    }
+
+    return fallbackList;
   }
 
   function openImageLightbox(src) {
@@ -2219,7 +2275,7 @@ gtag('config', 'G-XDG8KZWZCM');
     }
 
     wrap.innerHTML = items.map((item, index) => {
-      const galleryUrls = normalizeGalleryUrls(item.gallery_urls, item.main_image_url || item.image_url || fallbackImage);
+      const galleryUrls = normalizeGalleryUrls([item.gallery_urls, item.main_image_url, item.image_url], item.main_image_url || item.image_url || fallbackImage);
       const mainImg = galleryUrls[0] || fallbackImage;
       const typeTag = item.property_type || 'Property';
       const desc = item.description || 'Comfortable stay option reviewed by our team.';
@@ -2379,7 +2435,7 @@ async function loadCars() {
   }
 
   container.innerHTML = data.map((item, index) => {
-    const galleryUrls = normalizeGalleryUrls(item.gallery_urls, item.main_image_url || item.image_url || fallbackCarImage);
+    const galleryUrls = normalizeGalleryUrls([item.gallery_urls, item.main_image_url, item.image_url], item.main_image_url || item.image_url || fallbackCarImage);
     return `
       <article class="card listing-card">
         ${renderGalleryBlock('car', index, galleryUrls, fallbackCarImage, item.title || 'Car rental')}
