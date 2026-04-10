@@ -489,11 +489,16 @@ gtag('config', 'G-XDG8KZWZCM');
     .hotel-booking-card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);display:grid;grid-template-columns:260px 1fr;border:1px solid rgba(13,59,102,.08)}
     .hotel-booking-card:hover{transform:translateY(-4px)}
     .hotel-booking-card .hotel-cover{width:100%;height:100%;min-height:250px;object-fit:cover;background:#eef2f7}
-    .hotel-cover-wrap{width:100%;height:100%;min-height:250px;background:#eef2f7;display:flex;flex-direction:column}
     .hotel-booking-card .listing-gallery{height:100%;background:#eef2f7;padding:0}
     .hotel-booking-card .listing-main-image{width:100%;min-height:250px;height:250px;object-fit:cover;border-radius:0}
     .hotel-booking-card .listing-thumbs{padding:10px 10px 12px;background:#fff}
     .hotel-booking-card .listing-thumbs img{width:64px;height:64px}
+    .hotel-cover-wrap{background:#eef2f7;display:flex;flex-direction:column;min-width:0}
+    .hotel-card-gallery{background:#eef2f7;display:flex;flex-direction:column;width:100%}
+    .hotel-card-main-image{width:100%;height:230px;object-fit:cover;display:block;background:#eef2f7;cursor:pointer}
+    .hotel-card-thumbs{display:flex;flex-wrap:wrap;gap:8px;padding:10px;background:#fff;overflow:visible}
+    .hotel-card-thumbs img{width:56px;height:56px;object-fit:cover;border-radius:10px;cursor:pointer;border:2px solid transparent;background:#f3f4f6;flex:0 0 auto}
+    .hotel-card-thumbs img.active{border-color:var(--primary)}
     .hotel-booking-body{padding:18px 20px;display:flex;flex-direction:column;gap:10px}
     .hotel-booking-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
     .hotel-booking-title{margin:0;font-size:24px;color:var(--primary-dark)}
@@ -750,7 +755,7 @@ gtag('config', 'G-XDG8KZWZCM');
       }
       .hotel-booking-card{grid-template-columns:1fr}
       .hotel-booking-card .hotel-cover{min-height:220px}
-      .hotel-cover-wrap{min-height:220px}
+      .hotel-card-main-image{height:220px !important}
       .hotel-booking-top{flex-direction:column}
       .hero{min-height:auto}
       .hero-content{padding:80px 0 70px}
@@ -2044,6 +2049,33 @@ gtag('config', 'G-XDG8KZWZCM');
     return fallbackList;
   }
 
+  function getHotelGalleryUrls(item, fallback = fallbackImage) {
+    return normalizeGalleryUrls([
+      item?.gallery_urls,
+      item?.hotel_images,
+      item?.image_urls,
+      item?.images,
+      item?.photos,
+      item?.photo_urls,
+      item?.main_image_url,
+      item?.image_url
+    ], item?.main_image_url || item?.image_url || fallback);
+  }
+
+  function getCarGalleryUrls(item, fallback = fallbackCarImage) {
+    return normalizeGalleryUrls([
+      item?.gallery_urls,
+      item?.car_images,
+      item?.vehicle_images,
+      item?.image_urls,
+      item?.images,
+      item?.photos,
+      item?.photo_urls,
+      item?.main_image_url,
+      item?.image_url
+    ], item?.main_image_url || item?.image_url || fallback);
+  }
+
   function openImageLightbox(src) {
     const modal = document.getElementById('image-lightbox');
     const img = document.getElementById('image-lightbox-img');
@@ -2239,7 +2271,8 @@ gtag('config', 'G-XDG8KZWZCM');
       const coords = getHotelCoordinates(item);
       if (!coords) return;
 
-      const image = item.main_image_url || item.image_url || fallbackImage;
+      const hotelGallery = getHotelGalleryUrls(item, fallbackImage);
+      const image = hotelGallery[0] || item.main_image_url || item.image_url || fallbackImage;
       const marker = L.marker(coords).addTo(hotelMarkersLayer);
       marker.bindPopup(`
         <div class="hotel-popup">
@@ -2261,6 +2294,7 @@ gtag('config', 'G-XDG8KZWZCM');
     }
   }
 
+
  function renderHotelCards(items = []) {
   const wrap = document.getElementById('hotel-list');
   const counter = document.getElementById('hotel-result-count');
@@ -2279,11 +2313,7 @@ gtag('config', 'G-XDG8KZWZCM');
   }
 
   wrap.innerHTML = items.map((item, index) => {
-    const galleryUrls = normalizeGalleryUrls(
-      item.gallery_urls,
-      item.main_image_url || item.image_url || fallbackImage
-    );
-
+    const galleryUrls = getHotelGalleryUrls(item, fallbackImage);
     const mainImg = galleryUrls[0] || fallbackImage;
     const typeTag = item.property_type || 'Property';
     const desc = item.description || 'Comfortable stay option reviewed by our team.';
@@ -2294,13 +2324,7 @@ gtag('config', 'G-XDG8KZWZCM');
     return `
       <article class="hotel-booking-card">
         <div class="hotel-cover-wrap">
-          ${renderGalleryBlock(
-            "hotel",
-            index,
-            item.gallery_urls || item.main_image_url || item.image_url,
-            item.main_image_url || item.image_url || fallbackImage,
-            item.name || "Hotel"
-          )}
+          ${renderGalleryBlock('hotel', index, galleryUrls, fallbackImage, item.name || 'Hotel')}
         </div>
 
         <div class="hotel-booking-body">
@@ -2328,7 +2352,7 @@ gtag('config', 'G-XDG8KZWZCM');
           <div class="hotel-booking-actions">
             <a class="hotel-mini-btn primary" href="hotel-detail.html?id=${item.id}">View details</a>
             ${phoneLink ? `<a class="hotel-mini-btn" href="${phoneLink}" target="_blank" rel="noopener">Book / Contact</a>` : ''}
-            ${galleryUrls.length ? `<button class="hotel-mini-btn" type="button" onclick="openImageLightbox('${String(mainImg).replace(/'/g, "\\'")}')">View photo</button>` : ''}
+            ${galleryUrls.length ? `<button class="hotel-mini-btn" type="button" onclick="openImageLightbox('${String(mainImg).replace(/'/g, "\'")}')">View photo</button>` : ''}
             <button class="hotel-mini-btn" type="button" onclick="focusHotelOnMap(${index})">Show on map</button>
           </div>
         </div>
@@ -2458,7 +2482,7 @@ async function loadCars() {
   }
 
   container.innerHTML = data.map((item, index) => {
-    const galleryUrls = normalizeGalleryUrls([item.gallery_urls, item.main_image_url, item.image_url], item.main_image_url || item.image_url || fallbackCarImage);
+    const galleryUrls = getCarGalleryUrls(item, fallbackCarImage);
     return `
       <article class="card listing-card">
         ${renderGalleryBlock('car', index, galleryUrls, fallbackCarImage, item.title || 'Car rental')}
