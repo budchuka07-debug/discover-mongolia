@@ -1,40 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- MAIN -->
   <url>
     <loc>https://bookingmongolia.com/</loc>
-    <lastmod>2026-04-02</lastmod>
     <priority>1.0</priority>
   </url>
 
-  <url>
-    <loc>https://bookingmongolia.com/#experiences</loc>
-    <priority>0.9</priority>
-  </url>
+  <!-- CORE PAGES -->
+  <url><loc>https://bookingmongolia.com/about.html</loc><priority>0.8</priority></url>
+  <url><loc>https://bookingmongolia.com/booking.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/visa-requirements.html</loc><priority>0.8</priority></url>
+  <url><loc>https://bookingmongolia.com/nomadic-experience.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/tours-dates.html</loc><priority>0.9</priority></url>
 
-  <url>
-    <loc>https://bookingmongolia.com/#tours</loc>
-    <priority>0.9</priority>
-  </url>
+  <!-- DESTINATIONS -->
+  <url><loc>https://bookingmongolia.com/destinations/arkhangai.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/destinations/bayan-ulgii.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/destinations/khentii.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/destinations/khuvsgul.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/destinations/selenge.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/destinations/tuv.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/destinations/umnugovi.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/destinations/uvurkhangai.html</loc><priority>0.9</priority></url>
 
-  <url>
-    <loc>https://bookingmongolia.com/#hotels</loc>
-    <priority>0.9</priority>
-  </url>
+  <!-- ULAANBAATAR -->
+  <url><loc>https://bookingmongolia.com/modern-ulaanbaatar.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/ulaanbaatar-modern-city-mn.html</loc><priority>0.7</priority></url>
 
-  <url>
-    <loc>https://bookingmongolia.com/#guides</loc>
-    <priority>0.9</priority>
-  </url>
+  <!-- GUIDES -->
+  <url><loc>https://bookingmongolia.com/guide/nomadic-culture.html</loc><priority>0.8</priority></url>
+  <url><loc>https://bookingmongolia.com/guide/mongolian-food.html</loc><priority>0.8</priority></url>
+  <url><loc>https://bookingmongolia.com/guide/mongolian-ger-daily-life.html</loc><priority>0.8</priority></url>
+  <url><loc>https://bookingmongolia.com/guide/religion-traditions.html</loc><priority>0.8</priority></url>
+  <url><loc>https://bookingmongolia.com/guide/shamanism-spiritual-culture.html</loc><priority>0.8</priority></url>
+  <url><loc>https://bookingmongolia.com/guide/shows-entertainment-in-mongolia.html</loc><priority>0.8</priority></url>
+  <url><loc>https://bookingmongolia.com/guide/transport-reality.html</loc><priority>0.8</priority></url>
+  <url><loc>https://bookingmongolia.com/guide/weather-seasons.html</loc><priority>0.8</priority></url>
+  <url><loc>https://bookingmongolia.com/guide/money-currency.html</loc><priority>0.8</priority></url>
 
-  <url>
-    <loc>https://bookingmongolia.com/#car-rental</loc>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://bookingmongolia.com/#contact</loc>
-    <priority>0.8</priority>
-  </url>
+  <!-- TOURS -->
+  <url><loc>https://bookingmongolia.com/tours/altai-tavan-bogd-tour.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/tours/central-mongolia-tour.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/tours/gobi-altai-combo-tour.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/tours/gobi-desert-tour.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/tours/horse-riding-tour.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/tours/ice-festival-tour.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/tours/khuvsgul-lake-tour.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/tours/mongolia-grand-tour.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/tours/naadam-festival-tour.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/tours/reindeer-taiga-tour.html</loc><priority>0.9</priority></url>
+  <url><loc>https://bookingmongolia.com/tours/terelj-hustai-tour.html</loc><priority>0.9</priority></url>
 
 </urlset>
