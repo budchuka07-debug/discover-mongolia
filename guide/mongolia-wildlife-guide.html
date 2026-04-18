@@ -244,7 +244,23 @@
       .floating-tour-btn{left:14px;right:84px;bottom:14px;padding:13px 16px}
       .top-link{padding:16px 16px 0}
     }
-  </style>
+  
+.wildlife-gallery-section{padding:30px 0 70px;}
+.wildlife-featured{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:20px;}
+.wildlife-featured-main,.wildlife-small-card,.wildlife-card{position:relative;overflow:hidden;border-radius:18px;display:block;box-shadow:0 14px 30px rgba(0,0,0,.10);background:#e5e7eb;}
+.wildlife-featured-main img{width:100%;height:420px;object-fit:cover;display:block;transition:.35s ease;}
+.wildlife-featured-side{display:grid;grid-template-rows:1fr 1fr;gap:18px;}
+.wildlife-small-card img{width:100%;height:201px;object-fit:cover;display:block;transition:.35s ease;}
+.wildlife-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;}
+.wildlife-card img{width:100%;height:220px;object-fit:cover;display:block;transition:.35s ease;}
+.wildlife-overlay{position:absolute;left:0;right:0;bottom:0;padding:16px 14px 14px;color:#fff;background:linear-gradient(to top, rgba(0,0,0,.72), rgba(0,0,0,.08));}
+.wildlife-overlay strong{display:block;font-size:18px;line-height:1.2;margin-bottom:4px;}
+.wildlife-overlay span{display:block;font-size:13px;opacity:.95;}
+.wildlife-featured-main:hover img,.wildlife-small-card:hover img,.wildlife-card:hover img{transform:scale(1.05);}
+@media (max-width: 1024px){.wildlife-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media (max-width: 720px){.wildlife-featured{grid-template-columns:1fr;}.wildlife-featured-main img{height:280px;}.wildlife-featured-side{grid-template-columns:1fr 1fr;grid-template-rows:auto;}.wildlife-small-card img{height:180px;}.wildlife-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.wildlife-card img{height:170px;}.wildlife-overlay strong{font-size:15px;}.wildlife-overlay span{font-size:12px;}}
+
+</style>
 </head>
 <body>
   <div class="page">
@@ -267,6 +283,70 @@
         and around 75 species of fish. This rich biodiversity makes the country an important habitat
         for wildlife across Central and North Asia.
       </div>
+
+      
+      <section class="wildlife-gallery-section">
+        <div class="section-head">
+          <span class="section-accent">Wildlife Gallery</span>
+          <h2>Mongolian Wildlife Gallery</h2>
+          <p>
+            From the rare Gobi bear to the steppe wolf, golden eagle, wild horse and taimen fish,
+            discover some of the animals that make Mongolia’s landscapes so unique.
+          </p>
+        </div>
+
+        <div class="wildlife-featured">
+          <a href="images/guide/animals/gobi-bear.jpg" class="wildlife-featured-main" target="_blank">
+            <img src="images/guide/animals/gobi-bear.jpg" alt="Mazaalai Gobi Bear">
+            <div class="wildlife-overlay">
+              <strong>Mazaalai</strong>
+              <span>Rare Gobi Bear</span>
+            </div>
+          </a>
+
+          <div class="wildlife-featured-side">
+            <a href="images/guide/animals/przewalski-horse.jpg" class="wildlife-small-card" target="_blank">
+              <img src="images/guide/animals/przewalski-horse.jpg" alt="Takhi wild horse">
+              <div class="wildlife-overlay">
+                <strong>Takhi</strong>
+                <span>Wild Horse</span>
+              </div>
+            </a>
+
+            <a href="images/guide/animals/mongolian-wolf.jpg" class="wildlife-small-card" target="_blank">
+              <img src="images/guide/animals/mongolian-wolf.jpg" alt="Mongolian wolf">
+              <div class="wildlife-overlay">
+                <strong>Wolf</strong>
+                <span>Steppe Predator</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="wildlife-grid">
+          <a href="images/guide/animals/gobi-bear.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/gobi-bear.jpg" alt="Mazaalai Gobi Bear"><div class="wildlife-overlay"><strong>Mazaalai</strong><span>Gobi Bear</span></div></a>
+          <a href="images/guide/animals/przewalski-horse.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/przewalski-horse.jpg" alt="Takhi"><div class="wildlife-overlay"><strong>Takhi</strong><span>Wild Horse</span></div></a>
+          <a href="images/guide/animals/mongolian-wolf.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/mongolian-wolf.jpg" alt="Wolf"><div class="wildlife-overlay"><strong>Wolf</strong><span>Mongolian Wolf</span></div></a>
+          <a href="images/guide/animals/red-fox.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/red-fox.jpg" alt="Fox"><div class="wildlife-overlay"><strong>Fox</strong><span>Red Fox</span></div></a>
+          <a href="images/guide/animals/golden-eagle.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/golden-eagle.jpg" alt="Golden Eagle"><div class="wildlife-overlay"><strong>Golden Eagle</strong><span>Bird of Prey</span></div></a>
+          <a href="images/guide/animals/vulture.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/vulture.jpg" alt="Vulture"><div class="wildlife-overlay"><strong>Vulture</strong><span>Highland Scavenger</span></div></a>
+          <a href="images/guide/animals/khulan.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/khulan.jpg" alt="Khulan"><div class="wildlife-overlay"><strong>Khulan</strong><span>Wild Ass</span></div></a>
+          <a href="images/guide/animals/black-kite.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/black-kite.jpg" alt="Black Kite"><div class="wildlife-overlay"><strong>Black Kite</strong><span>Steppe Bird</span></div></a>
+          <a href="images/guide/animals/raven.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/raven.jpg" alt="Raven"><div class="wildlife-overlay"><strong>Raven</strong><span>Mountain Bird</span></div></a>
+          <a href="images/guide/animals/magpie.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/magpie.jpg" alt="Magpie"><div class="wildlife-overlay"><strong>Magpie</strong><span>Common Bird</span></div></a>
+          <a href="images/guide/animals/snow-leopard.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/snow-leopard.jpg" alt="Snow Leopard"><div class="wildlife-overlay"><strong>Snow Leopard</strong><span>Protected Species</span></div></a>
+          <a href="images/guide/animals/argali-sheep.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/argali-sheep.jpg" alt="Argali Sheep"><div class="wildlife-overlay"><strong>Argali</strong><span>Wild Sheep</span></div></a>
+          <a href="images/guide/animals/siberian-ibex.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/siberian-ibex.jpg" alt="Ibex"><div class="wildlife-overlay"><strong>Ibex</strong><span>Mountain Goat</span></div></a>
+          <a href="images/guide/animals/red-deer.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/red-deer.jpg" alt="Red Deer"><div class="wildlife-overlay"><strong>Red Deer</strong><span>Forest Mammal</span></div></a>
+          <a href="images/guide/animals/marmot.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/marmot.jpg" alt="Marmot"><div class="wildlife-overlay"><strong>Marmot</strong><span>Steppe Mammal</span></div></a>
+          <a href="images/guide/animals/corsac-fox.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/corsac-fox.jpg" alt="Corsac Fox"><div class="wildlife-overlay"><strong>Corsac Fox</strong><span>Desert Fox</span></div></a>
+          <a href="images/guide/animals/eurasian-lynx.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/eurasian-lynx.jpg" alt="Lynx"><div class="wildlife-overlay"><strong>Lynx</strong><span>Forest Predator</span></div></a>
+          <a href="images/guide/animals/taimen.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/taimen.jpg" alt="Taimen"><div class="wildlife-overlay"><strong>Taimen</strong><span>Giant River Fish</span></div></a>
+          <a href="images/guide/animals/grayling.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/grayling.jpg" alt="Grayling"><div class="wildlife-overlay"><strong>Grayling</strong><span>Cold Water Fish</span></div></a>
+          <a href="images/guide/animals/whitefish.jpg" class="wildlife-card" target="_blank"><img src="images/guide/animals/whitefish.jpg" alt="Whitefish"><div class="wildlife-overlay"><strong>Whitefish</strong><span>Northern Waters</span></div></a>
+        </div>
+      </section>
+
 
       <h2>Iconic Wildlife of Mongolia</h2>
       <div class="grid">
