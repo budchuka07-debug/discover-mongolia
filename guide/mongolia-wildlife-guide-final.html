@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wildlife of Mongolia | Travel Guide</title>
+  <meta name="description" content="A detailed English travel guide to the wildlife of Mongolia, including mammals, predators, birds, fish, protected species, and general information about permits and seasons." />
+  <style>
+    :root{
+      --primary:#0d3b66;
+      --primary-dark:#08243f;
+      --accent:#c98b2f;
+      --accent-dark:#a56f1f;
+      --bg:#f7f5ef;
+      --white:#ffffff;
+      --dark:#1f2937;
+      --muted:#6b7280;
+      --soft:#f4f7f3;
+      --shadow:0 14px 34px rgba(0,0,0,.10);
+      --radius:20px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      line-height:1.7;
+      color:var(--dark);
+      background:var(--bg);
+    }
+    a{text-decoration:none;color:inherit}
+
+    .page{
+      max-width:1100px;
+      margin:0 auto;
+      background:#fff;
+      box-shadow:0 10px 30px rgba(0,0,0,.04);
+    }
+
+    .top-link{
+      padding:18px 20px 0;
+    }
+    .back-home{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--primary);
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .hero{
+      background:linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('images/mongolia-wildlife-hero.jpg') center/cover no-repeat;
+      color:#fff;
+      padding:80px 20px 70px;
+      text-align:center;
+    }
+    .hero h1{
+      margin:0 0 14px;
+      font-size:42px;
+    }
+    .hero p{
+      max-width:760px;
+      margin:0 auto 24px;
+      font-size:18px;
+    }
+
+    .cta-row{
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 22px;
+      border-radius:999px;
+      font-weight:700;
+      border:2px solid transparent;
+      transition:.25s ease;
+      cursor:pointer;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+    }
+    .btn-primary:hover{background:var(--accent-dark)}
+    .btn-outline{
+      border-color:rgba(255,255,255,.85);
+      color:#fff;
+      background:transparent;
+    }
+    .btn-outline:hover{background:rgba(255,255,255,.10)}
+
+    .content{
+      padding:40px 20px 60px;
+    }
+    .intro-box,.note-box,.legal-box{
+      background:var(--soft);
+      border-left:4px solid #446b46;
+      padding:18px 20px;
+      margin:24px 0;
+      border-radius:8px;
+    }
+    h2{
+      margin-top:44px;
+      color:#1f3b22;
+      font-size:30px;
+    }
+    h3{
+      margin-top:28px;
+      color:#2b4d2f;
+      font-size:22px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:18px;
+      margin-top:18px;
+    }
+    .card{
+      background:#fafafa;
+      border:1px solid #e6e6e6;
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 2px 10px rgba(0,0,0,.04);
+    }
+    .card h4{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#1f3b22;
+      font-size:20px;
+    }
+    ul{padding-left:20px}
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:26px;
+    }
+
+    .section-cta{
+      margin-top:26px;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:22px;
+      text-align:center;
+    }
+    .section-cta h3{
+      margin:0 0 8px;
+      color:var(--primary-dark);
+    }
+    .section-cta p{
+      margin:0 0 14px;
+      color:var(--muted);
+    }
+    .section-cta .btn-outline{
+      border-color:var(--primary);
+      color:var(--primary);
+      background:#fff;
+    }
+    .section-cta .btn-outline:hover{
+      background:#eef4ff;
+    }
+
+    .cta{
+      margin-top:40px;
+      text-align:center;
+      background:#1f3b22;
+      color:#fff;
+      padding:36px 20px;
+      border-radius:14px;
+    }
+
+    .chat-container{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      z-index:9999;
+    }
+    .chat-main-btn{
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      background:#0d3b66;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:26px;
+      cursor:pointer;
+      box-shadow:0 12px 26px rgba(0,0,0,.18);
+      border:none;
+    }
+    .chat-options{
+      display:none;
+      flex-direction:column;
+      gap:10px;
+      margin-bottom:12px;
+      align-items:flex-end;
+    }
+    .chat-options.show{display:flex}
+    .chat-option{
+      background:#fff;
+      color:var(--primary-dark);
+      padding:10px 14px;
+      border-radius:999px;
+      box-shadow:0 8px 20px rgba(0,0,0,.12);
+      font-weight:700;
+      font-size:14px;
+      white-space:nowrap;
+    }
+    .chat-option.whatsapp{color:#128c7e}
+    .chat-option.messenger{color:#1877f2}
+    .chat-option.call{color:#15803d}
+    .chat-option.live{color:#c98b2f}
+
+    @media (max-width:768px){
+      .hero h1{font-size:30px}
+      .two-col{grid-template-columns:1fr}
+      .chat-container{right:14px;bottom:14px}
+      .top-link{padding:16px 16px 0}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-link">
+      <a href="index.html" class="back-home">← Back to Home</a>
+    </div>
+
+    <section class="hero">
+      <h1>Wildlife of Mongolia</h1>
+      <p>
+        Mongolia is a land of vast steppes, high mountains, taiga forests, and desert landscapes,
+        home to some of Asia’s most remarkable wildlife and one of the last truly wild environments on Earth.
+      </p>
+      <div class="cta-row">
+        <a href="tours-dates.html" class="btn btn-primary">Book Now</a>
+        <a href="javascript:void(0)" class="btn btn-outline" onclick="toggleChatMenu()">Ask a Question</a>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="intro-box">
+        <strong>Overview:</strong><br>
+        Mongolia is home to more than 130 species of mammals, over 430 species of birds,
+        and around 75 species of fish. This rich biodiversity makes the country an important habitat
+        for wildlife across Central and North Asia.
+      </div>
+
+      <h2>Iconic Wildlife of Mongolia</h2>
+      <div class="grid">
+        <div class="card">
+          <h4>Argali Sheep</h4>
+          <p>The argali is the world’s largest wild sheep and one of Mongolia’s most iconic mountain animals. It is mainly found in the Altai, Gobi-Altai, and other remote rocky highland regions.</p>
+        </div>
+        <div class="card">
+          <h4>Siberian Ibex</h4>
+          <p>Known for its long curved horns and agility on steep cliffs, the ibex is one of the best-known wild mountain ungulates in western Mongolia.</p>
+        </div>
+        <div class="card">
+          <h4>Red Deer (Maral)</h4>
+          <p>Found in forest and forest-steppe regions, red deer are among Mongolia’s most impressive large mammals. They are especially active and noticeable during the autumn rutting season.</p>
+        </div>
+        <div class="card">
+          <h4>Wild Boar</h4>
+          <p>Wild boars live mainly in forested valleys, riverbanks, and wetland areas, especially in northern parts of the country.</p>
+        </div>
+      </div>
+
+      <h2>The Largest Predators in Mongolia</h2>
+      <div class="grid">
+        <div class="card">
+          <h4>Brown Bear</h4>
+          <p>The brown bear is one of the largest predators found in Mongolia, especially in forested mountain areas of Khuvsgul, Khentii, and parts of the Altai region.</p>
+        </div>
+        <div class="card">
+          <h4>Gray Wolf</h4>
+          <p>Wolves are widespread across Mongolia’s steppe, mountain, and desert regions. They hold an important place in both the country’s ecosystems and nomadic cultural traditions.</p>
+        </div>
+        <div class="card">
+          <h4>Eurasian Lynx</h4>
+          <p>A secretive forest predator, the lynx is less frequently seen but remains an important part of Mongolia’s wildlife.</p>
+        </div>
+        <div class="card">
+          <h4>Snow Leopard</h4>
+          <p>One of Mongolia’s most famous and rare predators, the snow leopard inhabits remote high mountain ranges and is fully protected.</p>
+        </div>
+      </div>
+
+      <div class="section-cta">
+        <h3>Interested in Mongolia’s remote nature?</h3>
+        <p>Compare available routes, dates, and private trip options, or ask us directly if you need help choosing the right journey.</p>
+        <div class="cta-row">
+          <a href="tours-dates.html" class="btn btn-primary">Book Now</a>
+          <a href="javascript:void(0)" class="btn btn-outline" onclick="toggleChatMenu()">Ask a Question</a>
+        </div>
+      </div>
+
+      <h2>Fur-Bearing and Smaller Mammals</h2>
+      <div class="two-col">
+        <div>
+          <h3>Common Species</h3>
+          <ul>
+            <li>Red fox</li>
+            <li>Corsac fox</li>
+            <li>Hare</li>
+            <li>Marmot</li>
+            <li>Sable and related small carnivores</li>
+            <li>Other steppe and forest small mammals</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Notes</h3>
+          <ul>
+            <li>Species differ greatly by habitat, from taiga and forest to steppe and semi-desert</li>
+            <li>Some species once had stronger hunting importance, but conservation is now increasingly important</li>
+            <li>Marmots in particular are subject to strong restrictions in many areas</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Birdlife and Waterfowl</h2>
+      <p>Mongolia lies along major migration routes and supports a wide range of birdlife. Lakes, wetlands, rivers, steppes, and mountain valleys all provide important habitats.</p>
+      <div class="grid">
+        <div class="card">
+          <h4>Waterfowl</h4>
+          <p>Ducks, geese, swans, and other water birds are found across Mongolia’s lakes and river systems.</p>
+        </div>
+        <div class="card">
+          <h4>Birds of Prey</h4>
+          <p>Eagles, falcons, hawks, and other raptors are among the most admired birds in Mongolia.</p>
+        </div>
+        <div class="card">
+          <h4>Steppe Birds</h4>
+          <p>Cranes, bustards, larks, and many grassland bird species are part of Mongolia’s open landscape ecology.</p>
+        </div>
+      </div>
+
+      <h2>Fish Species of Mongolia</h2>
+      <div class="grid">
+        <div class="card">
+          <h4>Taimen</h4>
+          <p>Taimen is Mongolia’s most famous fish and one of the largest salmonid species in the world. In many areas it is strictly protected under catch-and-release rules.</p>
+        </div>
+        <div class="card">
+          <h4>Grayling</h4>
+          <p>A popular cold-water species found in clear rivers and northern waters, especially valued in sport fishing.</p>
+        </div>
+        <div class="card">
+          <h4>Whitefish</h4>
+          <p>Found mainly in northern lakes and river systems, whitefish are an important part of Mongolia’s freshwater ecosystems.</p>
+        </div>
+      </div>
+
+      <div class="section-cta">
+        <h3>Ready to plan your Mongolia trip?</h3>
+        <p>You can go to the tours and dates page to compare options, or stay on this page and ask your question directly.</p>
+        <div class="cta-row">
+          <a href="tours-dates.html" class="btn btn-primary">Book Now</a>
+          <a href="javascript:void(0)" class="btn btn-outline" onclick="toggleChatMenu()">Ask a Question</a>
+        </div>
+      </div>
+
+      <h2>General Information on Seasons and Permits</h2>
+      <div class="legal-box">
+        <p>
+          Wildlife-related activities in Mongolia are regulated by law. Protected areas, special permits, local quotas,
+          and conservation rules all play an important role. Some animal species are fully protected, while others may be subject to seasonal restrictions or special permission.
+        </p>
+        <ul>
+          <li>Protected species cannot be hunted or disturbed</li>
+          <li>Some fishing areas require strict catch-and-release practice</li>
+          <li>Local rules may vary by province, season, and protected area status</li>
+          <li>Travelers should always check current legal conditions before planning specialized outdoor activities</li>
+        </ul>
+      </div>
+
+      <h2>Protected and Rare Species</h2>
+      <p>Mongolia is also home to some of Asia’s rarest animals, including the snow leopard, Gobi bear, Przewalski’s horse, and several important bird species. These animals are part of Mongolia’s natural heritage and are protected under conservation law.</p>
+
+      <div class="note-box">
+        <strong>Important note:</strong><br>
+        This page is for educational travel guide purposes. Wildlife watching, fishing, photography, and all nature-based travel activities in Mongolia should follow national law, protected area rules, and local conservation guidance.
+      </div>
+
+      <div class="cta">
+        <h3>Explore Mongolia with local guidance</h3>
+        <p>View available trip dates and routes, or ask us directly if you want help choosing the right destination for your travel style.</p>
+        <div class="cta-row">
+          <a href="tours-dates.html" class="btn btn-primary">Book Now</a>
+          <a href="javascript:void(0)" class="btn btn-outline" onclick="toggleChatMenu()">Ask a Question</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="chat-container">
+    <div id="chatOptions" class="chat-options">
+      <a class="chat-option whatsapp" href="https://wa.me/97690283039" target="_blank">WhatsApp</a>
+      <a class="chat-option messenger" href="https://m.me/esimmongolia" target="_blank">Messenger</a>
+      <a class="chat-option call" href="tel:+97690283039">Call Operator</a>
+      <a class="chat-option live" href="javascript:void(0)" onclick="openLiveChat()">Live Chat</a>
+    </div>
+    <button class="chat-main-btn" onclick="toggleChatMenu()" aria-label="Open chat menu">💬</button>
+  </div>
+
+  <script>
+    function toggleChatMenu(){
+      document.getElementById('chatOptions').classList.toggle('show');
+    }
+
+    function openLiveChat(){
+      if(window.Tawk_API && typeof window.Tawk_API.maximize === 'function'){
+        window.Tawk_API.maximize();
+      }else{
+        alert('Live chat will open here when your chat script is installed on this page.');
+      }
+    }
+  </script>
+
+  <!-- Optional: keep this only if you want the same live chat on this page -->
+  <!--
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/69d61028db6d6c1c35dcb053/1jlm2u7uk';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  -->
+</body>
+</html>
