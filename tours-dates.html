@@ -794,7 +794,7 @@
       const regionCode = normalizeRegionCode(t.region);
       regionCounters[regionCode] = (regionCounters[regionCode] || 0) + 1;
       t.code = t.code || `BM-${regionCode}-${regionCounters[regionCode]}`;
-      t.routeImage = t.routeImage || `images/tour/marshrut/${t.code}.png`;
+      t.routeImage = t.routeImage || `images/tour/marshrut/${t.code}.jpg`;
     });
 
     const tourDetails = {
@@ -924,7 +924,7 @@
       const detail = tourDetails[id];
       if(!tour || !detail) return;
       const perDay = (tour.priceMode === 'ask' || !tour.prices) ? 'Quote first' : `${formatPrice(Math.round(tour.prices[1] / tour.days))} approx / day for 1 traveler`;
-      const routeImage = tour.routeImage || `images/tour/marshrut/${tour.code}.png`;
+      const routeImage = tour.routeImage || `images/tour/marshrut/${tour.code}.jpg`;
       const modalHtml = `
         <div class="detail-topline">
           <span class="tour-badge">${tour.region.toUpperCase()} • ${tour.style.toUpperCase()}</span>
