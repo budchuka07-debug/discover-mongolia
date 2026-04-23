@@ -2097,7 +2097,7 @@ gtag('config', 'G-XDG8KZWZCM');
     formData.append('public_id', publicId);
     formData.append('use_filename', 'true');
     formData.append('unique_filename', 'true');
-    formData.append('overwrite', 'false');
+  
     formData.append('resource_type', 'image');
 
     const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
