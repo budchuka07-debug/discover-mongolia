@@ -2083,35 +2083,28 @@ gtag('config', 'G-XDG8KZWZCM');
   }
 
 
-  async function uploadImageToCloudinary(file, folder = 'uploads') {
-    if (!file) return '';
+async function uploadImageToCloudinary(file, folder = 'uploads') {
+  if (!file) return '';
 
-    const cleanName = sanitizeFileName(file.name || 'image');
-    const publicId = cleanName.replace(/\.[^.]+$/, '');
-    const targetFolder = `${CLOUDINARY_BASE_FOLDER}/${folder}`;
+  const targetFolder = `${CLOUDINARY_BASE_FOLDER}/${folder}`;
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-    formData.append('folder', targetFolder);
-    formData.append('public_id', publicId);
-   
-    formData.append('unique_filename', 'true');
-  
-    formData.append('resource_type', 'image');
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  formData.append('folder', targetFolder);
 
-    const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
-      method: 'POST',
-      body: formData
-    });
+  const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+    method: 'POST',
+    body: formData
+  });
 
-    const result = await response.json();
+  const result = await response.json();
 
-    if (!response.ok || !result?.secure_url) {
-      throw new Error(result?.error?.message || 'Cloudinary image upload failed.');
-    }
+  if (!response.ok || !result?.secure_url) {
+    throw new Error(result?.error?.message || 'Cloudinary image upload failed.');
+  }
 
-    return result.secure_url;
+  return result.secure_url;
   }
 
   async function uploadMultipleImages(files, folder = 'uploads') {
