@@ -2174,7 +2174,7 @@ gtag('config', 'G-XDG8KZWZCM');
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const SUPABASE_URL = "https://ebpjetcuabubihzximbb.supabase.co";
+  const SUPABASE_URL = "https://ebpjetcuabubihxzimbb.supabase.co";
   const SUPABASE_ANON_KEY = "sb_publishable_3F9zG4HoMOCgU4yHvUkiKw_h5VTeeRF";
 
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -3099,7 +3099,7 @@ async function loadCars() {
       const secureResponse = await fetch('/.netlify/functions/postCommunity', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: captchaToken, data: payload })
+        body: JSON.stringify({ token: captchaToken, turnstileToken: captchaToken, data: payload, ...payload })
       });
       if (!secureResponse.ok) {
         const secureResult = await secureResponse.json().catch(() => ({}));
