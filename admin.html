@@ -2,33 +2,48 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Admin Panel - BookingMongolia</title>
-<style>
-body {
-  font-family: Arial;
-  padding: 20px;
-  background: #f5f5f5;
-}
+<title>Admin PRO - BookingMongolia</title>
 
-.hidden { display: none; }
+<style>
+body { font-family: Arial; background:#f4f4f4; padding:20px; }
+
+.hidden { display:none; }
 
 .card {
-  background: white;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 10px;
+  background:white;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
+img {
+  width:100%;
+  max-width:250px;
+  border-radius:10px;
+  margin-top:10px;
 }
 
 button {
-  padding: 6px 12px;
-  margin-right: 5px;
-  cursor: pointer;
+  padding:6px 10px;
+  margin-right:5px;
+  cursor:pointer;
+}
+
+.approve { background:#28a745; color:white; }
+.hide { background:#ffc107; }
+.delete { background:#dc3545; color:white; }
+
+.search {
+  padding:10px;
+  width:300px;
+  margin-bottom:20px;
 }
 </style>
+
 </head>
 <body>
 
-<h2>Admin Panel</h2>
+<h2>BookingMongolia Admin PRO</h2>
 
 <!-- LOGIN -->
 <div id="login">
@@ -38,24 +53,30 @@ button {
 
 <!-- ADMIN -->
 <div id="admin" class="hidden">
-  <h3>Community Posts</h3>
-  <div id="posts"></div>
+
+<input class="search" id="search" placeholder="Search..." oninput="loadPosts()">
+
+<h3>Community Posts</h3>
+<div id="posts"></div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <script>
+
+// 🔧 ЧИ ЭНЭ 2-ЫГ СОЛИНО
 const SUPABASE_URL = "https://ebpjetcuabubihzximbb.supabase.co";
 const SUPABASE_KEY = "sb_publishable_3F9zG4HoMOCgU4yHvUkiKw_h5VTeeRF";
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// 🔐 PIN (өөрчилж болно)
+// 🔐 PIN
 const ADMIN_PIN = "1234";
 
-function login() {
-  const pin = document.getElementById("pin").value;
-  if (pin === ADMIN_PIN) {
+// LOGIN
+function login(){
+  if(document.getElementById("pin").value === ADMIN_PIN){
     document.getElementById("login").classList.add("hidden");
     document.getElementById("admin").classList.remove("hidden");
     loadPosts();
@@ -64,65 +85,114 @@ function login() {
   }
 }
 
-// 📦 LOAD POSTS
-async function loadPosts() {
-  const { data, error } = await supabase
+// LOAD POSTS
+async function loadPosts(){
+
+  const search = document.getElementById("search").value.toLowerCase();
+
+  const { data } = await supabase
     .from("community_posts")
     .select("*")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending:false });
 
   const container = document.getElementById("posts");
   container.innerHTML = "";
 
-  data.forEach(post => {
+  data
+  .filter(p => !search || (p.title && p.title.toLowerCase().includes(search)))
+  .forEach(post => {
+
     const div = document.createElement("div");
     div.className = "card";
+
+    const statusColor = post.status === "published" ? "green" : "red";
 
     div.innerHTML = `
       <h4>${post.title || "No title"}</h4>
       <p>${post.content || ""}</p>
-      <small>Status: ${post.status}</small><br><br>
 
-      <button onclick="approve('${post.id}')">Approve</button>
-      <button onclick="hidePost('${post.id}')">Hide</button>
-      <button onclick="deletePost('${post.id}')">Delete</button>
+      ${post.image_urls && post.image_urls.length > 0
+        ? `<img src="${post.image_urls[0]}">`
+        : ""}
+
+      <br>
+      <small style="color:${statusColor}">Status: ${post.status}</small><br><br>
+
+      <button class="approve" onclick="approve('${post.id}')">Approve</button>
+      <button class="hide" onclick="hidePost('${post.id}')">Hide</button>
+      <button class="delete" onclick="deletePost('${post.id}')">Delete</button>
+
+      <br><br>
+      <button onclick="loadComments('${post.id}')">View Comments</button>
+
+      <div id="comments-${post.id}"></div>
     `;
 
     container.appendChild(div);
   });
 }
 
-// ✅ APPROVE
-async function approve(id) {
-  await supabase
-    .from("community_posts")
-    .update({ status: "published" })
-    .eq("id", id);
+// APPROVE
+async function approve(id){
+  await supabase.from("community_posts")
+  .update({ status:"published" })
+  .eq("id", id);
 
   loadPosts();
 }
 
-// 🚫 HIDE
-async function hidePost(id) {
-  await supabase
-    .from("community_posts")
-    .update({ status: "hidden" })
-    .eq("id", id);
+// HIDE
+async function hidePost(id){
+  await supabase.from("community_posts")
+  .update({ status:"hidden" })
+  .eq("id", id);
 
   loadPosts();
 }
 
-// ❌ DELETE
-async function deletePost(id) {
-  if (!confirm("Delete this post?")) return;
+// DELETE POST
+async function deletePost(id){
+  if(!confirm("Delete post?")) return;
+
+  await supabase.from("community_posts")
+  .delete()
+  .eq("id", id);
+
+  loadPosts();
+}
+
+// LOAD COMMENTS
+async function loadComments(postId){
+
+  const { data } = await supabase
+    .from("community_comments")
+    .select("*")
+    .eq("post_id", postId);
+
+  const div = document.getElementById(`comments-${postId}`);
+  div.innerHTML = "<h5>Comments:</h5>";
+
+  data.forEach(c => {
+    div.innerHTML += `
+      <div style="background:#eee;padding:5px;margin:5px;border-radius:5px;">
+        ${c.content}
+        <button onclick="deleteComment('${c.id}','${postId}')">❌</button>
+      </div>
+    `;
+  });
+}
+
+// DELETE COMMENT
+async function deleteComment(id, postId){
 
   await supabase
-    .from("community_posts")
+    .from("community_comments")
     .delete()
     .eq("id", id);
 
-  loadPosts();
+  loadComments(postId);
 }
+
 </script>
 
 </body>
