@@ -1,199 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Admin PRO - BookingMongolia</title>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BookingMongolia Secure Admin</title>
 <style>
-body { font-family: Arial; background:#f4f4f4; padding:20px; }
-
-.hidden { display:none; }
-
-.card {
-  background:white;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:15px;
-}
-
-img {
-  width:100%;
-  max-width:250px;
-  border-radius:10px;
-  margin-top:10px;
-}
-
-button {
-  padding:6px 10px;
-  margin-right:5px;
-  cursor:pointer;
-}
-
-.approve { background:#28a745; color:white; }
-.hide { background:#ffc107; }
-.delete { background:#dc3545; color:white; }
-
-.search {
-  padding:10px;
-  width:300px;
-  margin-bottom:20px;
-}
+  :root{
+    --primary:#0d3b66;
+    --accent:#c98b2f;
+    --danger:#dc2626;
+    --ok:#16a34a;
+    --muted:#64748b;
+    --bg:#f7f5ef;
+    --card:#ffffff;
+    --border:#e5e7eb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#1f2937;line-height:1.5}
+  .wrap{width:min(94%,1180px);margin:0 auto;padding:24px 0 50px}
+  .top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+  h1{margin:0;color:var(--primary);font-size:28px}
+  .panel,.card{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 12px 28px rgba(0,0,0,.07)}
+  .panel{padding:20px;margin-bottom:18px}
+  .hidden{display:none!important}
+  input,select,textarea{width:100%;border:1px solid #d1d5db;border-radius:12px;padding:12px 13px;font:inherit;background:#fff}
+  button{border:none;border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer;background:var(--primary);color:#fff}
+  button.secondary{background:#eef4ff;color:var(--primary);border:1px solid #dbe7ff}
+  button.ok{background:var(--ok)}
+  button.warn{background:#f59e0b;color:#111827}
+  button.danger{background:var(--danger)}
+  button:disabled{opacity:.55;cursor:not-allowed}
+  .login-box{max-width:420px;margin:70px auto;padding:24px}
+  .login-box h2{margin-top:0;color:var(--primary)}
+  .toolbar{display:grid;grid-template-columns:1fr 180px 180px auto;gap:10px;align-items:end}
+  .grid{display:grid;gap:14px}
+  .card{padding:16px}
+  .card-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}
+  .badge{display:inline-flex;padding:6px 10px;border-radius:999px;background:#eef4ff;color:var(--primary);font-size:12px;font-weight:800}
+  .badge.published{background:#ecfdf5;color:#166534}
+  .badge.hidden{background:#fef2f2;color:#991b1b}
+  .badge.pending{background:#fff7ed;color:#9a3412}
+  .muted{color:var(--muted);font-size:13px}
+  .images{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:12px 0}
+  .images img{width:100%;height:120px;object-fit:cover;border-radius:12px;border:1px solid var(--border);cursor:pointer;background:#f1f5f9}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .comments{margin-top:12px;background:#f8fafc;border:1px solid var(--border);border-radius:14px;padding:12px}
+  .comment{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);padding:9px 0}
+  .comment:last-child{border-bottom:0}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .tab{background:#fff;color:var(--primary);border:1px solid #dbe7ff}
+  .tab.active{background:var(--primary);color:#fff}
+  .notice{padding:12px 14px;border-radius:14px;margin:10px 0;display:none}
+  .notice.show{display:block}
+  .notice.error{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+  .notice.success{background:#ecfdf5;color:#166534;border:1px solid #bbf7d0}
+  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:94vw;max-height:90vh;border-radius:16px}
+  @media(max-width:760px){
+    .toolbar{grid-template-columns:1fr}
+    .top{align-items:flex-start}
+    .login-box{margin:35px auto}
+  }
 </style>
-
 </head>
 <body>
+<div class="wrap">
+  <div id="loginPanel" class="panel login-box">
+    <h2>BookingMongolia Admin</h2>
+    <p class="muted">Enter admin password. Secret keys are kept only in Netlify Environment Variables.</p>
+    <input id="adminPassword" type="password" placeholder="Admin password" onkeydown="if(event.key==='Enter') login()" />
+    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+      <button onclick="login()">Login</button>
+    </div>
+    <div id="loginNotice" class="notice error"></div>
+  </div>
 
-<h2>BookingMongolia Admin PRO</h2>
+  <div id="adminPanel" class="hidden">
+    <div class="top">
+      <div>
+        <h1>BookingMongolia Admin PRO</h1>
+        <div class="muted">Moderate Traveler Hub posts, comments, hotel submissions and car submissions.</div>
+      </div>
+      <button class="secondary" onclick="logout()">Logout</button>
+    </div>
 
-<!-- LOGIN -->
-<div id="login">
-  <input type="password" id="pin" placeholder="Enter PIN">
-  <button onclick="login()">Login</button>
+    <div class="panel">
+      <div class="tabs">
+        <button class="tab active" data-tab="community" onclick="setTab('community')">Community Posts</button>
+        <button class="tab" data-tab="comments" onclick="setTab('comments')">Recent Comments</button>
+        <button class="tab" data-tab="hotels" onclick="setTab('hotels')">Hotels</button>
+        <button class="tab" data-tab="cars" onclick="setTab('cars')">Cars</button>
+      </div>
+      <div class="toolbar">
+        <div>
+          <label>Search</label>
+          <input id="searchInput" placeholder="Search title, content, name, country..." oninput="renderCurrent()" />
+        </div>
+        <div>
+          <label>Status</label>
+          <select id="statusFilter" onchange="renderCurrent()">
+            <option value="all">All</option>
+            <option value="published">Published</option>
+            <option value="pending">Pending</option>
+            <option value="hidden">Hidden</option>
+          </select>
+        </div>
+        <div>
+          <label>Type</label>
+          <select id="typeFilter" onchange="renderCurrent()">
+            <option value="all">All</option>
+            <option value="blog">Blog</option>
+            <option value="sharing">Sharing</option>
+          </select>
+        </div>
+        <button onclick="loadCurrent()">Refresh</button>
+      </div>
+      <div id="notice" class="notice"></div>
+    </div>
+
+    <div id="content" class="grid"></div>
+  </div>
 </div>
 
-<!-- ADMIN -->
-<div id="admin" class="hidden">
-
-<input class="search" id="search" placeholder="Search..." oninput="loadPosts()">
-
-<h3>Community Posts</h3>
-<div id="posts"></div>
-
+<div id="lightbox" class="lightbox" onclick="this.classList.remove('open')">
+  <img id="lightboxImg" alt="preview" />
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
 <script>
+const API = "/.netlify/functions/admin-action";
+let adminPassword = sessionStorage.getItem("bm_admin_password") || "";
+let activeTab = "community";
+let cache = { community: [], comments: [], hotels: [], cars: [] };
 
-// 🔧 ЧИ ЭНЭ 2-ЫГ СОЛИНО
-const SUPABASE_URL = "https://ebpjetcuabubihzximbb.supabase.co";
-const SUPABASE_KEY = "sb_publishable_3F9zG4HoMOCgU4yHvUkiKw_h5VTeeRF";
-
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// 🔐 PIN
-const ADMIN_PIN = "1234";
-
-// LOGIN
-function login(){
-  if(document.getElementById("pin").value === ADMIN_PIN){
-    document.getElementById("login").classList.add("hidden");
-    document.getElementById("admin").classList.remove("hidden");
-    loadPosts();
-  } else {
-    alert("Wrong PIN");
-  }
+function showNotice(msg, type="success"){
+  const n = document.getElementById("notice");
+  n.className = `notice ${type} show`;
+  n.textContent = msg;
+  setTimeout(()=> n.className = "notice", 3500);
 }
-
-// LOAD POSTS
-async function loadPosts(){
-
-  const search = document.getElementById("search").value.toLowerCase();
-
-  const { data } = await supabase
-    .from("community_posts")
-    .select("*")
-    .order("created_at", { ascending:false });
-
-  const container = document.getElementById("posts");
-  container.innerHTML = "";
-
-  data
-  .filter(p => !search || (p.title && p.title.toLowerCase().includes(search)))
-  .forEach(post => {
-
-    const div = document.createElement("div");
-    div.className = "card";
-
-    const statusColor = post.status === "published" ? "green" : "red";
-
-    div.innerHTML = `
-      <h4>${post.title || "No title"}</h4>
-      <p>${post.content || ""}</p>
-
-      ${post.image_urls && post.image_urls.length > 0
-        ? `<img src="${post.image_urls[0]}">`
-        : ""}
-
-      <br>
-      <small style="color:${statusColor}">Status: ${post.status}</small><br><br>
-
-      <button class="approve" onclick="approve('${post.id}')">Approve</button>
-      <button class="hide" onclick="hidePost('${post.id}')">Hide</button>
-      <button class="delete" onclick="deletePost('${post.id}')">Delete</button>
-
-      <br><br>
-      <button onclick="loadComments('${post.id}')">View Comments</button>
-
-      <div id="comments-${post.id}"></div>
-    `;
-
-    container.appendChild(div);
+function showLoginError(msg){
+  const n = document.getElementById("loginNotice");
+  n.className = "notice error show";
+  n.textContent = msg;
+}
+async function api(payload){
+  const res = await fetch(API, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({ password: adminPassword, ...payload })
   });
+  const data = await res.json().catch(()=>({}));
+  if(!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+  return data;
 }
-
-// APPROVE
-async function approve(id){
-  await supabase.from("community_posts")
-  .update({ status:"published" })
-  .eq("id", id);
-
-  loadPosts();
+async function login(){
+  adminPassword = document.getElementById("adminPassword").value.trim();
+  if(!adminPassword) return showLoginError("Enter password");
+  try{
+    await api({ action:"ping" });
+    sessionStorage.setItem("bm_admin_password", adminPassword);
+    document.getElementById("loginPanel").classList.add("hidden");
+    document.getElementById("adminPanel").classList.remove("hidden");
+    loadCurrent();
+  }catch(e){ showLoginError(e.message || "Wrong password"); }
 }
-
-// HIDE
-async function hidePost(id){
-  await supabase.from("community_posts")
-  .update({ status:"hidden" })
-  .eq("id", id);
-
-  loadPosts();
+function logout(){ sessionStorage.removeItem("bm_admin_password"); location.reload(); }
+function setTab(tab){
+  activeTab = tab;
+  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active", b.dataset.tab===tab));
+  document.getElementById("typeFilter").style.display = tab === "community" ? "block" : "none";
+  loadCurrent();
 }
-
-// DELETE POST
-async function deletePost(id){
-  if(!confirm("Delete post?")) return;
-
-  await supabase.from("community_posts")
-  .delete()
-  .eq("id", id);
-
-  loadPosts();
+async function loadCurrent(){
+  try{
+    const data = await api({ action:"list", resource: activeTab });
+    cache[activeTab] = data.items || [];
+    renderCurrent();
+  }catch(e){ showNotice(e.message, "error"); }
 }
-
-// LOAD COMMENTS
-async function loadComments(postId){
-
-  const { data } = await supabase
-    .from("community_comments")
-    .select("*")
-    .eq("post_id", postId);
-
-  const div = document.getElementById(`comments-${postId}`);
-  div.innerHTML = "<h5>Comments:</h5>";
-
-  data.forEach(c => {
-    div.innerHTML += `
-      <div style="background:#eee;padding:5px;margin:5px;border-radius:5px;">
-        ${c.content}
-        <button onclick="deleteComment('${c.id}','${postId}')">❌</button>
+function getStatusBadge(status){
+  const s = status || "pending";
+  return `<span class="badge ${s}">${s}</span>`;
+}
+function escapeHtml(str=""){
+  return String(str).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+}
+function textMatch(item, q){
+  if(!q) return true;
+  const blob = [item.title,item.content,item.name,item.country,item.destination,item.contact,item.comment,item.description,item.property_name,item.vehicle_type,item.email,item.phone].join(" ").toLowerCase();
+  return blob.includes(q);
+}
+function renderCurrent(){
+  const q = document.getElementById("searchInput").value.toLowerCase().trim();
+  const status = document.getElementById("statusFilter").value;
+  const type = document.getElementById("typeFilter").value;
+  let items = [...(cache[activeTab] || [])];
+  items = items.filter(i => textMatch(i,q));
+  if(status !== "all") items = items.filter(i => (i.status || "pending") === status);
+  if(activeTab === "community" && type !== "all") items = items.filter(i => (i.type || "blog") === type);
+  const c = document.getElementById("content");
+  if(!items.length){ c.innerHTML = `<div class="panel muted">No items found.</div>`; return; }
+  if(activeTab === "community") c.innerHTML = items.map(renderPost).join("");
+  if(activeTab === "comments") c.innerHTML = items.map(renderComment).join("");
+  if(activeTab === "hotels") c.innerHTML = items.map(renderHotel).join("");
+  if(activeTab === "cars") c.innerHTML = items.map(renderCar).join("");
+}
+function renderImages(urls){
+  if(!Array.isArray(urls) || !urls.length) return "";
+  return `<div class="images">${urls.map(u=>`<img src="${escapeHtml(u)}" onclick="openImg('${escapeHtml(u)}');event.stopPropagation();">`).join("")}</div>`;
+}
+function renderPost(p){
+  return `<div class="card">
+    <div class="card-top">
+      <div>
+        <h3>${escapeHtml(p.title || "No title")}</h3>
+        <div class="muted">${escapeHtml(p.name || "Traveler")} • ${escapeHtml(p.country || "")} • ${new Date(p.created_at).toLocaleString()}</div>
       </div>
-    `;
-  });
+      <div>${getStatusBadge(p.status)} <span class="badge">${escapeHtml(p.type || "blog")}</span></div>
+    </div>
+    <p>${escapeHtml(p.content || "")}</p>
+    <div class="muted">Destination: ${escapeHtml(p.destination || "-")}</div>
+    ${renderImages(p.image_urls)}
+    <div class="actions">
+      <button class="ok" onclick="updateStatus('community_posts','${p.id}','published')">Approve</button>
+      <button class="warn" onclick="updateStatus('community_posts','${p.id}','hidden')">Hide</button>
+      <button class="secondary" onclick="loadPostComments('${p.id}')">View Comments</button>
+      <button class="danger" onclick="deleteItem('community_posts','${p.id}')">Delete</button>
+    </div>
+    <div id="post-comments-${p.id}" class="comments hidden"></div>
+  </div>`;
 }
-
-// DELETE COMMENT
-async function deleteComment(id, postId){
-
-  await supabase
-    .from("community_comments")
-    .delete()
-    .eq("id", id);
-
-  loadComments(postId);
+function renderComment(c){
+  return `<div class="card">
+    <div class="card-top"><h3>${escapeHtml(c.name || "Traveler")}</h3>${getStatusBadge(c.status || "published")}</div>
+    <p>${escapeHtml(c.comment || c.content || "")}</p>
+    <div class="muted">Post ID: ${escapeHtml(c.post_id || "-")} • ${new Date(c.created_at).toLocaleString()}</div>
+    <div class="actions">
+      <button class="ok" onclick="updateStatus('community_comments','${c.id}','published')">Approve</button>
+      <button class="warn" onclick="updateStatus('community_comments','${c.id}','hidden')">Hide</button>
+      <button class="danger" onclick="deleteItem('community_comments','${c.id}')">Delete</button>
+    </div>
+  </div>`;
 }
-
+function renderHotel(h){
+  const urls = h.image_urls || h.images || (h.image_url ? [h.image_url] : []);
+  return `<div class="card">
+    <div class="card-top"><h3>${escapeHtml(h.property_name || h.name || h.title || "Hotel submission")}</h3>${getStatusBadge(h.status)}</div>
+    <p>${escapeHtml(h.description || "")}</p>
+    <div class="muted">${escapeHtml(h.location || "")} • ${escapeHtml(h.contact_name || "")} • ${escapeHtml(h.phone || h.email || "")}</div>
+    ${renderImages(urls)}
+    <div class="actions">
+      <button class="ok" onclick="updateStatus('property_submissions','${h.id}','published')">Approve</button>
+      <button class="warn" onclick="updateStatus('property_submissions','${h.id}','hidden')">Hide</button>
+      <button class="danger" onclick="deleteItem('property_submissions','${h.id}')">Delete</button>
+    </div>
+  </div>`;
+}
+function renderCar(v){
+  const urls = v.image_urls || v.images || (v.image_url ? [v.image_url] : []);
+  return `<div class="card">
+    <div class="card-top"><h3>${escapeHtml(v.vehicle_type || v.title || "Vehicle submission")}</h3>${getStatusBadge(v.status)}</div>
+    <p>${escapeHtml(v.description || "")}</p>
+    <div class="muted">Seats: ${escapeHtml(v.seats || "-")} • Rate: ${escapeHtml(v.daily_rate || "-")} • ${escapeHtml(v.contact_name || "")} ${escapeHtml(v.phone || v.email || "")}</div>
+    ${renderImages(urls)}
+    <div class="actions">
+      <button class="ok" onclick="updateStatus('vehicle_submissions','${v.id}','published')">Approve</button>
+      <button class="warn" onclick="updateStatus('vehicle_submissions','${v.id}','hidden')">Hide</button>
+      <button class="danger" onclick="deleteItem('vehicle_submissions','${v.id}')">Delete</button>
+    </div>
+  </div>`;
+}
+async function updateStatus(table,id,status){
+  try{ await api({action:"updateStatus", table, id, status}); showNotice("Updated"); loadCurrent(); }
+  catch(e){ showNotice(e.message,"error"); }
+}
+async function deleteItem(table,id){
+  if(!confirm("Delete this item?")) return;
+  try{ await api({action:"delete", table, id}); showNotice("Deleted"); loadCurrent(); }
+  catch(e){ showNotice(e.message,"error"); }
+}
+async function loadPostComments(postId){
+  const box = document.getElementById(`post-comments-${postId}`);
+  box.classList.toggle("hidden");
+  if(box.dataset.loaded) return;
+  try{
+    const data = await api({ action:"listCommentsForPost", postId });
+    const comments = data.items || [];
+    box.dataset.loaded = "1";
+    box.innerHTML = comments.length ? comments.map(c=>`
+      <div class="comment">
+        <div><strong>${escapeHtml(c.name || "Traveler")}</strong><br>${escapeHtml(c.comment || c.content || "")}</div>
+        <button class="danger" onclick="deleteItem('community_comments','${c.id}')">Delete</button>
+      </div>`).join("") : `<div class="muted">No comments.</div>`;
+  }catch(e){ box.innerHTML = `<div class="muted">${escapeHtml(e.message)}</div>`; }
+}
+function openImg(url){
+  document.getElementById("lightboxImg").src = url;
+  document.getElementById("lightbox").classList.add("open");
+}
+if(adminPassword){
+  document.getElementById("loginPanel").classList.add("hidden");
+  document.getElementById("adminPanel").classList.remove("hidden");
+  loadCurrent();
+}
 </script>
-
 </body>
 </html>
